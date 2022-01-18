@@ -30,6 +30,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_audio_query:
+   git:
+     url: https://github.com/Mayb3Nots/flutter_audio_query
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
