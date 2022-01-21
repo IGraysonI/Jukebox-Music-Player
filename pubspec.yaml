@@ -30,6 +30,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Audio player
+  just_audio: ^0.9.18
+  # Display's all the music from storage
   flutter_audio_query:
    git:
      url: https://github.com/Mayb3Nots/flutter_audio_query

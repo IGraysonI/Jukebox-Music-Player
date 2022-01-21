@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:jukebox_music_player/screens/music_player.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<AlbumInfo> albums = [];
   List<ArtistInfo> artists = [];
   int _selectedIndex = 0;
+  int _currentIndex = 0;
+  final GlobalKey<MusicPlayerState> key = GlobalKey();
 
   @override
   void initState() {
@@ -30,6 +33,23 @@ class _HomeScreenState extends State<HomeScreen> {
       albums = albums;
       artists = artists;
     });
+  }
+
+  void changeTrack(bool isNext) {
+    if (isNext) {
+      if (_currentIndex != songs.length - 1) {
+        setState(() {
+          _currentIndex++;
+        });
+      } else {
+        if (_currentIndex != 0) {
+          setState(() {
+            _currentIndex--;
+          });
+        }
+      }
+      key.currentState!.setSong(songs[_currentIndex]);
+    }
   }
 
   @override
@@ -80,6 +100,19 @@ class _HomeScreenState extends State<HomeScreen> {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(songs[index].title!),
+          onTap: () {
+            _currentIndex = index;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MusicPlayer(
+                  song: songs[_currentIndex],
+                  changeTrack: changeTrack,
+                  key: key,
+                ),
+              ),
+            );
+          },
         );
       },
     );
