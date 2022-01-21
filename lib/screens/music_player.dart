@@ -79,6 +79,14 @@ class MusicPlayerState extends State<MusicPlayer> {
     return "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
   }
 
+  void seekTo(double value) {
+    setState(() {
+      currentValue = value;
+      _audioPlayer.seek(Duration(milliseconds: currentValue.round()));
+      currentTime = _getDuration(currentValue);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SongInfo song = widget.song;
@@ -101,11 +109,8 @@ class MusicPlayerState extends State<MusicPlayer> {
             max: maxValue,
             value: currentValue,
             onChanged: (value) {
-              setState(() {
-                currentValue = value;
-                _audioPlayer.seek(Duration(milliseconds: currentValue.round()));
-                currentTime = _getDuration(currentValue);
-              });
+              print('value: $currentValue');
+              seekTo(value);
             },
           ),
           SizedBox(height: 10),
@@ -122,7 +127,11 @@ class MusicPlayerState extends State<MusicPlayer> {
             children: [
               IconButton(
                   onPressed: () {
-                    widget.changeTrack(false);
+                    if (currentValue > 5500) {
+                      seekTo(minValue);
+                    } else {
+                      widget.changeTrack(false);
+                    }
                   },
                   icon: Icon(Icons.skip_previous)),
               IconButton(

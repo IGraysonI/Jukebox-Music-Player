@@ -41,15 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _currentIndex++;
         });
-      } else {
-        if (_currentIndex != 0) {
-          setState(() {
-            _currentIndex--;
-          });
-        }
+        print(_currentIndex);
       }
-      key.currentState!.setSong(songs[_currentIndex]);
+    } else {
+      if (_currentIndex != 0) {
+        setState(() {
+          _currentIndex--;
+        });
+      }
     }
+    key.currentState!.setSong(songs[_currentIndex]);
   }
 
   @override
