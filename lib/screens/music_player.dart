@@ -60,6 +60,9 @@ class MusicPlayerState extends State<MusicPlayer> {
       setState(() {
         currentTime = _getDuration(currentValue);
       });
+      if (currentValue >= maxValue) {
+        widget.changeTrack(true);
+      }
     });
   }
 
@@ -109,7 +112,6 @@ class MusicPlayerState extends State<MusicPlayer> {
             max: maxValue,
             value: currentValue,
             onChanged: (value) {
-              print('value: $currentValue');
               seekTo(value);
             },
           ),

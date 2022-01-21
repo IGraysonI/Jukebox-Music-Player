@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _currentIndex++;
         });
-        print(_currentIndex);
       }
     } else {
       if (_currentIndex != 0) {
