@@ -11,6 +11,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FlutterAudioQuery audioQuery = FlutterAudioQuery();
   List<SongInfo> songs = [];
+  List<AlbumInfo> albums = [];
+  List<ArtistInfo> artists = [];
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -20,8 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void fuckingAsyncTask() async {
     songs = await audioQuery.getSongs();
+    albums = await audioQuery.getAlbums();
+    artists = await audioQuery.getArtists();
     setState(() {
       songs = songs;
+      albums = albums;
+      artists = artists;
     });
   }
 
@@ -31,14 +38,72 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Traks list'),
       ),
-      body: ListView.builder(
-        itemCount: songs.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(songs[index].title!),
-          );
-        },
+      body: _buildBody(),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.audiotrack_rounded), label: 'Songs'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.album_rounded), label: 'Albums'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_rounded), label: 'Artists'),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
+    );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Widget _buildBody() {
+    switch (_selectedIndex) {
+      case 0:
+        return _songs();
+      case 1:
+        return _albums();
+      case 2:
+        return _artists();
+      default:
+        return Container();
+    }
+  }
+
+  Widget _songs() {
+    return ListView.builder(
+      itemCount: songs.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(songs[index].title!),
+        );
+      },
+    );
+  }
+
+  Widget _albums() {
+    return ListView.builder(
+      itemCount: albums.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(albums[index].title!),
+        );
+      },
+    );
+  }
+
+  Widget _artists() {
+    return ListView.builder(
+      itemCount: artists.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(artists[index].name!),
+        );
+      },
     );
   }
 }
