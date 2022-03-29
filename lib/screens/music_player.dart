@@ -5,11 +5,11 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPlayer extends StatefulWidget {
-  SongInfo song;
-  Function changeTrack;
-  final GlobalKey<MusicPlayerState> key;
-  MusicPlayer({
-    required this.key,
+  final SongInfo song;
+  final Function changeTrack;
+
+  const MusicPlayer({
+    Key? key,
     required this.song,
     required this.changeTrack,
   }) : super(key: key);
@@ -26,11 +26,15 @@ class MusicPlayerState extends State<MusicPlayer> {
   String endTime = "";
   bool isPlaying = false;
 
+  late SongInfo _song;
+  late Function changeTrack;
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
-    setSong(widget.song);
+    _song = widget.song;
+    changeTrack = widget.changeTrack;
+    setSong(_song);
     super.initState();
   }
 
@@ -41,7 +45,7 @@ class MusicPlayerState extends State<MusicPlayer> {
   }
 
   void setSong(SongInfo song) async {
-    widget.song = song;
+    _song = song;
     await _audioPlayer.setUrl(widget.song.uri!);
 
     currentValue = minValue;

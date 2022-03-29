@@ -17,6 +17,8 @@ dependencies:
    git:
      url: https://github.com/Mayb3Nots/flutter_audio_query
 
+  l: ^3.1.0
+
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:jukebox_music_player/features/songs/presentation/screen/songs_list_screen.dart';
+import 'package:jukebox_music_player/resource/app_strings.dart';
 import 'package:jukebox_music_player/screens/music_player.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,11 +22,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    fuckingAsyncTask();
+    initializeAudioFiles();
     super.initState();
   }
 
-  void fuckingAsyncTask() async {
+  void initializeAudioFiles() async {
     songs = await audioQuery.getSongs();
     albums = await audioQuery.getAlbums();
     artists = await audioQuery.getArtists();
@@ -56,18 +58,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Traks list'),
+        title: Text(Strings.rAppTitle),
       ),
       body: _buildBody(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.audiotrack_rounded), label: 'Songs'),
+              icon: Icon(Icons.audiotrack_rounded), label: Strings.rSongsTitle),
           BottomNavigationBarItem(
-              icon: Icon(Icons.album_rounded), label: 'Albums'),
+              icon: Icon(Icons.album_rounded), label: Strings.rAlbumsTitle),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded), label: 'Artists'),
+              icon: Icon(Icons.account_circle_rounded),
+              label: Strings.rArtistsTitle),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -84,7 +87,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildBody() {
     switch (_selectedIndex) {
       case 0:
-        return _songs();
+        return SongsListScreen(
+          songs: songs,
+          changeTrack: changeTrack,
+          musicPlayerKey: key,
+        );
       case 1:
         return _albums();
       case 2:
@@ -92,30 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
       default:
         return Container();
     }
-  }
-
-  Widget _songs() {
-    return ListView.builder(
-      itemCount: songs.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(songs[index].title!),
-          onTap: () {
-            _currentIndex = index;
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MusicPlayer(
-                  song: songs[_currentIndex],
-                  changeTrack: changeTrack,
-                  key: key,
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
   }
 
   Widget _albums() {
