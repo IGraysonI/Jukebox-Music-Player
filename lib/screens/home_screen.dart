@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:jukebox_music_player/features/albums/presentation/screen/album_list_screen.dart';
 import 'package:jukebox_music_player/features/songs/presentation/screen/songs_list_screen.dart';
 import 'package:jukebox_music_player/resource/app_strings.dart';
 import 'package:jukebox_music_player/screens/music_player.dart';
@@ -62,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: _buildBody(),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.audiotrack_rounded), label: Strings.rSongsTitle),
@@ -93,23 +93,12 @@ class _HomeScreenState extends State<HomeScreen> {
           musicPlayerKey: key,
         );
       case 1:
-        return _albums();
+        return AlbumListScreen(albums: albums);
       case 2:
         return _artists();
       default:
         return Container();
     }
-  }
-
-  Widget _albums() {
-    return ListView.builder(
-      itemCount: albums.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(albums[index].title!),
-        );
-      },
-    );
   }
 
   Widget _artists() {

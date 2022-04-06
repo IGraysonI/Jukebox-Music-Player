@@ -5,14 +5,11 @@ import 'package:jukebox_music_player/screens/music_player.dart';
 
 class SongsListScreen extends StatefulWidget {
   final List<SongInfo> songs;
-  final Function changeTrack;
-  final GlobalKey<MusicPlayerState> musicPlayerKey;
+  final Function? changeTrack;
+  final GlobalKey<MusicPlayerState>? musicPlayerKey;
 
   const SongsListScreen(
-      {Key? key,
-      required this.songs,
-      required this.changeTrack,
-      required this.musicPlayerKey})
+      {Key? key, required this.songs, this.changeTrack, this.musicPlayerKey})
       : super(key: key);
 
   @override

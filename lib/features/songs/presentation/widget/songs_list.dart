@@ -6,14 +6,11 @@ import 'package:jukebox_music_player/screens/music_player.dart';
 
 class SongsList extends StatelessWidget {
   final List<SongInfo> songs;
-  final Function changeTrack;
-  final GlobalKey<MusicPlayerState> musicPlayerKey;
+  final Function? changeTrack;
+  final GlobalKey<MusicPlayerState>? musicPlayerKey;
 
   const SongsList(
-      {Key? key,
-      required this.songs,
-      required this.changeTrack,
-      required this.musicPlayerKey})
+      {Key? key, required this.songs, this.changeTrack, this.musicPlayerKey})
       : super(key: key);
 
   String _getDuration(String value) {
@@ -24,36 +21,36 @@ class SongsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      // padding: EdgeInsets.all(8),
-      separatorBuilder: (context, index) => SizedBox(height: 10),
+    return ListView.builder(
       itemCount: songs.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          leading: Image(
-            image: FileImage(
-              File(songs[index].albumArtwork!),
-            ),
-          ),
-          title: Text(songs[index].title!),
-          subtitle: Row(
-            children: [
-              Text(songs[index].artist!),
-              Text(' • '),
-              Text(_getDuration(songs[index].duration!)),
-            ],
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MusicPlayer(
-                  song: songs[index],
-                  changeTrack: changeTrack,
-                ),
+        return Card(
+          child: ListTile(
+            leading: Image(
+              image: FileImage(
+                File(songs[index].albumArtwork!),
               ),
-            );
-          },
+            ),
+            title: Text(songs[index].title!),
+            subtitle: Row(
+              children: [
+                Text(songs[index].artist!),
+                Text(' • '),
+                Text(_getDuration(songs[index].duration!)),
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MusicPlayer(
+                    song: songs[index],
+                    changeTrack: changeTrack!,
+                  ),
+                ),
+              );
+            },
+          ),
         );
       },
     );
