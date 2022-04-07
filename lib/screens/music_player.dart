@@ -5,13 +5,13 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPlayer extends StatefulWidget {
-  final SongInfo song;
-  final Function changeTrack;
+  final List<SongInfo> songs;
+  final int songIndex;
 
   const MusicPlayer({
     Key? key,
-    required this.song,
-    required this.changeTrack,
+    required this.songs,
+    required this.songIndex,
   }) : super(key: key);
 
   @override
@@ -25,16 +25,18 @@ class MusicPlayerState extends State<MusicPlayer> {
   String currentTime = "";
   String endTime = "";
   bool isPlaying = false;
+  int currentIndex = 0;
 
-  late SongInfo _song;
-  late Function changeTrack;
+  late List<SongInfo> _songs;
+  late SongInfo playingSong;
   final AudioPlayer _audioPlayer = AudioPlayer();
+  final GlobalKey<MusicPlayerState> key = GlobalKey<MusicPlayerState>();
 
   @override
   void initState() {
-    _song = widget.song;
-    changeTrack = widget.changeTrack;
-    setSong(_song);
+    _songs = widget.songs;
+    currentIndex = widget.songIndex;
+    setSong(_songs[currentIndex]);
     super.initState();
   }
 
@@ -45,8 +47,8 @@ class MusicPlayerState extends State<MusicPlayer> {
   }
 
   void setSong(SongInfo song) async {
-    _song = song;
-    await _audioPlayer.setUrl(widget.song.uri!);
+    playingSong = song;
+    await _audioPlayer.setUrl(playingSong.uri!);
 
     currentValue = minValue;
     maxValue = _audioPlayer.duration!.inMilliseconds.toDouble();
@@ -65,7 +67,7 @@ class MusicPlayerState extends State<MusicPlayer> {
         currentTime = _getDuration(currentValue);
       });
       if (currentValue >= maxValue) {
-        widget.changeTrack(true);
+        changeTrack(true);
       }
     });
   }
@@ -94,22 +96,38 @@ class MusicPlayerState extends State<MusicPlayer> {
     });
   }
 
+  void changeTrack(bool isNext) {
+    if (isNext) {
+      if (currentIndex != _songs.length - 1) {
+        setState(() {
+          currentIndex++;
+        });
+      }
+    } else {
+      if (currentIndex != 0) {
+        setState(() {
+          currentIndex--;
+        });
+      }
+    }
+    setSong(_songs[currentIndex]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    SongInfo song = widget.song;
     return Scaffold(
       appBar: AppBar(
-        title: Text(song.title!),
+        title: Text(playingSong.title!),
       ),
       body: Column(
         children: [
           Image(
             image: FileImage(
-              File(song.albumArtwork!),
+              File(playingSong.albumArtwork!),
             ),
           ),
           SizedBox(height: 10),
-          Text(song.title!),
+          Text(playingSong.title!),
           SizedBox(height: 10),
           Slider(
             min: minValue,
@@ -136,7 +154,7 @@ class MusicPlayerState extends State<MusicPlayer> {
                     if (currentValue > 5500) {
                       seekTo(minValue);
                     } else {
-                      widget.changeTrack(false);
+                      changeTrack(false);
                     }
                   },
                   icon: Icon(Icons.skip_previous)),
@@ -147,7 +165,7 @@ class MusicPlayerState extends State<MusicPlayer> {
                   icon: isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow)),
               IconButton(
                   onPressed: () {
-                    widget.changeTrack(true);
+                    changeTrack(true);
                   },
                   icon: Icon(Icons.skip_next)),
             ],

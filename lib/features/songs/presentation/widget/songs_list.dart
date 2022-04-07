@@ -6,11 +6,14 @@ import 'package:jukebox_music_player/screens/music_player.dart';
 
 class SongsList extends StatelessWidget {
   final List<SongInfo> songs;
-  final Function? changeTrack;
-  final GlobalKey<MusicPlayerState>? musicPlayerKey;
+  final bool shrinkWrap;
+  final bool isScrollable;
 
   const SongsList(
-      {Key? key, required this.songs, this.changeTrack, this.musicPlayerKey})
+      {Key? key,
+      required this.songs,
+      required this.isScrollable,
+      required this.shrinkWrap})
       : super(key: key);
 
   String _getDuration(String value) {
@@ -22,6 +25,8 @@ class SongsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: shrinkWrap,
+      physics: isScrollable ? null : NeverScrollableScrollPhysics(),
       itemCount: songs.length,
       itemBuilder: (context, index) {
         return Card(
@@ -44,8 +49,9 @@ class SongsList extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => MusicPlayer(
-                    song: songs[index],
-                    changeTrack: changeTrack!,
+                    songs: songs,
+                    // changeTrack: changeTrack!,
+                    songIndex: index,
                   ),
                 ),
               );

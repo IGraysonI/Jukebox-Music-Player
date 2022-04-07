@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/features/songs/presentation/screen/songs_list_screen.dart';
+import 'package:jukebox_music_player/features/albums/presentation/widget/selected_album.dart';
 
 class SelectedAlbumScreen extends StatefulWidget {
   final AlbumInfo albumInfo;
@@ -15,18 +15,18 @@ class _SelectedAlbumScreenState extends State<SelectedAlbumScreen> {
   late final AlbumInfo albumInfo;
   late final List<SongInfo> songs;
   final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+  late Future<void> _initializeAudioFiles;
 
   @override
   void initState() {
     albumInfo = widget.albumInfo;
-    // getAlbumSongs(albumInfo);
+    _initializeAudioFiles = getAlbumSongs(albumInfo);
     super.initState();
   }
 
   Future<void> getAlbumSongs(AlbumInfo albumInfo) async {
     List<SongInfo> _songs = [];
     _songs = await audioQuery.getSongsFromAlbum(albumId: albumInfo.id);
-    print(_songs);
     setState(() {
       songs = _songs;
     });
@@ -35,16 +35,11 @@ class _SelectedAlbumScreenState extends State<SelectedAlbumScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(albumInfo.title!),
-      ),
       body: FutureBuilder(
-        future: getAlbumSongs(albumInfo),
+        future: _initializeAudioFiles,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return SongsListScreen(
-              songs: songs,
-            );
+            return SelectedAlbum(albumInfo: albumInfo, songs: songs);
           } else {
             return Center(
               child: CircularProgressIndicator(),

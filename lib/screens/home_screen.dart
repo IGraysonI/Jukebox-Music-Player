@@ -89,8 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         return SongsListScreen(
           songs: songs,
-          changeTrack: changeTrack,
-          musicPlayerKey: key,
         );
       case 1:
         return AlbumListScreen(albums: albums);
