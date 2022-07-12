@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/app/application.dart';
+import 'src/app/runner.dart';
 
-void main() {
-  runApp(Application());
-}
+void main() => runner();

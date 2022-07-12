@@ -1,26 +1,40 @@
 name: jukebox_music_player
-description: A new Flutter project.
-
+description: Music player.
 publish_to: 'none' 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.15.1 <3.0.0"
+  sdk: ">=2.17.1 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  #Audio packages
+  # https://docs.flutter.dev/development/accessibility-and-localization/internationalization
+  flutter_localizations:
+    sdk: flutter
+
+  # Audio packages
   just_audio: ^0.9.20
   flutter_audio_query:
    git:
      url: https://github.com/Mayb3Nots/flutter_audio_query
 
-  l: ^3.1.0
+  # UI
   flutter_staggered_grid_view: ^0.6.1
-
   cupertino_icons: ^1.0.2
+
+  # Storage
+  shared_prefs_store:
+    path: packages/shared_prefs_store
+  
+  # Navigator
+  go_router: ^3.1.1
+
+  # Utils
+  path_provider:
+  logger:
+
 
 dev_dependencies:
   flutter_test:
@@ -30,5 +44,4 @@ dev_dependencies:
 
 
 flutter:
-
   uses-material-design: true
