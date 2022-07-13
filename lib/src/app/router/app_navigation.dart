@@ -8,11 +8,11 @@ class AppNavigation {
   AppNavigation()
       : _router = GoRouter(
           observers: [AppNavigationObserver()],
-          initialLocation: '/',
+          initialLocation: '/${HomeScreen.page()}',
           routes: <GoRoute>[
             GoRoute(
               name: HomeScreen.page(),
-              path: HomeScreen.page(),
+              path: '/${HomeScreen.page()}',
               builder: (context, state) => const HomeScreen(),
             )
           ],

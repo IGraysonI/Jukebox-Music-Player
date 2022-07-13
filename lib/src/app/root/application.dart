@@ -38,6 +38,7 @@ class _ApplicationState extends State<_Application> {
   void initState() {
     l.i('Приложение запущено');
     _navigation = AppNavigation();
+    _themeManager = ThemeManager();
     super.initState();
   }
 

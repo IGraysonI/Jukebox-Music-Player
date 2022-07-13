@@ -11,7 +11,7 @@ class AppTheme extends InheritedWidget {
       oldWidget.themeData != themeData;
 }
 
-mixin ThemeManager implements ChangeNotifier {
+class ThemeManager with ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
 
   ThemeMode get themeMode => _themeMode;
