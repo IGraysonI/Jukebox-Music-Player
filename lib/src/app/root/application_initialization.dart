@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_prefs_store/shared_prefs_store.dart';
 
+import '../../common/widgets/splash_screen.dart';
 import '../../core/logger/l.dart';
 
 /// Инициализация сервисов приложения
@@ -20,9 +22,9 @@ class ApplicationInitialization extends StatefulWidget {
 }
 
 class _ApplicationInitializationState extends State<ApplicationInitialization> {
-  bool _appIsInited = false;
-
   late final SharedPrefsStore sharedPrefsStore = SharedPrefsStore();
+  late final Logger logger = l;
+  bool _appIsInited = false;
 
   void init() =>
       _initApp().then((value) => setState(() => _appIsInited = true));
@@ -66,25 +68,15 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
 
   @override
   Widget build(BuildContext context) =>
-      _appIsInited ? widget.child : const _SplashScreen();
+      _appIsInited ? widget.child : const SplashScreen();
 }
 
-// TODO: Переместить в отдельный файл
-class _SplashScreen extends StatelessWidget {
-  const _SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Material(
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
+/// Расширение на [BuildContext] для удобства получения сервисов
 extension BundleX on BuildContext {
   /// Инстанс SharedPrefsStore
   SharedPrefsStore get cache =>
       ApplicationInitialization.of(this).sharedPrefsStore;
+
+  /// Логгер
+  Logger get logger => ApplicationInitialization.of(this).logger;
 }

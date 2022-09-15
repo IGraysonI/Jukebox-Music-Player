@@ -47,9 +47,9 @@ class _ApplicationState extends State<_Application> {
   Widget build(BuildContext context) => AnimatedBuilder(
         animation: _themeManager,
         builder: (context, child) => MaterialApp.router(
+          routeInformationProvider: _navigation.router.routeInformationProvider,
           routeInformationParser: _navigation.router.routeInformationParser,
           routerDelegate: _navigation.router.routerDelegate,
-          title: 'Jukebox',
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: _themeManager.themeMode,

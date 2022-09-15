@@ -18,6 +18,7 @@ final ColorScheme lightColorScheme = ColorScheme.light(
   background: lightColorPallete.scaffoldBackgroundColor,
   primary: lightColorPallete.primaryColor,
   secondary: lightColorPallete.secondaryColor,
+  onBackground: Colors.red,
 );
 
 /// Dark
@@ -26,6 +27,8 @@ abstract class ColorPallete {
   Color get scaffoldBackgroundColor;
   Color get primaryColor;
   Color get secondaryColor;
+  Color get shadow;
+  Color get inputFillColor;
 }
 
 /// Цвета светлой темы
@@ -36,6 +39,12 @@ class LightColorPallete implements ColorPallete {
   Color get primaryColor => _hexToColor('#59949c');
   @override
   Color get secondaryColor => _hexToColor('#5aa099');
+
+  @override
+  Color get shadow => _hexToColor('#F5F8FE');
+
+  @override
+  Color get inputFillColor => _hexToColor('#f0f1f2');
 }
 
 // TODO: Добавить цвета темной темы

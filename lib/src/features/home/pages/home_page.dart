@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../../../resource/app_strings.dart';
+import '../../../common/const/app_strings.dart';
 import '../../albums/screen/album_list_screen.dart';
 import '../../music_player/pages/music_player.dart';
 import '../../songs/screen/songs_list_screen.dart';
