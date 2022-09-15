@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../core/logger/l.dart';
 import '../router/app_navigation.dart';
-import '../theme/app_theme.dart';
+import '../theme/application_theme.dart';
 import '../theme/theme_constants.dart';
 import 'application_initialization.dart';
 
+/// Корневой виджет
 class Application extends StatelessWidget {
   const Application({Key? key}) : super(key: key);
 

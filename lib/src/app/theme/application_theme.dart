@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AppTheme extends InheritedWidget {
-  const AppTheme(this.themeData, {required super.child, Key? key})
+class ApplicationTheme extends InheritedWidget {
+  const ApplicationTheme(this.themeData, {required super.child, Key? key})
       : super(key: key);
 
   final ThemeData themeData;
 
   @override
-  bool updateShouldNotify(AppTheme oldWidget) =>
+  bool updateShouldNotify(ApplicationTheme oldWidget) =>
       oldWidget.themeData != themeData;
 }
 
@@ -19,7 +19,7 @@ class ThemeManager with ChangeNotifier {
   bool get isLightTheme => _themeMode == ThemeMode.light;
   bool get isDarkTheme => !isLightTheme;
 
-  void toggleTheme(bool isDark) {
+  void toggleTheme({required bool isDark}) {
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }

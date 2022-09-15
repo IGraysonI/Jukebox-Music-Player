@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import '../../features/home/pages/home_screen.dart';
+import '../../features/home/pages/home_page.dart';
 import 'app_navigation_observer.dart';
 
 /// Роутер приложения
@@ -8,12 +8,13 @@ class AppNavigation {
   AppNavigation()
       : _router = GoRouter(
           observers: [AppNavigationObserver()],
-          initialLocation: '/${HomeScreen.page()}',
+          initialLocation: '/${HomePage.page()}',
           routes: <GoRoute>[
             GoRoute(
-              name: HomeScreen.page(),
-              path: '/${HomeScreen.page()}',
-              builder: (context, state) => const HomeScreen(),
+              name: HomePage.page(),
+              path: '/${HomePage.page()}',
+              builder: (context, state) => const HomePage(),
+              routes: <GoRoute>[],
             )
           ],
         );
