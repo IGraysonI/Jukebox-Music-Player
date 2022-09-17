@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/logger/l.dart';
-import '../router/app_navigation.dart';
+import '../router/application_navigation.dart';
 import '../theme/application_theme.dart';
 import '../theme/theme_constants.dart';
 import 'application_initialization.dart';
@@ -11,8 +11,9 @@ class Application extends StatelessWidget {
   const Application({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>
-      ApplicationInitialization(child: _Application());
+  Widget build(BuildContext context) => ApplicationInitialization(
+        child: _Application(),
+      );
 
   static _ApplicationState of(BuildContext context) =>
       context.findAncestorStateOfType<_ApplicationState>()!;
@@ -26,7 +27,7 @@ class _Application extends StatefulWidget {
 
 class _ApplicationState extends State<_Application> {
   /// Навигация приложения
-  late final AppNavigation _navigation;
+  late final ApplicationNavigation _navigation;
   late final ThemeManager _themeManager;
 
   /// В случае если NULL локализация будет взята по умолчанию, первая из списка
@@ -38,7 +39,7 @@ class _ApplicationState extends State<_Application> {
   @override
   void initState() {
     l.i('Приложение запущено');
-    _navigation = AppNavigation();
+    _navigation = ApplicationNavigation();
     _themeManager = ThemeManager();
     super.initState();
   }

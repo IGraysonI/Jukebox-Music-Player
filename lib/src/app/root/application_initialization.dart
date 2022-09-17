@@ -24,17 +24,15 @@ class ApplicationInitialization extends StatefulWidget {
 class _ApplicationInitializationState extends State<ApplicationInitialization> {
   late final SharedPrefsStore sharedPrefsStore = SharedPrefsStore();
   late final Logger logger = l;
-  bool _appIsInited = false;
+  bool _applicationIsInitialized = false;
 
-  void init() =>
-      _initApp().then((value) => setState(() => _appIsInited = true));
+  void init() => _initApp()
+      .then((value) => setState(() => _applicationIsInitialized = true));
 
   /// Инициализация компонентов приложения
   Future<void> _initApp() async {
-    await AppLogger().init();
-    l
-      ..i('AppLogger инициализирован')
-      ..i('Приступаем к инициализации приложения');
+    await ApplicationLogger().init();
+    l.i('AppLogger инициализирован');
 
     await sharedPrefsStore.init();
     l.i('SharedPrefsStore инициализирован');
@@ -68,7 +66,7 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
 
   @override
   Widget build(BuildContext context) =>
-      _appIsInited ? widget.child : const SplashScreen();
+      _applicationIsInitialized ? widget.child : const SplashScreen();
 }
 
 /// Расширение на [BuildContext] для удобства получения сервисов

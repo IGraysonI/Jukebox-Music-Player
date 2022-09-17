@@ -1,13 +1,13 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/pages/home_page.dart';
-import 'app_navigation_observer.dart';
+import 'application_navigation_observer.dart';
 
 /// Роутер приложения
-class AppNavigation {
-  AppNavigation()
+class ApplicationNavigation {
+  ApplicationNavigation()
       : _router = GoRouter(
-          observers: [AppNavigationObserver()],
+          observers: [ApplicationNavigationObserver()],
           initialLocation: '/${HomePage.page()}',
           routes: <GoRoute>[
             GoRoute(

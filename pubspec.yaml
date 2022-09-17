@@ -25,6 +25,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
 
+  # State management
+  flutter_bloc: ^8.1.1
+
   # Storage
   shared_prefs_store:
     path: packages/shared_prefs_store

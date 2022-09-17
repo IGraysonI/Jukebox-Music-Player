@@ -11,5 +11,5 @@ ThemeData lightThemeData = ThemeData(
   brightness: Brightness.light,
   scaffoldBackgroundColor: colorPalleteLight.scaffoldBackgroundColor,
   colorScheme: lightColorScheme,
-  textTheme: applicationTextTheme,
+  // textTheme: applicationTextTheme,
 );

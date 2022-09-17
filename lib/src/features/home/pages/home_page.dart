@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final FlutterAudioQuery audioQuery = FlutterAudioQuery();
   List<SongInfo> _songs = [];
   List<AlbumInfo> _albums = [];
-  List<ArtistInfo> artists = [];
+  List<ArtistInfo> _artists = [];
   int _selectedIndex = 0;
   int _currentIndex = 0;
   final GlobalKey<MusicPlayerState> key = GlobalKey();
@@ -54,11 +54,11 @@ class _HomePageState extends State<HomePage> {
   Future<void> initializeAudioFiles() async {
     _songs = await audioQuery.getSongs();
     _albums = await audioQuery.getAlbums();
-    artists = await audioQuery.getArtists();
+    _artists = await audioQuery.getArtists();
     setState(() {
       _songs = _songs;
       _albums = _albums;
-      artists = artists;
+      _artists = _artists;
     });
   }
 
