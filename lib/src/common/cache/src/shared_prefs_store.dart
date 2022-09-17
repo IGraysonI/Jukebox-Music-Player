@@ -26,8 +26,10 @@ class SharedPrefsStore implements KeyValueStore {
   }
 
   @override
-  T? read<T>(TypeStoreKey<T> typeStoreKey,
-      {ValueStoreParser<T>? valueStoreParser}) {
+  T? read<T>(
+    TypeStoreKey<T> typeStoreKey, {
+    ValueStoreParser<T>? valueStoreParser,
+  }) {
     final value = _sharedPreferences.get(typeStoreKey.key);
     if (value != null && value is String && value.startsWith('{')) {
       if (valueStoreParser == null) {

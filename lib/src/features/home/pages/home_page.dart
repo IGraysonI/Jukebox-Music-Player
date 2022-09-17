@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
@@ -62,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void changeTrack(bool isNext) {
+  void changeTrack({bool isNext = false}) {
     if (isNext) {
       if (_currentIndex != _songs.length - 1) {
         setState(() {
@@ -90,6 +91,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.rAppTitle),
+        // actions: [if (kDebugMode)],
       ),
       body: _NavigationDestinationView(
         songs: _songs,

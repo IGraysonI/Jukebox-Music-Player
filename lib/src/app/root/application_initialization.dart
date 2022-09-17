@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:shared_prefs_store/shared_prefs_store.dart';
 
+import '../../common/cache/shared_prefs_store.dart';
 import '../../common/widgets/splash_screen.dart';
 import '../../core/logger/l.dart';
 
