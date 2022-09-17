@@ -2,7 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
+import '../../../app/root/application_initialization.dart';
 import '../../../common/const/app_strings.dart';
+import '../../../common/debug/debug_instruments.dart';
+import '../../../common/debug/instruments_configurator.dart';
 import '../../albums/screen/album_list_screen.dart';
 import '../../music_player/pages/music_player.dart';
 import '../../songs/screen/songs_list_screen.dart';
@@ -91,7 +94,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.rAppTitle),
-        // actions: [if (kDebugMode)],
+        actions: [
+          if (kDebugMode)
+            DebugInstruments(
+              instrumentConfigurator: InstrumentConfigurator(
+                sharedPreferences: context.cache.sharedPreferences,
+              ),
+            )
+        ],
       ),
       body: _NavigationDestinationView(
         songs: _songs,
