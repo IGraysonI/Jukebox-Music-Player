@@ -11,5 +11,13 @@ ThemeData lightThemeData = ThemeData(
   brightness: Brightness.light,
   scaffoldBackgroundColor: colorPalleteLight.scaffoldBackgroundColor,
   colorScheme: lightColorScheme,
+  bottomNavigationBarTheme: _bottomNavigationBarThemeData,
   // textTheme: applicationTextTheme,
+);
+
+BottomNavigationBarThemeData _bottomNavigationBarThemeData =
+    const BottomNavigationBarThemeData(
+  showUnselectedLabels: true,
+  showSelectedLabels: true,
+  type: BottomNavigationBarType.fixed,
 );

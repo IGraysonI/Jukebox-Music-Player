@@ -1,11 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/root/application_initialization.dart';
 import '../../../common/const/app_strings.dart';
 import '../../../common/debug_instruments/debug_instruments.dart';
 import '../../../common/debug_instruments/instruments_configurator.dart';
+import '../../../common/widgets/space.dart';
+import '../../../core/audio_query/bloc/audio_query_cubit.dart';
+import '../../../core/audio_query/data/audio_query_repository.dart';
 import '../../albums/screen/album_list_screen.dart';
 import '../../music_player/pages/music_player.dart';
 import '../../songs/screen/songs_list_screen.dart';
@@ -20,22 +24,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+  // final FlutterAudioQuery audioQuery = FlutterAudioQuery();
   List<SongInfo> _songs = [];
   List<AlbumInfo> _albums = [];
   List<ArtistInfo> _artists = [];
   int _selectedIndex = 0;
   int _currentIndex = 0;
   final GlobalKey<MusicPlayerState> key = GlobalKey();
+  AudioQueryCubit? audioQueryCubit;
 
   @override
   void initState() {
-    initializeAudioFiles();
+    // initializeAudioFiles();
+    audioQueryCubit =
+        AudioQueryCubit(audioQueryRepository: AudioQueryRepository());
     super.initState();
   }
 
   @override
   void dispose() {
+    audioQueryCubit?.close();
     super.dispose();
   }
 
@@ -55,16 +63,16 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  Future<void> initializeAudioFiles() async {
-    _songs = await audioQuery.getSongs();
-    _albums = await audioQuery.getAlbums();
-    _artists = await audioQuery.getArtists();
-    setState(() {
-      _songs = _songs;
-      _albums = _albums;
-      _artists = _artists;
-    });
-  }
+  // Future<void> initializeAudioFiles() async {
+  //   _songs = await audioQuery.getSongs();
+  //   _albums = await audioQuery.getAlbums();
+  //   _artists = await audioQuery.getArtists();
+  //   setState(() {
+  //     _songs = _songs;
+  //     _albums = _albums;
+  //     _artists = _artists;
+  //   });
+  // }
 
   void changeTrack({bool isNext = false}) {
     if (isNext) {
@@ -103,10 +111,29 @@ class _HomePageState extends State<HomePage> {
             )
         ],
       ),
-      body: _NavigationDestinationView(
-        songs: _songs,
-        albums: _albums,
-        selectedIndex: _selectedIndex,
+      body: BlocBuilder(
+        bloc: audioQueryCubit,
+        builder: (context, state) {
+          if (state is AudioQueryData) {
+            return _NavigationDestinationView(
+              songs: state.songs,
+              albums: state.albums,
+              selectedIndex: _selectedIndex,
+            );
+          } else {
+            //TODO: Добавить кастомный экран загрузки
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircularProgressIndicator(color: Colors.white),
+                  Space.sm(),
+                  const Text('Идёт загрузка ваших аудио файлов')
+                ],
+              ),
+            );
+          }
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: _bottomNavigationBarItems,
@@ -140,7 +167,7 @@ class _NavigationDestinationView extends StatelessWidget {
       case 2:
         return Container();
       default:
-        return Container();
+        return Center(child: Text('unimplemented for $selectedIndex'));
     }
   }
 
