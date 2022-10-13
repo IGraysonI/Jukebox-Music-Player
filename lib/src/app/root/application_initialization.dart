@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared_prefs_store/shared_prefs_store.dart';
+import 'package:logger/logger.dart';
 
+import '../../common/cache/shared_prefs_store.dart';
+import '../../common/widgets/splash_screen.dart';
 import '../../core/logger/l.dart';
 
 /// Инициализация сервисов приложения
@@ -20,19 +22,17 @@ class ApplicationInitialization extends StatefulWidget {
 }
 
 class _ApplicationInitializationState extends State<ApplicationInitialization> {
-  bool _appIsInited = false;
-
   late final SharedPrefsStore sharedPrefsStore = SharedPrefsStore();
+  late final Logger logger = l;
+  bool _applicationIsInitialized = false;
 
-  void init() =>
-      _initApp().then((value) => setState(() => _appIsInited = true));
+  void init() => _initApp()
+      .then((value) => setState(() => _applicationIsInitialized = true));
 
   /// Инициализация компонентов приложения
   Future<void> _initApp() async {
-    await AppLogger().init();
-    l
-      ..i('AppLogger инициализирован')
-      ..i('Приступаем к инициализации приложения');
+    await ApplicationLogger().init();
+    l.i('AppLogger инициализирован');
 
     await sharedPrefsStore.init();
     l.i('SharedPrefsStore инициализирован');
@@ -66,25 +66,15 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
 
   @override
   Widget build(BuildContext context) =>
-      _appIsInited ? widget.child : const _SplashScreen();
+      _applicationIsInitialized ? widget.child : const SplashScreen();
 }
 
-// TODO: Переместить в отдельный файл
-class _SplashScreen extends StatelessWidget {
-  const _SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Material(
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
+/// Расширение на [BuildContext] для удобства получения сервисов
 extension BundleX on BuildContext {
   /// Инстанс SharedPrefsStore
   SharedPrefsStore get cache =>
       ApplicationInitialization.of(this).sharedPrefsStore;
+
+  /// Логгер
+  Logger get logger => ApplicationInitialization.of(this).logger;
 }

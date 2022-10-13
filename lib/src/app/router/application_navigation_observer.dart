@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../core/logger/l.dart';
 
-class AppNavigationObserver extends NavigatorObserver {
+class ApplicationNavigationObserver extends NavigatorObserver {
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) =>
       l.i('Push: ${previousRoute?.name} -> ${route.name}');

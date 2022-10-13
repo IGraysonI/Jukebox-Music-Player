@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../shared_prefs_store.dart';
+import 'key_value_store.dart';
+import 'type_store_key.dart';
 
 ///Singletor реализация [KeyValueStore] на основе [SharedPreferences]
 class SharedPrefsStore implements KeyValueStore {
@@ -26,8 +27,10 @@ class SharedPrefsStore implements KeyValueStore {
   }
 
   @override
-  T? read<T>(TypeStoreKey<T> typeStoreKey,
-      {ValueStoreParser<T>? valueStoreParser}) {
+  T? read<T>(
+    TypeStoreKey<T> typeStoreKey, {
+    ValueStoreParser<T>? valueStoreParser,
+  }) {
     final value = _sharedPreferences.get(typeStoreKey.key);
     if (value != null && value is String && value.startsWith('{')) {
       if (valueStoreParser == null) {
@@ -67,7 +70,9 @@ class SharedPrefsStore implements KeyValueStore {
         break;
       case List:
         await _sharedPreferences.setStringList(
-            typeStoreKey.key, value as List<String>);
+          typeStoreKey.key,
+          value as List<String>,
+        );
         break;
       default:
         await _sharedPreferences.setString(typeStoreKey.key, jsonEncode(value));
