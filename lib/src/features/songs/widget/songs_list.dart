@@ -18,7 +18,7 @@ class SongsList extends StatelessWidget {
   String _getDuration(String value) {
     final doubleDuration = double.parse(value);
     final duration = Duration(milliseconds: doubleDuration.round());
-    return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    return '''${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}''';
   }
 
   @override

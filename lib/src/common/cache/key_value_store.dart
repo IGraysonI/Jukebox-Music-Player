@@ -18,8 +18,10 @@ abstract class KeyValueStore {
   /// Если значение находится в хранилище, его тип приводится к [T]
   /// В случае если [T] не является примитивным типом,
   /// потребуется передать [valueStoreParser]
-  T? read<T>(TypeStoreKey<T> typedStoreKey,
-      {ValueStoreParser<T> valueStoreParser});
+  T? read<T>(
+    TypeStoreKey<T> typedStoreKey, {
+    ValueStoreParser<T> valueStoreParser,
+  });
 
   /// Метод для записи значения по ключу [typedStoreKey], при необходимости
   /// удалить значение необходимо передать null

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'color/color_scheme.dart';
 
-Color get _shadowColor => lightColorPallete.primaryColor.withOpacity(.3);
+// Color get _shadowColor => lightColorPallete.primaryColor.withOpacity(.3);
 
 ColorPallete colorPalleteLight = LightColorPallete();
 

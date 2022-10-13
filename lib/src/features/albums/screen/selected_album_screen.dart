@@ -26,10 +26,10 @@ class _SelectedAlbumScreenState extends State<SelectedAlbumScreen> {
   }
 
   Future<void> getAlbumSongs(AlbumInfo albumInfo) async {
-    var _songs = <SongInfo>[];
-    _songs = await audioQuery.getSongsFromAlbum(albumId: albumInfo.id);
+    var songs = <SongInfo>[];
+    songs = await audioQuery.getSongsFromAlbum(albumId: albumInfo.id);
     setState(() {
-      songs = _songs;
+      this.songs = songs;
     });
   }
 
