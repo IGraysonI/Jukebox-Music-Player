@@ -17,14 +17,14 @@ class ApplicationBlocObserver extends BlocObserver {
 
   @override
   void onCreate(BlocBase bloc) {
-    final message = '[${bloc.runtimeType}Create]';
+    final message = '[${bloc.runtimeType}Created]';
     _logI(message);
     super.onCreate(bloc);
   }
 
   @override
   void onClose(BlocBase bloc) {
-    final message = '[${bloc.runtimeType}Close]';
+    final message = '[${bloc.runtimeType}Closed]';
     _logI(message);
     super.onClose(bloc);
   }
@@ -52,7 +52,8 @@ class ApplicationBlocObserver extends BlocObserver {
 
   @override
   void onChange(BlocBase bloc, Change change) {
-    final message = '<${bloc.runtimeType}Change>$_spacer<${change.toString()}>';
+    final message =
+        '<${bloc.runtimeType}Changed>$_spacer<${change.toString()}>';
     _logI(message);
     super.onChange(bloc, change);
   }

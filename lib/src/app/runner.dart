@@ -15,7 +15,7 @@ Future<void> runner() async {
       Bloc.observer = ApplicationBlocObserver();
       runApp(const Application());
     },
-    (error, stack) async => l.e('Critical Error: ', error, stack),
+    (error, stackTrace) async => l.e('Critical Error: ', error, stackTrace),
   );
 }
 

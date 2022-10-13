@@ -22,6 +22,7 @@ final ColorScheme lightColorScheme = ColorScheme.light(
 );
 
 /// Dark
+//TODO: Add dark theme
 
 abstract class ColorPallete {
   Color get scaffoldBackgroundColor;
@@ -47,4 +48,4 @@ class LightColorPallete implements ColorPallete {
   Color get inputFillColor => _hexToColor('#f0f1f2');
 }
 
-// TODO: Добавить цвета темной темы
+//TODO: Добавить цвета темной темы

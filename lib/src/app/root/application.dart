@@ -30,12 +30,6 @@ class _ApplicationState extends State<_Application> {
   late final ApplicationNavigation _navigation;
   late final ThemeManager _themeManager;
 
-  /// В случае если NULL локализация будет взята по умолчанию, первая из списка
-  // Locale? _locale;
-
-  /// Позволяет изменить локализацию приложения
-  // void setLocale(Locale locale) => setState(() => _locale = locale);
-
   @override
   void initState() {
     l.i('Приложение запущено');
