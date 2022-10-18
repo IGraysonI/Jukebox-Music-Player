@@ -3,21 +3,20 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 
 import '../widget/songs_list.dart';
 
-class SongsListScreen extends StatefulWidget {
-  const SongsListScreen({required this.songs, Key? key}) : super(key: key);
+class SongsPage extends StatefulWidget {
+  const SongsPage({required this.songs, Key? key}) : super(key: key);
 
   final List<SongInfo> songs;
 
   @override
-  State<SongsListScreen> createState() => _SongsListScreenState();
+  State<SongsPage> createState() => _SongsPageState();
 }
 
-class _SongsListScreenState extends State<SongsListScreen> {
+class _SongsPageState extends State<SongsPage> {
   @override
   Widget build(BuildContext context) {
     return SongsList(
       songs: widget.songs,
-      shrinkWrap: false,
       isScrollable: true,
     );
   }

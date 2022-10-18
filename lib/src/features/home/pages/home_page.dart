@@ -12,7 +12,7 @@ import '../../../core/audio_query/bloc/audio_query_cubit.dart';
 import '../../../core/audio_query/data/audio_query_repository.dart';
 import '../../albums/screen/album_list_screen.dart';
 import '../../music_player/pages/music_player.dart';
-import '../../songs/screen/songs_list_screen.dart';
+import '../../songs/page/songs_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -159,15 +159,13 @@ class _NavigationDestinationView extends StatelessWidget {
   Widget _buildBody() {
     switch (selectedIndex) {
       case 0:
-        return SongsListScreen(
-          songs: songs,
-        );
+        return SongsPage(songs: songs);
       case 1:
         return AlbumListScreen(albums: albums);
       case 2:
         return Container();
       default:
-        return Center(child: Text('unimplemented for $selectedIndex'));
+        return Center(child: Text('Для $selectedIndex ничего нет'));
     }
   }
 

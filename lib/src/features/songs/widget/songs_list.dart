@@ -7,12 +7,10 @@ class SongsList extends StatelessWidget {
   const SongsList({
     required this.songs,
     required this.isScrollable,
-    required this.shrinkWrap,
     Key? key,
   }) : super(key: key);
 
   final List<SongInfo> songs;
-  final bool shrinkWrap;
   final bool isScrollable;
 
   String _getDuration(String value) {
@@ -24,7 +22,7 @@ class SongsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: shrinkWrap,
+      shrinkWrap: true,
       physics: isScrollable ? null : const NeverScrollableScrollPhysics(),
       itemCount: songs.length,
       itemBuilder: (context, index) {
