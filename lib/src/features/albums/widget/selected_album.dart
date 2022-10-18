@@ -41,7 +41,6 @@ class SelectedAlbum extends StatelessWidget {
           ),
           SongsList(
             songs: songs,
-            shrinkWrap: true,
             isScrollable: false,
           ),
         ],

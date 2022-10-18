@@ -16,8 +16,10 @@ ThemeData lightThemeData = ThemeData(
 );
 
 BottomNavigationBarThemeData _bottomNavigationBarThemeData =
-    const BottomNavigationBarThemeData(
+    BottomNavigationBarThemeData(
   showUnselectedLabels: true,
   showSelectedLabels: true,
   type: BottomNavigationBarType.fixed,
+  backgroundColor: colorPalleteLight.primaryColor,
+  selectedItemColor: colorPalleteLight.secondaryColor,
 );

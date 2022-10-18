@@ -37,15 +37,29 @@ abstract class ColorPallete {
 /// Цвета светлой темы
 class LightColorPallete implements ColorPallete {
   @override
-  Color get scaffoldBackgroundColor => _hexToColor('#539d82');
+  Color get scaffoldBackgroundColor => _hexToColor('#ffffff');
   @override
-  Color get primaryColor => _hexToColor('#59949c');
+  Color get primaryColor => _hexToColor('#5b6879');
   @override
-  Color get secondaryColor => _hexToColor('#5aa099');
+  Color get secondaryColor => _hexToColor('#95b0d3');
 
   @override
-  Color get shadow => _hexToColor('#F5F8FE');
+  Color get shadow => _hexToColor('#94b6df');
 
   @override
-  Color get inputFillColor => _hexToColor('#f0f1f2');
+  Color get inputFillColor => _hexToColor('#82a7d4');
 }
+
+/// Colors
+// #5b6879
+// Midnight Shadow
+// #95b0d3
+// Mont Blanc
+// #94b6df
+// Adrift on the Nile
+// #82a7d4
+// Windfall
+// #7ea0ca
+// Shipmate
+// #aab6c6
+// Sailor Boy

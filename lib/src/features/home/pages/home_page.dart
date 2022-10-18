@@ -159,7 +159,7 @@ class _NavigationDestinationView extends StatelessWidget {
   Widget _buildBody() {
     switch (selectedIndex) {
       case 0:
-        return SongsPage(songs: songs);
+        return SongsPage(songs: songs, isScrollable: true);
       case 1:
         return AlbumListScreen(albums: albums);
       case 2:
