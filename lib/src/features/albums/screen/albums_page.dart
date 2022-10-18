@@ -4,8 +4,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../widget/album_card.dart';
 
-class AlbumPage extends StatelessWidget {
-  const AlbumPage({required this.albums, Key? key}) : super(key: key);
+class AlbumsPage extends StatelessWidget {
+  const AlbumsPage({required this.albums, Key? key}) : super(key: key);
 
   final List<AlbumInfo> albums;
 

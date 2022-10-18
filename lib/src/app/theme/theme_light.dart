@@ -12,6 +12,7 @@ ThemeData lightThemeData = ThemeData(
   scaffoldBackgroundColor: colorPalleteLight.scaffoldBackgroundColor,
   colorScheme: lightColorScheme,
   bottomNavigationBarTheme: _bottomNavigationBarThemeData,
+  appBarTheme: _appBarTheme,
   // textTheme: applicationTextTheme,
 );
 
@@ -23,3 +24,7 @@ BottomNavigationBarThemeData _bottomNavigationBarThemeData =
   backgroundColor: colorPalleteLight.primaryColor,
   selectedItemColor: colorPalleteLight.secondaryColor,
 );
+
+AppBarTheme _appBarTheme = AppBarTheme(iconTheme: _iconThemeData);
+
+IconThemeData _iconThemeData = const IconThemeData(color: Colors.white);

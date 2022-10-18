@@ -10,7 +10,7 @@ import '../../../common/debug_instruments/instruments_configurator.dart';
 import '../../../common/widgets/space.dart';
 import '../../../core/audio_query/bloc/audio_query_cubit.dart';
 import '../../../core/audio_query/data/audio_query_repository.dart';
-import '../../albums/screen/album_page.dart';
+import '../../albums/screen/albums_page.dart';
 import '../../music_player/pages/music_player.dart';
 import '../../songs/page/songs_page.dart';
 
@@ -159,9 +159,9 @@ class _NavigationDestinationView extends StatelessWidget {
   Widget _buildBody() {
     switch (selectedIndex) {
       case 0:
-        return SongsPage(songs: songs, isScrollable: true);
+        return SongsPage(songs: songs);
       case 1:
-        return AlbumPage(albums: albums);
+        return AlbumsPage(albums: albums);
       case 2:
         return Container();
       default:
