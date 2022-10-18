@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../../songs/widget/songs_list.dart';
-
 class SelectedAlbum extends StatelessWidget {
   const SelectedAlbum({required this.albumInfo, required this.songs, Key? key})
       : super(key: key);
@@ -39,10 +37,10 @@ class SelectedAlbum extends StatelessWidget {
               ],
             ),
           ),
-          SongsList(
-            songs: songs,
-            isScrollable: false,
-          ),
+          // SongsList(
+          //   songs: songs,
+          //   isScrollable: false,
+          // ),
         ],
       ),
     );
