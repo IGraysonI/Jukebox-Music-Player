@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../screen/selected_album_page.dart';
+import '../page/selected_album_page.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({required this.album, Key? key}) : super(key: key);
