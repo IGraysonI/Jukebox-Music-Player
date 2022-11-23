@@ -15,7 +15,7 @@ class AlbumCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.of(context).push<Object>(
         MaterialPageRoute(
-          builder: (context) => SelectedAlbumScreen(album: album),
+          builder: (context) => SelectedAlbumPage(album: album),
         ),
       ),
       child: Card(

@@ -11,6 +11,7 @@ import '../../../common/widgets/space.dart';
 import '../../../core/audio_query/bloc/audio_query_cubit.dart';
 import '../../../core/audio_query/data/audio_query_repository.dart';
 import '../../albums/page/albums_page.dart';
+import '../../artists/page/artists_page.dart';
 import '../../music_player/pages/music_player.dart';
 import '../../songs/page/songs_page.dart';
 
@@ -24,10 +25,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // final FlutterAudioQuery audioQuery = FlutterAudioQuery();
-  List<SongInfo> _songs = [];
-  List<AlbumInfo> _albums = [];
-  List<ArtistInfo> _artists = [];
+  final List<SongInfo> _songs = [];
   int _selectedIndex = 0;
   int _currentIndex = 0;
   final GlobalKey<MusicPlayerState> key = GlobalKey();
@@ -35,7 +33,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // initializeAudioFiles();
     audioQueryCubit =
         AudioQueryCubit(audioQueryRepository: AudioQueryRepository());
     super.initState();
@@ -62,17 +59,6 @@ class _HomePageState extends State<HomePage> {
       label: Strings.rArtistsTitle,
     ),
   ];
-
-  // Future<void> initializeAudioFiles() async {
-  //   _songs = await audioQuery.getSongs();
-  //   _albums = await audioQuery.getAlbums();
-  //   _artists = await audioQuery.getArtists();
-  //   setState(() {
-  //     _songs = _songs;
-  //     _albums = _albums;
-  //     _artists = _artists;
-  //   });
-  // }
 
   void changeTrack({bool isNext = false}) {
     if (isNext) {
@@ -118,6 +104,7 @@ class _HomePageState extends State<HomePage> {
             return _NavigationDestinationView(
               songs: state.songs,
               albums: state.albums,
+              artists: state.artists,
               selectedIndex: _selectedIndex,
             );
           } else {
@@ -147,23 +134,25 @@ class _HomePageState extends State<HomePage> {
 class _NavigationDestinationView extends StatelessWidget {
   const _NavigationDestinationView({
     required this.selectedIndex,
-    required this.albums,
     required this.songs,
+    required this.albums,
+    required this.artists,
     Key? key,
   }) : super(key: key);
 
   final int selectedIndex;
   final List<SongInfo> songs;
   final List<AlbumInfo> albums;
+  final List<ArtistInfo> artists;
 
   Widget _buildBody() {
     switch (selectedIndex) {
       case 0:
         return SongsPage(songs: songs);
       case 1:
-        return AlbumsPage(albums: albums);
+        return AlbumsPage(albums: albums, isScrollable: true);
       case 2:
-        return Container();
+        return ArtistsPage(artists: artists);
       default:
         return Center(child: Text('Для $selectedIndex ничего нет'));
     }

@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../widget/selected_album.dart';
+import '../widget/selected_artist.dart';
 
-class SelectedAlbumPage extends StatefulWidget {
-  const SelectedAlbumPage({required this.album, Key? key}) : super(key: key);
+class SelectedArtistPage extends StatefulWidget {
+  const SelectedArtistPage({required this.artist, Key? key}) : super(key: key);
 
-  final AlbumInfo album;
+  final ArtistInfo artist;
 
   @override
-  State<SelectedAlbumPage> createState() => _SelectedAlbumPageState();
+  State<SelectedArtistPage> createState() => _SelectedArtistPageState();
 }
 
-class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
-  late final AlbumInfo _album;
-  late final List<SongInfo> _songs;
+class _SelectedArtistPageState extends State<SelectedArtistPage> {
+  late final ArtistInfo _artist;
+  late final List<AlbumInfo> _albums;
   final FlutterAudioQuery _audioQuery = FlutterAudioQuery();
   late Future<void> _initializeAudioFiles;
 
   @override
   void initState() {
-    _album = widget.album;
-    _initializeAudioFiles = _getAlbumSongs(_album);
+    _artist = widget.artist;
+    _initializeAudioFiles = _getArtistAlbums(_artist);
     super.initState();
   }
 
@@ -30,10 +30,10 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
     super.dispose();
   }
 
-  Future<void> _getAlbumSongs(AlbumInfo album) async {
-    var songs = <SongInfo>[];
-    songs = await _audioQuery.getSongsFromAlbum(albumId: album.id);
-    setState(() => _songs = songs);
+  Future<void> _getArtistAlbums(ArtistInfo artist) async {
+    var albums = <AlbumInfo>[];
+    albums = await _audioQuery.getAlbumsFromArtist(artist: artist.name!);
+    setState(() => _albums = albums);
   }
 
   @override
@@ -48,7 +48,7 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
         future: _initializeAudioFiles,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return SelectedAlbum(album: _album, songs: _songs);
+            return SelectedArtist(artist: _artist, albums: _albums);
           } else {
             return const Center(child: CircularProgressIndicator());
           }
