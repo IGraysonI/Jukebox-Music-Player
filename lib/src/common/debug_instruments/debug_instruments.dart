@@ -39,7 +39,7 @@ class _DebugInstrumentsPage extends StatelessWidget {
           ListTile(
             onTap: () => Navigator.of(context).push<MaterialPageRoute>(
               MaterialPageRoute(
-                builder: (context) => SharedPrefsComponent(),
+                builder: (context) => const SharedPrefsComponent(),
               ),
             ),
             title: const Text('Cache'),

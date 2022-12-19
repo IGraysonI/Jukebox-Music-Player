@@ -19,14 +19,13 @@ class Application extends StatelessWidget {
       context.findAncestorStateOfType<_ApplicationState>()!;
 }
 
-/// Конфигурация конверого виджета
+/// Конфигурация корневого виджета
 class _Application extends StatefulWidget {
   @override
   State<_Application> createState() => _ApplicationState();
 }
 
 class _ApplicationState extends State<_Application> {
-  /// Навигация приложения
   late final ApplicationNavigation _navigation;
   late final ThemeManager _themeManager;
 

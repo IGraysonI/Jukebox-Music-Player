@@ -64,7 +64,7 @@ class MusicPlayerState extends State<MusicPlayer> {
         currentTime = _getDuration(currentValue);
       });
       if (currentValue >= maxValue) {
-        changeTrack(true);
+        changeTrack(isNext: true);
       }
     });
   }
@@ -82,7 +82,7 @@ class MusicPlayerState extends State<MusicPlayer> {
 
   String _getDuration(double value) {
     final duration = Duration(milliseconds: value.round());
-    return "${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}";
+    return '''${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}''';
   }
 
   void seekTo(double value) {
@@ -93,7 +93,7 @@ class MusicPlayerState extends State<MusicPlayer> {
     });
   }
 
-  void changeTrack(bool isNext) {
+  void changeTrack({required bool isNext}) {
     if (isNext) {
       if (currentIndex != _songs.length - 1) {
         setState(() {
@@ -149,7 +149,7 @@ class MusicPlayerState extends State<MusicPlayer> {
                   if (currentValue > 5500) {
                     seekTo(minValue);
                   } else {
-                    changeTrack(false);
+                    changeTrack(isNext: false);
                   }
                 },
                 icon: const Icon(Icons.skip_previous),
@@ -162,7 +162,7 @@ class MusicPlayerState extends State<MusicPlayer> {
               ),
               IconButton(
                 onPressed: () {
-                  changeTrack(true);
+                  changeTrack(isNext: true);
                 },
                 icon: const Icon(Icons.skip_next),
               ),

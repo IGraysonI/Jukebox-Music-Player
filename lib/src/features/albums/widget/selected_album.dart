@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../../songs/widget/songs_list.dart';
+import '../../../common/widgets/space.dart';
+import '../../songs/widget/song_card.dart';
 
 class SelectedAlbum extends StatelessWidget {
-  const SelectedAlbum({required this.albumInfo, required this.songs, Key? key})
+  const SelectedAlbum({required this.album, required this.songs, Key? key})
       : super(key: key);
 
-  final AlbumInfo albumInfo;
+  final AlbumInfo album;
   final List<SongInfo> songs;
 
   @override
@@ -18,31 +19,59 @@ class SelectedAlbum extends StatelessWidget {
       physics: const ScrollPhysics(),
       child: Column(
         children: [
-          Image.file(
-            File(albumInfo.albumArt!),
-            height: MediaQuery.of(context).size.height * 0.55,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.fill,
-          ),
+          if (album.albumArt == null)
+            const SizedBox.shrink()
+          else
+            Image.file(
+              File(album.albumArt!),
+              height: MediaQuery.of(context).size.height * 0.55,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.fill,
+            ),
+          Space.sm(),
           Padding(
-            padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
+                Text(
+                  album.title!,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                Space.sm(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(albumInfo.title!),
-                    Text(albumInfo.numberOfSongs!),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(album.artist!),
+                        Text('${album.numberOfSongs!} songs'),
+                      ],
+                    ),
+                    const Icon(Icons.more_vert),
                   ],
                 ),
-                const Icon(Icons.more_vert),
               ],
             ),
           ),
-          SongsList(
-            songs: songs,
-            shrinkWrap: true,
-            isScrollable: false,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: songs.length,
+              itemBuilder: (context, index) => SongCard(
+                song: songs[index],
+                showArtist: false,
+                showArtwork: false,
+                index: index + 1,
+              ),
+            ),
           ),
         ],
       ),
