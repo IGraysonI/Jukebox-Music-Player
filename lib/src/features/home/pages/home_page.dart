@@ -44,21 +44,21 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  final List<BottomNavigationBarItem> _bottomNavigationBarItems =
-      const <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Icon(Icons.audiotrack_rounded),
-      label: Strings.rSongsTitle,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.album_rounded),
-      label: Strings.rAlbumsTitle,
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.account_circle_rounded),
-      label: Strings.rArtistsTitle,
-    ),
-  ];
+  List<NavigationDestination> get _navigationBarItems =>
+      const <NavigationDestination>[
+        NavigationDestination(
+          icon: Icon(Icons.audiotrack_rounded),
+          label: Strings.rSongsTitle,
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.album_rounded),
+          label: Strings.rAlbumsTitle,
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.account_circle_rounded),
+          label: Strings.rArtistsTitle,
+        ),
+      ];
 
   void changeTrack({bool isNext = false}) {
     if (isNext) {
@@ -77,11 +77,7 @@ class _HomePageState extends State<HomePage> {
     key.currentState!.setSong(_songs[_currentIndex]);
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  void _onItemTapped(int index) => setState(() => _selectedIndex = index);
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +118,10 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _bottomNavigationBarItems,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: _onItemTapped,
+        selectedIndex: _selectedIndex,
+        destinations: _navigationBarItems,
       ),
     );
   }

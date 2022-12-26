@@ -9,10 +9,12 @@ ColorPallete colorPalleteLight = LightColorPallete();
 //TODO: Добавить темы для различных компонентов
 ThemeData lightThemeData = ThemeData(
   brightness: Brightness.light,
-  scaffoldBackgroundColor: colorPalleteLight.scaffoldBackgroundColor,
-  colorScheme: lightColorScheme,
+  // scaffoldBackgroundColor: colorPalleteLight.scaffoldBackgroundColor,
+  // colorScheme: lightColorScheme,
   bottomNavigationBarTheme: _bottomNavigationBarThemeData,
-  appBarTheme: _appBarTheme,
+  // appBarTheme: _appBarTheme,
+  useMaterial3: true,
+  colorSchemeSeed: Colors.green[700],
   // textTheme: applicationTextTheme,
 );
 
@@ -21,8 +23,8 @@ BottomNavigationBarThemeData _bottomNavigationBarThemeData =
   showUnselectedLabels: true,
   showSelectedLabels: true,
   type: BottomNavigationBarType.fixed,
-  backgroundColor: colorPalleteLight.primaryColor,
-  selectedItemColor: colorPalleteLight.secondaryColor,
+  // backgroundColor: colorPalleteLight.primaryColor,
+  // selectedItemColor: colorPalleteLight.secondaryColor,
 );
 
 AppBarTheme _appBarTheme = AppBarTheme(iconTheme: _iconThemeData);
