@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../core/logger/l.dart';
 import '../router/application_navigation.dart';
-import '../theme/application_theme.dart';
 import '../theme/theme_constants.dart';
 import 'application_initialization.dart';
+import 'application_theme.dart';
 
 /// Корневой виджет
 class Application extends StatelessWidget {
@@ -27,27 +27,26 @@ class _Application extends StatefulWidget {
 
 class _ApplicationState extends State<_Application> {
   late final ApplicationNavigation _navigation;
-  late final ThemeManager _themeManager;
 
   @override
   void initState() {
     l.i('Приложение запущено');
     _navigation = ApplicationNavigation();
-    _themeManager = ThemeManager();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
-        animation: _themeManager,
+        animation: ApplicationTheme.of(context).themeManager,
         builder: (context, child) => MaterialApp.router(
           routeInformationProvider: _navigation.router.routeInformationProvider,
           routeInformationParser: _navigation.router.routeInformationParser,
           routerDelegate: _navigation.router.routerDelegate,
           theme: lightTheme,
           darkTheme: darkTheme,
-          themeMode: _themeManager.themeMode,
-          // locale: _locale,
+          themeMode: ApplicationTheme.of(context).themeManager.themeMode,
+          builder: (context, child) => child ?? const SizedBox.shrink(),
         ),
       );
 }

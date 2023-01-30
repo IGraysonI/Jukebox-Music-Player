@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../core/bloc/application_bloc_observer.dart';
@@ -22,4 +23,7 @@ Future<void> runner() async {
 Future<void> _initializeApplication() async {
   /// The glue between the widgets layer and the Flutter engine.
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// Включает метод toString() для Equatable
+  EquatableConfig.stringify = true;
 }

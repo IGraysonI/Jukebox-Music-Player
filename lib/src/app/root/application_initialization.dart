@@ -4,6 +4,7 @@ import 'package:logger/logger.dart';
 import '../../common/cache/shared_prefs_store.dart';
 import '../../common/widgets/splash_screen.dart';
 import '../../core/logger/l.dart';
+import '../theme/theme_manager.dart';
 
 /// Инициализация сервисов приложения
 @immutable
@@ -24,6 +25,7 @@ class ApplicationInitialization extends StatefulWidget {
 class _ApplicationInitializationState extends State<ApplicationInitialization> {
   late final SharedPrefsStore sharedPrefsStore = SharedPrefsStore();
   late final Logger logger = l;
+  late final ThemeManager themeManager;
   bool _applicationIsInitialized = false;
 
   void init() => _initApp()

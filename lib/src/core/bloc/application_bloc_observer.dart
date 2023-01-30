@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:logger/logger.dart';
 
 import '../logger/l.dart';
 
@@ -6,14 +7,6 @@ import '../logger/l.dart';
 /// ошибки, переход от ивента к состоянию, смены состояний
 class ApplicationBlocObserver extends BlocObserver {
   final _spacer = ' ' * 5;
-
-  void _logI(String message, {bool shouldLog = true}) {
-    if (!shouldLog) {
-      return;
-    } else {
-      l.i(message);
-    }
-  }
 
   @override
   void onCreate(BlocBase bloc) {
@@ -52,9 +45,20 @@ class ApplicationBlocObserver extends BlocObserver {
 
   @override
   void onChange(BlocBase bloc, Change change) {
-    final message =
-        '<${bloc.runtimeType}Changed>$_spacer<${change.toString()}>';
+    final message = '<${bloc.runtimeType}Changed>$_spacer<$change>';
     _logI(message);
     super.onChange(bloc, change);
+  }
+
+  void _logI(
+    String message, {
+    bool shouldLog = true,
+    Level level = Level.verbose,
+  }) {
+    if (!shouldLog) {
+      return;
+    } else {
+      l.log(level, message);
+    }
   }
 }
