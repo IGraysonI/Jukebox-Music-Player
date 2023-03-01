@@ -11,7 +11,6 @@ import '../../../core/audio_query/bloc/audio_query_cubit.dart';
 import '../../../core/audio_query/data/audio_query_repository.dart';
 import '../../albums/page/albums_page.dart';
 import '../../artists/page/artists_page.dart';
-import '../../music_player/pages/music_player.dart';
 import '../../songs/page/songs_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,14 +23,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<SongInfo> _songs = [];
-  int _selectedIndex = 0;
-  int _currentIndex = 0;
-  final GlobalKey<MusicPlayerState> key = GlobalKey();
   AudioQueryCubit? audioQueryCubit;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
+    //TODO: Перенести выше в scope
     audioQueryCubit =
         AudioQueryCubit(audioQueryRepository: AudioQueryRepository());
     super.initState();
@@ -59,23 +56,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ];
 
-  void changeTrack({bool isNext = false}) {
-    if (isNext) {
-      if (_currentIndex != _songs.length - 1) {
-        setState(() {
-          _currentIndex++;
-        });
-      }
-    } else {
-      if (_currentIndex != 0) {
-        setState(() {
-          _currentIndex--;
-        });
-      }
-    }
-    key.currentState!.setSong(_songs[_currentIndex]);
-  }
-
   void _onItemTapped(int index) => setState(() => _selectedIndex = index);
 
   @override
@@ -92,7 +72,7 @@ class _HomePageState extends State<HomePage> {
             )
         ],
       ),
-      body: BlocBuilder(
+      body: BlocBuilder<AudioQueryCubit, AudioQueryState>(
         bloc: audioQueryCubit,
         builder: (context, state) {
           if (state is AudioQueryData) {
