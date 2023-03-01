@@ -15,7 +15,10 @@ class SongsPage extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: songs.length,
-        itemBuilder: (context, index) => SongCard(song: songs[index]),
+        itemBuilder: (context, index) => SongCard(
+          songIndex: index,
+          songs: songs,
+        ),
       ),
     );
   }

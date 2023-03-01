@@ -66,7 +66,8 @@ class SelectedAlbum extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: songs.length,
               itemBuilder: (context, index) => SongCard(
-                song: songs[index],
+                songs: songs,
+                songIndex: index,
                 showArtist: false,
                 showArtwork: false,
                 index: index + 1,
