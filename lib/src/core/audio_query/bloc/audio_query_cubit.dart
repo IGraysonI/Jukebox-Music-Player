@@ -25,7 +25,7 @@ class AudioQueryCubit extends Cubit<AudioQueryState> {
 
       emit(AudioQueryData(songs: songs, albums: albums, artists: artists));
     } on Exception catch (e, st) {
-      l.e('''AudioQueryCubit exception with error: ${e.toString()} and stactTrace: ${st.toString()}''');
+      l.e('AudioQueryCubit exception with error: $e and stactTrace: $st');
     }
   }
 }

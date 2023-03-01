@@ -60,14 +60,3 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
   Widget build(BuildContext context) =>
       _applicationIsInitialized ? widget.child : const SplashScreen();
 }
-
-//TODO: Вынести в отдельный файл расширений
-/// Расширение на [BuildContext] для удобства получения сервисов
-extension BundleX on BuildContext {
-  /// Инстанс SharedPrefsStore
-  SharedPrefsStore get cache =>
-      ApplicationInitialization.of(this).sharedPrefsStore;
-
-  /// Логгер
-  Logger get logger => ApplicationInitialization.of(this).logger;
-}

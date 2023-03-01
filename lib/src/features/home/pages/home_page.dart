@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../app/root/application_initialization.dart';
-import '../../../common/const/app_strings.dart';
 import '../../../common/debug_instruments/debug_instruments.dart';
 import '../../../common/debug_instruments/instruments_configurator.dart';
+import '../../../common/extensions/build_context_extensions.dart';
 import '../../../common/widgets/space.dart';
 import '../../../core/audio_query/bloc/audio_query_cubit.dart';
 import '../../../core/audio_query/data/audio_query_repository.dart';
@@ -48,15 +47,15 @@ class _HomePageState extends State<HomePage> {
       const <NavigationDestination>[
         NavigationDestination(
           icon: Icon(Icons.audiotrack_rounded),
-          label: Strings.rSongsTitle,
+          label: 'Songs',
         ),
         NavigationDestination(
           icon: Icon(Icons.album_rounded),
-          label: Strings.rAlbumsTitle,
+          label: 'Albums',
         ),
         NavigationDestination(
           icon: Icon(Icons.account_circle_rounded),
-          label: Strings.rArtistsTitle,
+          label: 'Artists',
         ),
       ];
 
@@ -83,7 +82,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.rAppTitle),
+        title: const Text('Jukebox'),
         actions: [
           if (kDebugMode)
             DebugInstruments(

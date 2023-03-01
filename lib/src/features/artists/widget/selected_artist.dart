@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../common/widgets/space.dart';
 import '../../albums/page/albums_page.dart';
-import '../../albums/widget/album_card.dart';
 
 class SelectedArtist extends StatelessWidget {
   const SelectedArtist({required this.artist, required this.albums, Key? key})
