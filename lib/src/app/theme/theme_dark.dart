@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'theme.dart';
 
 //TODO: Добавить темную тему
 ThemeData darkThemeData = ThemeData(

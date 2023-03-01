@@ -28,42 +28,32 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
   late final ThemeManager themeManager;
   bool _applicationIsInitialized = false;
 
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant ApplicationInitialization oldWidget) =>
+      super.didUpdateWidget(oldWidget);
+
+  @override
+  void didChangeDependencies() => super.didChangeDependencies();
+
+  @override
+  void dispose() => super.dispose();
+
   void init() => _initApp()
       .then((value) => setState(() => _applicationIsInitialized = true));
 
   /// Инициализация компонентов приложения
   Future<void> _initApp() async {
     await ApplicationLogger().init();
-    l.i('AppLogger инициализирован');
+    l.i('ApplicationLogger инициализирован');
 
     await sharedPrefsStore.init();
     l.i('SharedPrefsStore инициализирован');
-  }
-
-  @override
-  void initState() {
-    // Первичная инициализация виджета
-    init();
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant ApplicationInitialization oldWidget) {
-    // Конфигурация виджета изменилась
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void didChangeDependencies() {
-    // Изменилась конфигурация InheritedWidget'ов
-    // Так же вызывается после initState, но до build'а
-    super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    // Перманетное удаление стейта из дерева
-    super.dispose();
   }
 
   @override
@@ -71,6 +61,7 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
       _applicationIsInitialized ? widget.child : const SplashScreen();
 }
 
+//TODO: Вынести в отдельный файл расширений
 /// Расширение на [BuildContext] для удобства получения сервисов
 extension BundleX on BuildContext {
   /// Инстанс SharedPrefsStore

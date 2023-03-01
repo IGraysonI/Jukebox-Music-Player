@@ -33,6 +33,7 @@ class ApplicationNavigationObserver extends NavigatorObserver {
   void didStopUserGesture() => l.i('StopUserGesture');
 }
 
+//TODO: Перенести в отдельный файл
 extension on Route<dynamic> {
   String get name => '[${settings.name}]';
 }

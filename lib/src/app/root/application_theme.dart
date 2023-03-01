@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme/theme_manager.dart';
 
+/// Виджет темы, находится в корне виджетов приложения
 class ApplicationTheme extends InheritedWidget {
   const ApplicationTheme({
     required Widget child,
@@ -25,9 +26,9 @@ class ApplicationTheme extends InheritedWidget {
       ApplicationTheme.of(context).themeManager.isLightTheme;
 
   static Future<void> switchToDarkTheme(BuildContext context) =>
-      ApplicationTheme.of(context).themeManager.toogleTheme(
-            themeMode: ThemeMode.dark,
-          );
+      ApplicationTheme.of(context)
+          .themeManager
+          .toogleTheme(themeMode: ThemeMode.dark);
 
   static Future<void> switchToLightTheme(BuildContext context) =>
       ApplicationTheme.of(context)

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/logger/l.dart';
 import '../router/application_navigation.dart';
 import '../theme/theme_constants.dart';
+import '../theme/theme_manager.dart';
 import 'application_initialization.dart';
 import 'application_theme.dart';
 
@@ -12,7 +13,14 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ApplicationInitialization(
-        child: _Application(),
+        child: Builder(
+          builder: (context) {
+            return ApplicationTheme(
+              themeManager: ThemeManager(sharedPrefsStore: context.cache),
+              child: _Application(),
+            );
+          },
+        ),
       );
 
   static _ApplicationState of(BuildContext context) =>

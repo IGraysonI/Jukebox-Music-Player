@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/utils/regex_validator.dart';
 
-LightColorPallete lightColorPallete = LightColorPallete();
+LightColorPallete _lightColorPallete = const LightColorPallete();
 
 /// Возвращает [Color] из хешкода
 Color _hexToColor(String colorCode) {
@@ -15,9 +15,9 @@ Color _hexToColor(String colorCode) {
 
 /// Light
 final ColorScheme lightColorScheme = ColorScheme.light(
-  background: lightColorPallete.scaffoldBackgroundColor,
-  primary: lightColorPallete.primaryColor,
-  secondary: lightColorPallete.secondaryColor,
+  background: _lightColorPallete.scaffoldBackgroundColor,
+  primary: _lightColorPallete.primaryColor,
+  secondary: _lightColorPallete.secondaryColor,
   onBackground: Colors.red,
 );
 
@@ -36,10 +36,14 @@ abstract class ColorPallete {
 
 /// Цвета светлой темы
 class LightColorPallete implements ColorPallete {
+  const LightColorPallete();
+
   @override
   Color get scaffoldBackgroundColor => _hexToColor('#ffffff');
+
   @override
   Color get primaryColor => _hexToColor('#5b6879');
+
   @override
   Color get secondaryColor => _hexToColor('#95b0d3');
 
