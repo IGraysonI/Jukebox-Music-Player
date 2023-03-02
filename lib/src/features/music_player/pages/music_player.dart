@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:audiotagger/audiotagger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
@@ -20,6 +21,7 @@ class MusicPlayer extends StatefulWidget {
 class MusicPlayerState extends State<MusicPlayer> {
   late final AudioPlayer _audioPlayer;
   late final ConcatenatingAudioSource _playlist;
+  final tagger = Audiotagger();
 
   @override
   void initState() {
@@ -35,11 +37,13 @@ class MusicPlayerState extends State<MusicPlayer> {
           )
           .toList(),
     );
-    _audioPlayer.setAudioSource(
-      _playlist,
-      initialIndex: widget.songIndex,
-      initialPosition: Duration.zero,
-    );
+    _audioPlayer
+      ..setAudioSource(
+        _playlist,
+        initialIndex: widget.songIndex,
+        initialPosition: Duration.zero,
+      )
+      ..play();
 
     super.initState();
   }
@@ -48,6 +52,58 @@ class MusicPlayerState extends State<MusicPlayer> {
   void dispose() {
     _audioPlayer.dispose();
     super.dispose();
+  }
+
+  Future<String?> _getLyrics() async {
+    final lyrics = await tagger.readTags(path: widget.songs[0].filePath!);
+    return lyrics?.lyrics;
+  }
+
+  void _showModalBottomSheet(BuildContext context, String text) {
+    showModalBottomSheet<Object>(
+      context: context,
+      builder: (context) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.5,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            Container(
+              width: 50,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: FutureBuilder<String?>(
+                future: _getLyrics(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Text(
+                          snapshot.data!,
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -67,15 +123,19 @@ class MusicPlayerState extends State<MusicPlayer> {
               stream: _audioPlayer.sequenceStateStream,
               builder: (context, snapshot) {
                 final state = snapshot.data;
-                final song = widget.songs[state!.currentIndex];
+                final song =
+                    widget.songs[state?.currentIndex ?? widget.songIndex];
                 return song.albumArtwork == null
                     ? const SizedBox.shrink()
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.file(
-                          File(song.albumArtwork!),
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          fit: BoxFit.fill,
+                        child: GestureDetector(
+                          onTap: () => _showModalBottomSheet(context, 'text'),
+                          child: Image.file(
+                            File(song.albumArtwork!),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       );
               },
@@ -85,7 +145,8 @@ class MusicPlayerState extends State<MusicPlayer> {
               stream: _audioPlayer.sequenceStateStream,
               builder: (context, snapshot) {
                 final state = snapshot.data;
-                final song = widget.songs[state!.currentIndex];
+                final song =
+                    widget.songs[state?.currentIndex ?? widget.songIndex];
                 return Text(
                   song.title!,
                   style: const TextStyle(
