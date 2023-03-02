@@ -7,10 +7,10 @@ import '../../../common/debug_instruments/debug_instruments.dart';
 import '../../../common/debug_instruments/instruments_configurator.dart';
 import '../../../common/extensions/build_context_extensions.dart';
 import '../../../common/widgets/space.dart';
-import '../../../core/audio_query/bloc/audio_query_cubit.dart';
-import '../../../core/audio_query/data/audio_query_repository.dart';
 import '../../albums/page/albums_page.dart';
 import '../../artists/page/artists_page.dart';
+import '../../audio_query/bloc/audio_query_bloc.dart';
+import '../../audio_query/scope/audio_query_root_scope.dart';
 import '../../songs/page/songs_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,22 +23,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  AudioQueryCubit? audioQueryCubit;
   int _selectedIndex = 0;
 
   @override
   void initState() {
-    //TODO: Перенести выше в scope
-    audioQueryCubit =
-        AudioQueryCubit(audioQueryRepository: AudioQueryRepository());
+    AudioQueryRooyScope.getAudioFiles(context);
     super.initState();
   }
 
   @override
-  void dispose() {
-    audioQueryCubit?.close();
-    super.dispose();
-  }
+  void dispose() => super.dispose();
 
   List<NavigationDestination> get _navigationBarItems =>
       const <NavigationDestination>[
@@ -72,8 +66,8 @@ class _HomePageState extends State<HomePage> {
             )
         ],
       ),
-      body: BlocBuilder<AudioQueryCubit, AudioQueryState>(
-        bloc: audioQueryCubit,
+      body: BlocBuilder<AudioQueryBloc, AudioQueryState>(
+        bloc: AudioQueryRooyScope.stateOf(context)!.audioQueryBloc,
         builder: (context, state) {
           if (state is AudioQueryData) {
             return _NavigationDestinationView(

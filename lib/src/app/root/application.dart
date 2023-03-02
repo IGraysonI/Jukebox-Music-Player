@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/extensions/build_context_extensions.dart';
 import '../../core/logger/l.dart';
+import '../../features/audio_query/scope/audio_query_root_scope.dart';
 import '../router/application_navigation.dart';
 import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';
@@ -55,7 +56,21 @@ class _ApplicationState extends State<_Application> {
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: ApplicationTheme.of(context).themeManager.themeMode,
-          builder: (context, child) => child ?? const SizedBox.shrink(),
+          builder: (context, child) => _ScopeProvider(
+            child: child ?? const SizedBox.shrink(),
+          ),
         ),
       );
+}
+
+/// Виджет для встраивания скопов по дереву
+class _ScopeProvider extends StatelessWidget {
+  const _ScopeProvider({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return AudioQueryRooyScope(child: child);
+  }
 }
