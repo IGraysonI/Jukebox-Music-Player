@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:audiotagger/audiotagger.dart';
+// import 'package:audiotagger/audiotagger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +23,7 @@ class MusicPlayer extends StatefulWidget {
 
 class _MusicPlayerState extends State<MusicPlayer> {
   late final ConcatenatingAudioSource _playlist;
-  final tagger = Audiotagger();
+  // final tagger = Audiotagger();
 
   @override
   void initState() {
@@ -51,10 +51,10 @@ class _MusicPlayerState extends State<MusicPlayer> {
   @override
   void dispose() => super.dispose();
 
-  Future<String?> _getLyrics() async {
-    final lyrics = await tagger.readTags(path: widget.songs[0].filePath!);
-    return lyrics?.lyrics;
-  }
+  // Future<String?> _getLyrics() async {
+  //   final lyrics = await tagger.readTags(path: widget.songs[0].filePath!);
+  //   return lyrics?.lyrics;
+  // }
 
   void _showModalBottomSheet(BuildContext context, String text) {
     showModalBottomSheet<Object>(
@@ -73,30 +73,30 @@ class _MusicPlayerState extends State<MusicPlayer> {
               ),
             ),
             const SizedBox(height: 10),
-            Expanded(
-              child: FutureBuilder<String?>(
-                future: _getLyrics(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          snapshot.data!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-            ),
+            // Expanded(
+            //   child: FutureBuilder<String?>(
+            //     future: _getLyrics(),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         return SingleChildScrollView(
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(8),
+            //             child: Text(
+            //               snapshot.data!,
+            //               style: const TextStyle(
+            //                 fontSize: 18,
+            //               ),
+            //             ),
+            //           ),
+            //         );
+            //       } else {
+            //         return const Center(
+            //           child: CircularProgressIndicator(),
+            //         );
+            //       }
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
