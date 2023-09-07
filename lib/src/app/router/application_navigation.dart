@@ -15,7 +15,7 @@ class ApplicationNavigation {
               path: '/${HomePage.page()}',
               builder: (context, state) => const HomePage(),
               routes: const <GoRoute>[],
-            )
+            ),
           ],
         );
 

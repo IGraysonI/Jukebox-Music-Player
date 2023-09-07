@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               instrumentConfigurator: InstrumentConfigurator(
                 sharedPreferences: context.cache.sharedPreferences,
               ),
-            )
+            ),
         ],
       ),
       body: BlocBuilder<AudioQueryBloc, AudioQueryState>(
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   const CircularProgressIndicator(color: Colors.white),
                   Space.sm(),
-                  const Text('Идёт загрузка ваших аудио файлов')
+                  const Text('Идёт загрузка ваших аудио файлов'),
                 ],
               ),
             );

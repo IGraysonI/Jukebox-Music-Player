@@ -44,7 +44,7 @@ class _SharedPrefsComponentState extends State<SharedPrefsComponent> {
             ListTile(
               title: Text(key),
               subtitle: Text(_sharedPrefsMap[key].toString()),
-            )
+            ),
         ],
       ),
     );

@@ -56,7 +56,7 @@ class AlbumCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Icon(Icons.more_vert)
+                const Icon(Icons.more_vert),
               ],
             ),
           ],

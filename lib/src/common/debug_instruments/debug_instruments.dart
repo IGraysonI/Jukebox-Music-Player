@@ -44,7 +44,7 @@ class _DebugInstrumentsPage extends StatelessWidget {
             ),
             title: const Text('Cache'),
             leading: const Icon(Icons.storage_rounded),
-          )
+          ),
         ],
       ),
     );

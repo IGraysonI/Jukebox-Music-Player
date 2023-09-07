@@ -29,8 +29,8 @@ analyzer:
     always_require_non_null_named_parameters: error
 
   strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
+    # implicit-casts: false
+    # implicit-dynamic: false
 
 linter:
   rules:

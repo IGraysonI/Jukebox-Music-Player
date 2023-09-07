@@ -42,7 +42,7 @@ class SelectedArtist extends StatelessWidget {
               Space.sm(),
             ],
           ),
-          AlbumsPage(albums: albums, isScrollable: false)
+          AlbumsPage(albums: albums, isScrollable: false),
         ],
       ),
     );
