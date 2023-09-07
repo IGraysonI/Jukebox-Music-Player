@@ -16,7 +16,12 @@ Future<void> runner() async {
       Bloc.observer = ApplicationBlocObserver();
       runApp(const Application());
     },
-    (error, stackTrace) async => l.e('Critical Error: ', error, stackTrace),
+    (error, stackTrace) async => l.e(
+      'Critical Error: ',
+      time: DateTime.now(),
+      error: error,
+      stackTrace: stackTrace,
+    ),
   );
 }
 

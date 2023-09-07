@@ -32,12 +32,12 @@ class ApplicationLogger {
       _logger = Logger(
         printer: SimplePrinter(),
         output: LoggerFileOutput(file: file),
-        level: Level.verbose,
+        level: Level.trace,
       );
     } else {
       _logger = Logger(
         printer: SimplePrinter(printTime: true),
-        level: Level.verbose,
+        level: Level.trace,
       );
     }
     _logger.i('Расположение логов: ${file?.path}');

@@ -32,7 +32,7 @@ class ApplicationBlocObserver extends BlocObserver {
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     final message = '[${bloc.runtimeType}Error] in [$bloc]';
-    l.e(message, error, stackTrace);
+    l.e(message, error: error, stackTrace: stackTrace);
     super.onError(bloc, error, stackTrace);
   }
 
@@ -53,7 +53,7 @@ class ApplicationBlocObserver extends BlocObserver {
   void _logI(
     String message, {
     bool shouldLog = true,
-    Level level = Level.verbose,
+    Level level = Level.trace,
   }) {
     if (!shouldLog) {
       return;

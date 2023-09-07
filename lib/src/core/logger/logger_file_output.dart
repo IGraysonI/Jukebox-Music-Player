@@ -10,15 +10,15 @@ class LoggerFileOutput extends LogOutput {
   final File _logFile;
 
   @override
-  void init() {
+  Future<void> init() {
     _ioSink = _logFile.openWrite();
-    // super.init();
+    return super.init();
   }
 
   @override
-  void destroy() {
+  Future<void> destroy() {
     _ioSink.close();
-    // super.destroy();
+    return super.destroy();
   }
 
   @override
