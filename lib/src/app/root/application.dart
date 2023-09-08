@@ -8,6 +8,7 @@ import '../router/application_navigation.dart';
 import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';
 import 'application_initialization.dart';
+import 'application_lifecycle_observer.dart';
 import 'application_theme.dart';
 
 /// Корневой виджет
@@ -15,14 +16,16 @@ class Application extends StatelessWidget {
   const Application({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => ApplicationInitialization(
-        child: Builder(
-          builder: (context) {
-            return ApplicationTheme(
-              themeManager: ThemeManager(sharedPrefsStore: context.cache),
-              child: _Application(),
-            );
-          },
+  Widget build(BuildContext context) => ApplicationLifecycleObserver(
+        child: ApplicationInitialization(
+          child: Builder(
+            builder: (context) {
+              return ApplicationTheme(
+                themeManager: ThemeManager(sharedPrefsStore: context.cache),
+                child: _Application(),
+              );
+            },
+          ),
         ),
       );
 
@@ -71,7 +74,6 @@ class _ScopeProvider extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) {
-    return AudioQueryRooyScope(child: MusicPlayerRootScope(child: child));
-  }
+  Widget build(BuildContext context) =>
+      AudioQueryRooyScope(child: MusicPlayerRootScope(child: child));
 }

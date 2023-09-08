@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -26,6 +27,7 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
   late final SharedPrefsStore sharedPrefsStore = SharedPrefsStore();
   late final Logger logger = l;
   late final ThemeManager themeManager;
+  late final FirebaseApp firebaseApp;
   bool _applicationIsInitialized = false;
 
   @override
@@ -34,22 +36,14 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
     super.initState();
   }
 
-  @override
-  void didUpdateWidget(covariant ApplicationInitialization oldWidget) =>
-      super.didUpdateWidget(oldWidget);
-
-  @override
-  void didChangeDependencies() => super.didChangeDependencies();
-
-  @override
-  void dispose() => super.dispose();
-
   void init() => _initApp()
       .then((value) => setState(() => _applicationIsInitialized = true));
 
   /// Инициализация компонентов приложения
   Future<void> _initApp() async {
-    await ApplicationLogger().init();
+    // firebaseApp = await Firebase.initializeApp(options: Default);
+
+    // await ApplicationLogger().init();
     l.i('ApplicationLogger инициализирован');
 
     await sharedPrefsStore.init();
