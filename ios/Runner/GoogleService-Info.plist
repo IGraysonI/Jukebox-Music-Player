@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>687318446378-sm2iapsq9456apdjhkuirf990v6mghb7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.687318446378-sm2iapsq9456apdjhkuirf990v6mghb7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAEUu_weNnG1dwGq0a3BLODRz40f0mGNH4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>687318446378</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.jukeboxMusicPlayer</string>
+	<key>PROJECT_ID</key>
+	<string>jukebox-6b708</string>
+	<key>STORAGE_BUCKET</key>
+	<string>jukebox-6b708.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:687318446378:ios:105be9a8026eb58bd7ee53</string>
+</dict>
+</plist>

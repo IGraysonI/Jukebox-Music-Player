@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -12,4 +13,7 @@ extension BundleX on BuildContext {
 
   /// Логгер
   Logger get logger => ApplicationInitialization.of(this).logger;
+
+  /// Firebase
+  FirebaseApp get firebase => ApplicationInitialization.of(this).firebaseApp;
 }

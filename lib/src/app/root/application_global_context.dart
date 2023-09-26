@@ -7,7 +7,6 @@ class ApplicationGlobalContext extends StatefulWidget {
 
   final Widget child;
 
-  /// Для пойска _ApplicationGlobalContextState в контексте
   static _ApplicationGlobalContextState of(BuildContext context) =>
       context.findAncestorStateOfType<_ApplicationGlobalContextState>()!;
 
@@ -28,13 +27,8 @@ class _ProviderTree extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: const [],
-      child: MultiBlocProvider(
+  Widget build(BuildContext context) => MultiRepositoryProvider(
         providers: const [],
-        child: child,
-      ),
-    );
-  }
+        child: MultiBlocProvider(providers: const [], child: child),
+      );
 }

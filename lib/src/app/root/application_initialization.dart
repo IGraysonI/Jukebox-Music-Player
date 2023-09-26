@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
+import '../../../firebase_options.dart';
 import '../../common/cache/shared_prefs_store.dart';
 import '../../common/widgets/splash_screen.dart';
+import '../../core/firebase/firebase_crashlytics_wrapper.dart';
 import '../../core/logger/l.dart';
 import '../theme/theme_manager.dart';
 
@@ -41,13 +44,18 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
 
   /// Инициализация компонентов приложения
   Future<void> _initApp() async {
-    // firebaseApp = await Firebase.initializeApp(options: Default);
+    firebaseApp = await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    l.i('Firebase инициализирован');
 
-    // await ApplicationLogger().init();
+    ApplicationLogger().init();
     l.i('ApplicationLogger инициализирован');
 
     await sharedPrefsStore.init();
     l.i('SharedPrefsStore инициализирован');
+
+    await FirebaseCrashlyticsWrapper.setCustomKey('kDebugMode', kDebugMode);
   }
 
   @override
