@@ -17,12 +17,6 @@ class AudioQueryRooyScope extends StatefulWidget {
           ?.widget as _InheritedAudioQueryRootScope?)
       ?.state;
 
-  /// Получает аудио файлы с устройства пользователя
-  static void getAudioFiles(BuildContext context) => context
-      .findAncestorStateOfType<_AudioQueryRooyScopeState>()!
-      ._audioQueryBloc!
-      .add(const AudioQueryEvent.getAudioFiles());
-
   @override
   State<AudioQueryRooyScope> createState() => _AudioQueryRooyScopeState();
 }
@@ -31,9 +25,6 @@ class _AudioQueryRooyScopeState extends State<AudioQueryRooyScope> {
   AudioQueryBloc? _audioQueryBloc;
 
   AudioQueryBloc get audioQueryBloc => _audioQueryBloc!;
-
-  @override
-  void initState() => super.initState();
 
   @override
   void didChangeDependencies() {

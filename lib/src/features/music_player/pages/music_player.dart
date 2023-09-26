@@ -2,19 +2,17 @@ import 'dart:io';
 
 // import 'package:audiotagger/audiotagger.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../common/widgets/space.dart';
+import '../../audio_query/scope/audio_query_root_scope.dart';
 import '../bloc/music_player_bloc.dart';
 import '../scope/music_player_root_scope.dart';
 
 class MusicPlayer extends StatefulWidget {
-  const MusicPlayer({required this.songs, required this.songIndex, Key? key})
-      : super(key: key);
+  const MusicPlayer({required this.songIndex, Key? key}) : super(key: key);
 
-  final List<SongInfo> songs;
   final int songIndex;
 
   @override
@@ -29,7 +27,10 @@ class _MusicPlayerState extends State<MusicPlayer> {
   void initState() {
     _playlist = ConcatenatingAudioSource(
       useLazyPreparation: false,
-      children: widget.songs
+      children: AudioQueryRooyScope.stateOf(context)!
+          .audioQueryBloc
+          .state
+          .songs
           .map(
             (song) => AudioSource.file(
               song.filePath!,
@@ -107,6 +108,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
   Widget build(BuildContext context) {
     final player =
         MusicPlayerRootScope.stateOf(context)!.musicPlayerBloc.player;
+    final songs =
+        AudioQueryRooyScope.stateOf(context)!.audioQueryBloc.state.songs;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -126,8 +129,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 stream: player.sequenceStateStream,
                 builder: (context, snapshot) {
                   final state = snapshot.data;
-                  final song =
-                      widget.songs[state?.currentIndex ?? widget.songIndex];
+                  final song = songs[state?.currentIndex ?? widget.songIndex];
                   return song.albumArtwork == null
                       ? const SizedBox.shrink()
                       : ClipRRect(
@@ -148,8 +150,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 stream: player.sequenceStateStream,
                 builder: (context, snapshot) {
                   final state = snapshot.data;
-                  final song =
-                      widget.songs[state?.currentIndex ?? widget.songIndex];
+                  final song = songs[state?.currentIndex ?? widget.songIndex];
                   return Text(
                     song.title!,
                     style: const TextStyle(

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/debug_instruments/debug_instruments.dart';
@@ -24,16 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    AudioQueryRooyScope.getAudioFiles(context);
-    super.initState();
-  }
-
-  @override
-  void dispose() => super.dispose();
+  int _selectedNavigatorIndex = 0;
 
   List<NavigationDestination> get _navigationBarItems =>
       const <NavigationDestination>[
@@ -51,90 +41,76 @@ class _HomePageState extends State<HomePage> {
         ),
       ];
 
-  void _onItemTapped(int index) => setState(() => _selectedIndex = index);
+  void _onItemTapped(int index) =>
+      setState(() => _selectedNavigatorIndex = index);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Jukebox'),
-        actions: [
-          if (kDebugMode)
-            const IconButton(
-              onPressed: FirebaseCrashlyticsWrapper.crash,
-              icon: Icon(Icons.bug_report_rounded),
-            ),
-          if (kDebugMode)
-            DebugInstruments(
-              instrumentConfigurator: InstrumentConfigurator(
-                sharedPreferences: context.cache.sharedPreferences,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Jukebox'),
+          actions: [
+            if (kDebugMode)
+              const IconButton(
+                onPressed: FirebaseCrashlyticsWrapper.crash,
+                icon: Icon(Icons.bug_report_rounded),
               ),
-            ),
-        ],
-      ),
-      body: BlocBuilder<AudioQueryBloc, AudioQueryState>(
-        bloc: AudioQueryRooyScope.stateOf(context)!.audioQueryBloc,
-        builder: (context, state) {
-          if (state is AudioQueryData) {
-            return _NavigationDestinationView(
-              songs: state.songs,
-              albums: state.albums,
-              artists: state.artists,
-              selectedIndex: _selectedIndex,
-            );
-          } else {
-            //TODO: Добавить кастомный экран загрузки
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CircularProgressIndicator(color: Colors.white),
-                  Space.sm(),
-                  const Text('Идёт загрузка ваших аудио файлов'),
-                ],
+            if (kDebugMode)
+              DebugInstruments(
+                instrumentConfigurator: InstrumentConfigurator(
+                  sharedPreferences: context.cache.sharedPreferences,
+                ),
               ),
-            );
-          }
-        },
-      ),
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: _onItemTapped,
-        selectedIndex: _selectedIndex,
-        destinations: _navigationBarItems,
-      ),
-    );
-  }
+          ],
+        ),
+        body: BlocBuilder<AudioQueryBloc, AudioQueryState>(
+          bloc: AudioQueryRooyScope.stateOf(context)!.audioQueryBloc,
+          builder: (context, state) {
+            if (state.isProcessing) {
+              //TODO: Добавить кастомный экран загрузки
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    Space.sm(),
+                    const Text('Идёт загрузка ваших аудио файлов'),
+                  ],
+                ),
+              );
+            } else {
+              return _NavigationDestinationView(
+                selectedIndex: _selectedNavigatorIndex,
+              );
+            }
+          },
+        ),
+        bottomNavigationBar: NavigationBar(
+          onDestinationSelected: _onItemTapped,
+          selectedIndex: _selectedNavigatorIndex,
+          destinations: _navigationBarItems,
+        ),
+      );
 }
 
 class _NavigationDestinationView extends StatelessWidget {
-  const _NavigationDestinationView({
-    required this.selectedIndex,
-    required this.songs,
-    required this.albums,
-    required this.artists,
-    Key? key,
-  }) : super(key: key);
+  const _NavigationDestinationView({required this.selectedIndex, Key? key})
+      : super(key: key);
 
   final int selectedIndex;
-  final List<SongInfo> songs;
-  final List<AlbumInfo> albums;
-  final List<ArtistInfo> artists;
 
   Widget _buildBody() {
     switch (selectedIndex) {
       case 0:
-        return SongsPage(songs: songs);
+        return const SongsPage();
       case 1:
-        return AlbumsPage(albums: albums, isScrollable: true);
+        return const AlbumsPage(albums: [], isScrollable: true);
       case 2:
-        return ArtistsPage(artists: artists);
+        return const ArtistsPage(artists: []);
       default:
         return Center(child: Text('Для $selectedIndex ничего нет'));
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return _buildBody();
-  }
+  Widget build(BuildContext context) => _buildBody();
 }

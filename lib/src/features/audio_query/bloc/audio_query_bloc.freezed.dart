@@ -16,49 +16,15 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AudioQueryState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)
-        data,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)?
-        data,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)?
-        data,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AudioQueryInitial value) initial,
-    required TResult Function(AudioQueryData value) data,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AudioQueryInitial value)? initial,
-    TResult? Function(AudioQueryData value)? data,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AudioQueryInitial value)? initial,
-    TResult Function(AudioQueryData value)? data,
-    required TResult orElse(),
-  }) =>
+  List<SongInfo> get songs => throw _privateConstructorUsedError;
+  List<AlbumInfo> get albums => throw _privateConstructorUsedError;
+  List<ArtistInfo> get artists => throw _privateConstructorUsedError;
+  bool get isProcessing => throw _privateConstructorUsedError;
+  Object? get error => throw _privateConstructorUsedError;
+  StackTrace? get stackTrace => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AudioQueryStateCopyWith<AudioQueryState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -67,6 +33,14 @@ abstract class $AudioQueryStateCopyWith<$Res> {
   factory $AudioQueryStateCopyWith(
           AudioQueryState value, $Res Function(AudioQueryState) then) =
       _$AudioQueryStateCopyWithImpl<$Res, AudioQueryState>;
+  @useResult
+  $Res call(
+      {List<SongInfo> songs,
+      List<AlbumInfo> albums,
+      List<ArtistInfo> artists,
+      bool isProcessing,
+      Object? error,
+      StackTrace? stackTrace});
 }
 
 /// @nodoc
@@ -78,133 +52,66 @@ class _$AudioQueryStateCopyWithImpl<$Res, $Val extends AudioQueryState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? songs = null,
+    Object? albums = null,
+    Object? artists = null,
+    Object? isProcessing = null,
+    Object? error = freezed,
+    Object? stackTrace = freezed,
+  }) {
+    return _then(_value.copyWith(
+      songs: null == songs
+          ? _value.songs
+          : songs // ignore: cast_nullable_to_non_nullable
+              as List<SongInfo>,
+      albums: null == albums
+          ? _value.albums
+          : albums // ignore: cast_nullable_to_non_nullable
+              as List<AlbumInfo>,
+      artists: null == artists
+          ? _value.artists
+          : artists // ignore: cast_nullable_to_non_nullable
+              as List<ArtistInfo>,
+      isProcessing: null == isProcessing
+          ? _value.isProcessing
+          : isProcessing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error ? _value.error : error,
+      stackTrace: freezed == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$AudioQueryInitialCopyWith<$Res> {
-  factory _$$AudioQueryInitialCopyWith(
-          _$AudioQueryInitial value, $Res Function(_$AudioQueryInitial) then) =
-      __$$AudioQueryInitialCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AudioQueryInitialCopyWithImpl<$Res>
-    extends _$AudioQueryStateCopyWithImpl<$Res, _$AudioQueryInitial>
-    implements _$$AudioQueryInitialCopyWith<$Res> {
-  __$$AudioQueryInitialCopyWithImpl(
-      _$AudioQueryInitial _value, $Res Function(_$AudioQueryInitial) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$AudioQueryInitial extends AudioQueryInitial {
-  const _$AudioQueryInitial() : super._();
-
+abstract class _$$_AudioQueryStateCopyWith<$Res>
+    implements $AudioQueryStateCopyWith<$Res> {
+  factory _$$_AudioQueryStateCopyWith(
+          _$_AudioQueryState value, $Res Function(_$_AudioQueryState) then) =
+      __$$_AudioQueryStateCopyWithImpl<$Res>;
   @override
-  String toString() {
-    return 'AudioQueryState.initial()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AudioQueryInitial);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)
-        data,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)?
-        data,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)?
-        data,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AudioQueryInitial value) initial,
-    required TResult Function(AudioQueryData value) data,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AudioQueryInitial value)? initial,
-    TResult? Function(AudioQueryData value)? data,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AudioQueryInitial value)? initial,
-    TResult Function(AudioQueryData value)? data,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AudioQueryInitial extends AudioQueryState {
-  const factory AudioQueryInitial() = _$AudioQueryInitial;
-  const AudioQueryInitial._() : super._();
-}
-
-/// @nodoc
-abstract class _$$AudioQueryDataCopyWith<$Res> {
-  factory _$$AudioQueryDataCopyWith(
-          _$AudioQueryData value, $Res Function(_$AudioQueryData) then) =
-      __$$AudioQueryDataCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<SongInfo> songs, List<AlbumInfo> albums, List<ArtistInfo> artists});
+      {List<SongInfo> songs,
+      List<AlbumInfo> albums,
+      List<ArtistInfo> artists,
+      bool isProcessing,
+      Object? error,
+      StackTrace? stackTrace});
 }
 
 /// @nodoc
-class __$$AudioQueryDataCopyWithImpl<$Res>
-    extends _$AudioQueryStateCopyWithImpl<$Res, _$AudioQueryData>
-    implements _$$AudioQueryDataCopyWith<$Res> {
-  __$$AudioQueryDataCopyWithImpl(
-      _$AudioQueryData _value, $Res Function(_$AudioQueryData) _then)
+class __$$_AudioQueryStateCopyWithImpl<$Res>
+    extends _$AudioQueryStateCopyWithImpl<$Res, _$_AudioQueryState>
+    implements _$$_AudioQueryStateCopyWith<$Res> {
+  __$$_AudioQueryStateCopyWithImpl(
+      _$_AudioQueryState _value, $Res Function(_$_AudioQueryState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -213,8 +120,11 @@ class __$$AudioQueryDataCopyWithImpl<$Res>
     Object? songs = null,
     Object? albums = null,
     Object? artists = null,
+    Object? isProcessing = null,
+    Object? error = freezed,
+    Object? stackTrace = freezed,
   }) {
-    return _then(_$AudioQueryData(
+    return _then(_$_AudioQueryState(
       songs: null == songs
           ? _value._songs
           : songs // ignore: cast_nullable_to_non_nullable
@@ -227,17 +137,29 @@ class __$$AudioQueryDataCopyWithImpl<$Res>
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<ArtistInfo>,
+      isProcessing: null == isProcessing
+          ? _value.isProcessing
+          : isProcessing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error ? _value.error : error,
+      stackTrace: freezed == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$AudioQueryData extends AudioQueryData {
-  const _$AudioQueryData(
+class _$_AudioQueryState extends _AudioQueryState {
+  const _$_AudioQueryState(
       {required final List<SongInfo> songs,
       required final List<AlbumInfo> albums,
-      required final List<ArtistInfo> artists})
+      required final List<ArtistInfo> artists,
+      this.isProcessing = false,
+      this.error,
+      this.stackTrace})
       : _songs = songs,
         _albums = albums,
         _artists = artists,
@@ -268,18 +190,31 @@ class _$AudioQueryData extends AudioQueryData {
   }
 
   @override
+  @JsonKey()
+  final bool isProcessing;
+  @override
+  final Object? error;
+  @override
+  final StackTrace? stackTrace;
+
+  @override
   String toString() {
-    return 'AudioQueryState.data(songs: $songs, albums: $albums, artists: $artists)';
+    return 'AudioQueryState(songs: $songs, albums: $albums, artists: $artists, isProcessing: $isProcessing, error: $error, stackTrace: $stackTrace)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AudioQueryData &&
+            other is _$_AudioQueryState &&
             const DeepCollectionEquality().equals(other._songs, _songs) &&
             const DeepCollectionEquality().equals(other._albums, _albums) &&
-            const DeepCollectionEquality().equals(other._artists, _artists));
+            const DeepCollectionEquality().equals(other._artists, _artists) &&
+            (identical(other.isProcessing, isProcessing) ||
+                other.isProcessing == isProcessing) &&
+            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.stackTrace, stackTrace) ||
+                other.stackTrace == stackTrace));
   }
 
   @override
@@ -287,95 +222,43 @@ class _$AudioQueryData extends AudioQueryData {
       runtimeType,
       const DeepCollectionEquality().hash(_songs),
       const DeepCollectionEquality().hash(_albums),
-      const DeepCollectionEquality().hash(_artists));
+      const DeepCollectionEquality().hash(_artists),
+      isProcessing,
+      const DeepCollectionEquality().hash(error),
+      stackTrace);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AudioQueryDataCopyWith<_$AudioQueryData> get copyWith =>
-      __$$AudioQueryDataCopyWithImpl<_$AudioQueryData>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)
-        data,
-  }) {
-    return data(songs, albums, artists);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)?
-        data,
-  }) {
-    return data?.call(songs, albums, artists);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<SongInfo> songs, List<AlbumInfo> albums,
-            List<ArtistInfo> artists)?
-        data,
-    required TResult orElse(),
-  }) {
-    if (data != null) {
-      return data(songs, albums, artists);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AudioQueryInitial value) initial,
-    required TResult Function(AudioQueryData value) data,
-  }) {
-    return data(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AudioQueryInitial value)? initial,
-    TResult? Function(AudioQueryData value)? data,
-  }) {
-    return data?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AudioQueryInitial value)? initial,
-    TResult Function(AudioQueryData value)? data,
-    required TResult orElse(),
-  }) {
-    if (data != null) {
-      return data(this);
-    }
-    return orElse();
-  }
+  _$$_AudioQueryStateCopyWith<_$_AudioQueryState> get copyWith =>
+      __$$_AudioQueryStateCopyWithImpl<_$_AudioQueryState>(this, _$identity);
 }
 
-abstract class AudioQueryData extends AudioQueryState {
-  const factory AudioQueryData(
+abstract class _AudioQueryState extends AudioQueryState {
+  const factory _AudioQueryState(
       {required final List<SongInfo> songs,
       required final List<AlbumInfo> albums,
-      required final List<ArtistInfo> artists}) = _$AudioQueryData;
-  const AudioQueryData._() : super._();
+      required final List<ArtistInfo> artists,
+      final bool isProcessing,
+      final Object? error,
+      final StackTrace? stackTrace}) = _$_AudioQueryState;
+  const _AudioQueryState._() : super._();
 
+  @override
   List<SongInfo> get songs;
+  @override
   List<AlbumInfo> get albums;
+  @override
   List<ArtistInfo> get artists;
+  @override
+  bool get isProcessing;
+  @override
+  Object? get error;
+  @override
+  StackTrace? get stackTrace;
+  @override
   @JsonKey(ignore: true)
-  _$$AudioQueryDataCopyWith<_$AudioQueryData> get copyWith =>
+  _$$_AudioQueryStateCopyWith<_$_AudioQueryState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

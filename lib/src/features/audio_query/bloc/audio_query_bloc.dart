@@ -8,12 +8,13 @@ import '../data/audio_query_repository.dart';
 part 'audio_query_bloc.freezed.dart';
 
 /// Блок для работы с аудио файлами на устройстве пользователя (получение
-///  списка аудио файлов, альбомов, исполнителей)
+/// списка аудио файлов, альбомов, исполнителей)
 class AudioQueryBloc extends Bloc<AudioQueryEvent, AudioQueryState> {
   AudioQueryBloc({required AudioQueryRepository audioQueryRepository})
       : _audioQueryRepository = audioQueryRepository,
-        super(const AudioQueryInitial()) {
+        super(AudioQueryState.initial()) {
     on<GetAudioFiles>(_getAudioFiles);
+    add(const AudioQueryEvent.getAudioFiles());
   }
 
   final AudioQueryRepository _audioQueryRepository;
@@ -28,7 +29,14 @@ class AudioQueryBloc extends Bloc<AudioQueryEvent, AudioQueryState> {
       final albums = await _audioQueryRepository.getAlbums();
       final artists = await _audioQueryRepository.getArtists();
 
-      emit(AudioQueryData(songs: songs, albums: albums, artists: artists));
+      emit(
+        state.copyWith(
+          songs: songs,
+          albums: albums,
+          artists: artists,
+          isProcessing: false,
+        ),
+      );
     } on Exception catch (e, st) {
       l.e('AudioQueryCubit exception with error: $e and stactTrace: $st');
     }
@@ -37,29 +45,22 @@ class AudioQueryBloc extends Bloc<AudioQueryEvent, AudioQueryState> {
 
 @freezed
 class AudioQueryState with _$AudioQueryState {
+  const factory AudioQueryState({
+    required final List<SongInfo> songs,
+    required final List<AlbumInfo> albums,
+    required final List<ArtistInfo> artists,
+    @Default(false) bool isProcessing,
+    Object? error,
+    StackTrace? stackTrace,
+  }) = _AudioQueryState;
+
   const AudioQueryState._();
 
-  const factory AudioQueryState.initial() = AudioQueryInitial;
-
-  const factory AudioQueryState.data({
-    required List<SongInfo> songs,
-    required List<AlbumInfo> albums,
-    required List<ArtistInfo> artists,
-  }) = AudioQueryData;
-
-  List<SongInfo> get songs => maybeMap(
-        data: (data) => data.songs,
-        orElse: () => [],
-      );
-
-  List<AlbumInfo> get albums => maybeMap(
-        data: (data) => data.albums,
-        orElse: () => [],
-      );
-
-  List<ArtistInfo> get artists => maybeMap(
-        data: (data) => data.artists,
-        orElse: () => [],
+  factory AudioQueryState.initial() => const AudioQueryState(
+        songs: [],
+        albums: [],
+        artists: [],
+        isProcessing: true,
       );
 }
 
