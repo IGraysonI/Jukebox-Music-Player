@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Jukebox-Music-Player (develop mode)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "console": "debugConsole",
+            "env": {
+              "ENVIRONMENT": "develop"
+            },
+            "args": [
+              "--dart-define=ENVIRONMENT=develop",
+            ]
+          },
+        {
+            "name": "Jukebox-Music-Player",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Jukebox-Music-Player (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "Jukebox-Music-Player (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
