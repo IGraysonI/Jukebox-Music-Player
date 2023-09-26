@@ -23,12 +23,12 @@ class MusicPlayerRootScope extends StatefulWidget {
     ConcatenatingAudioSource playlist,
     int selectedSongIndex,
   ) =>
-      of(context).musicPlayerBloc.add(
-            MusicPlayerEvent.playPlaylist(
-              playlist: playlist,
-              selectedSongIndex: selectedSongIndex,
-            ),
-          );
+      of(context).player
+        ..setAudioSource(
+          playlist,
+          initialIndex: selectedSongIndex,
+        )
+        ..play();
 
   @override
   State<MusicPlayerRootScope> createState() => _MusicPlayerRootScopeState();
@@ -36,21 +36,22 @@ class MusicPlayerRootScope extends StatefulWidget {
 
 class _MusicPlayerRootScopeState extends State<MusicPlayerRootScope> {
   MusicPlayerBloc? _musicPlayerBloc;
+  AudioPlayer? _audioPlayer;
 
   MusicPlayerBloc get musicPlayerBloc => _musicPlayerBloc!;
-
-  @override
-  void initState() => super.initState();
+  AudioPlayer get player => _audioPlayer!;
 
   @override
   void didChangeDependencies() {
     _musicPlayerBloc = MusicPlayerBloc();
+    _audioPlayer = AudioPlayer();
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
     _musicPlayerBloc?.close();
+    _audioPlayer?.dispose();
     super.dispose();
   }
 

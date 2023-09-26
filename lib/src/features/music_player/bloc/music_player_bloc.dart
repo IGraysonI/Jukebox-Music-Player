@@ -5,40 +5,32 @@ import 'package:just_audio/just_audio.dart';
 part 'music_player_bloc.freezed.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
-  MusicPlayerBloc() : super(const MusicPlayerInitial()) {
+  MusicPlayerBloc() : super(MusicPlayerState.initial()) {
     on<MusicPlayerPlayPlaylist>(_playPlaylist);
   }
-
-  final player = AudioPlayer();
 
   Future<void> _playPlaylist(
     MusicPlayerPlayPlaylist event,
     Emitter<MusicPlayerState> emit,
-  ) async {
-    await player.setAudioSource(
-      event.playlist,
-      initialIndex: event.selectedSongIndex,
-    );
-    await player.play();
-    emit(
-      MusicPlayerPlaying(
-        playlist: event.playlist,
-        currentIndex: event.selectedSongIndex,
-      ),
-    );
-  }
+  ) async {}
 }
 
 @freezed
 class MusicPlayerState with _$MusicPlayerState {
+  const factory MusicPlayerState({
+    required final ConcatenatingAudioSource playlist,
+    required final int currentIndex,
+    @Default(false) bool isProcessing,
+    Object? error,
+    StackTrace? stackTrace,
+  }) = MusicPlayerPlaying;
+
   const MusicPlayerState._();
 
-  const factory MusicPlayerState.initial() = MusicPlayerInitial;
-
-  const factory MusicPlayerState.playing({
-    required ConcatenatingAudioSource playlist,
-    required int currentIndex,
-  }) = MusicPlayerPlaying;
+  factory MusicPlayerState.initial() => MusicPlayerState(
+        playlist: ConcatenatingAudioSource(children: []),
+        currentIndex: 0,
+      );
 }
 
 @freezed

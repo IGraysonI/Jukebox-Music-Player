@@ -16,47 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MusicPlayerState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(
-            ConcatenatingAudioSource playlist, int currentIndex)
-        playing,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(ConcatenatingAudioSource playlist, int currentIndex)?
-        playing,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(ConcatenatingAudioSource playlist, int currentIndex)?
-        playing,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MusicPlayerInitial value) initial,
-    required TResult Function(MusicPlayerPlaying value) playing,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MusicPlayerInitial value)? initial,
-    TResult? Function(MusicPlayerPlaying value)? playing,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MusicPlayerInitial value)? initial,
-    TResult Function(MusicPlayerPlaying value)? playing,
-    required TResult orElse(),
-  }) =>
+  ConcatenatingAudioSource get playlist => throw _privateConstructorUsedError;
+  int get currentIndex => throw _privateConstructorUsedError;
+  bool get isProcessing => throw _privateConstructorUsedError;
+  Object? get error => throw _privateConstructorUsedError;
+  StackTrace? get stackTrace => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $MusicPlayerStateCopyWith<MusicPlayerState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -65,6 +32,13 @@ abstract class $MusicPlayerStateCopyWith<$Res> {
   factory $MusicPlayerStateCopyWith(
           MusicPlayerState value, $Res Function(MusicPlayerState) then) =
       _$MusicPlayerStateCopyWithImpl<$Res, MusicPlayerState>;
+  @useResult
+  $Res call(
+      {ConcatenatingAudioSource playlist,
+      int currentIndex,
+      bool isProcessing,
+      Object? error,
+      StackTrace? stackTrace});
 }
 
 /// @nodoc
@@ -76,122 +50,52 @@ class _$MusicPlayerStateCopyWithImpl<$Res, $Val extends MusicPlayerState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? playlist = null,
+    Object? currentIndex = null,
+    Object? isProcessing = null,
+    Object? error = freezed,
+    Object? stackTrace = freezed,
+  }) {
+    return _then(_value.copyWith(
+      playlist: null == playlist
+          ? _value.playlist
+          : playlist // ignore: cast_nullable_to_non_nullable
+              as ConcatenatingAudioSource,
+      currentIndex: null == currentIndex
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      isProcessing: null == isProcessing
+          ? _value.isProcessing
+          : isProcessing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error ? _value.error : error,
+      stackTrace: freezed == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace?,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$MusicPlayerInitialCopyWith<$Res> {
-  factory _$$MusicPlayerInitialCopyWith(_$MusicPlayerInitial value,
-          $Res Function(_$MusicPlayerInitial) then) =
-      __$$MusicPlayerInitialCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$MusicPlayerInitialCopyWithImpl<$Res>
-    extends _$MusicPlayerStateCopyWithImpl<$Res, _$MusicPlayerInitial>
-    implements _$$MusicPlayerInitialCopyWith<$Res> {
-  __$$MusicPlayerInitialCopyWithImpl(
-      _$MusicPlayerInitial _value, $Res Function(_$MusicPlayerInitial) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$MusicPlayerInitial extends MusicPlayerInitial {
-  const _$MusicPlayerInitial() : super._();
-
-  @override
-  String toString() {
-    return 'MusicPlayerState.initial()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$MusicPlayerInitial);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(
-            ConcatenatingAudioSource playlist, int currentIndex)
-        playing,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(ConcatenatingAudioSource playlist, int currentIndex)?
-        playing,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(ConcatenatingAudioSource playlist, int currentIndex)?
-        playing,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MusicPlayerInitial value) initial,
-    required TResult Function(MusicPlayerPlaying value) playing,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MusicPlayerInitial value)? initial,
-    TResult? Function(MusicPlayerPlaying value)? playing,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MusicPlayerInitial value)? initial,
-    TResult Function(MusicPlayerPlaying value)? playing,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class MusicPlayerInitial extends MusicPlayerState {
-  const factory MusicPlayerInitial() = _$MusicPlayerInitial;
-  const MusicPlayerInitial._() : super._();
-}
-
-/// @nodoc
-abstract class _$$MusicPlayerPlayingCopyWith<$Res> {
+abstract class _$$MusicPlayerPlayingCopyWith<$Res>
+    implements $MusicPlayerStateCopyWith<$Res> {
   factory _$$MusicPlayerPlayingCopyWith(_$MusicPlayerPlaying value,
           $Res Function(_$MusicPlayerPlaying) then) =
       __$$MusicPlayerPlayingCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({ConcatenatingAudioSource playlist, int currentIndex});
+  $Res call(
+      {ConcatenatingAudioSource playlist,
+      int currentIndex,
+      bool isProcessing,
+      Object? error,
+      StackTrace? stackTrace});
 }
 
 /// @nodoc
@@ -207,6 +111,9 @@ class __$$MusicPlayerPlayingCopyWithImpl<$Res>
   $Res call({
     Object? playlist = null,
     Object? currentIndex = null,
+    Object? isProcessing = null,
+    Object? error = freezed,
+    Object? stackTrace = freezed,
   }) {
     return _then(_$MusicPlayerPlaying(
       playlist: null == playlist
@@ -217,6 +124,15 @@ class __$$MusicPlayerPlayingCopyWithImpl<$Res>
           ? _value.currentIndex
           : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      isProcessing: null == isProcessing
+          ? _value.isProcessing
+          : isProcessing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      error: freezed == error ? _value.error : error,
+      stackTrace: freezed == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace?,
     ));
   }
 }
@@ -225,17 +141,28 @@ class __$$MusicPlayerPlayingCopyWithImpl<$Res>
 
 class _$MusicPlayerPlaying extends MusicPlayerPlaying {
   const _$MusicPlayerPlaying(
-      {required this.playlist, required this.currentIndex})
+      {required this.playlist,
+      required this.currentIndex,
+      this.isProcessing = false,
+      this.error,
+      this.stackTrace})
       : super._();
 
   @override
   final ConcatenatingAudioSource playlist;
   @override
   final int currentIndex;
+  @override
+  @JsonKey()
+  final bool isProcessing;
+  @override
+  final Object? error;
+  @override
+  final StackTrace? stackTrace;
 
   @override
   String toString() {
-    return 'MusicPlayerState.playing(playlist: $playlist, currentIndex: $currentIndex)';
+    return 'MusicPlayerState(playlist: $playlist, currentIndex: $currentIndex, isProcessing: $isProcessing, error: $error, stackTrace: $stackTrace)';
   }
 
   @override
@@ -246,11 +173,17 @@ class _$MusicPlayerPlaying extends MusicPlayerPlaying {
             (identical(other.playlist, playlist) ||
                 other.playlist == playlist) &&
             (identical(other.currentIndex, currentIndex) ||
-                other.currentIndex == currentIndex));
+                other.currentIndex == currentIndex) &&
+            (identical(other.isProcessing, isProcessing) ||
+                other.isProcessing == isProcessing) &&
+            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.stackTrace, stackTrace) ||
+                other.stackTrace == stackTrace));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, playlist, currentIndex);
+  int get hashCode => Object.hash(runtimeType, playlist, currentIndex,
+      isProcessing, const DeepCollectionEquality().hash(error), stackTrace);
 
   @JsonKey(ignore: true)
   @override
@@ -258,82 +191,28 @@ class _$MusicPlayerPlaying extends MusicPlayerPlaying {
   _$$MusicPlayerPlayingCopyWith<_$MusicPlayerPlaying> get copyWith =>
       __$$MusicPlayerPlayingCopyWithImpl<_$MusicPlayerPlaying>(
           this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(
-            ConcatenatingAudioSource playlist, int currentIndex)
-        playing,
-  }) {
-    return playing(playlist, currentIndex);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function(ConcatenatingAudioSource playlist, int currentIndex)?
-        playing,
-  }) {
-    return playing?.call(playlist, currentIndex);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(ConcatenatingAudioSource playlist, int currentIndex)?
-        playing,
-    required TResult orElse(),
-  }) {
-    if (playing != null) {
-      return playing(playlist, currentIndex);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(MusicPlayerInitial value) initial,
-    required TResult Function(MusicPlayerPlaying value) playing,
-  }) {
-    return playing(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MusicPlayerInitial value)? initial,
-    TResult? Function(MusicPlayerPlaying value)? playing,
-  }) {
-    return playing?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(MusicPlayerInitial value)? initial,
-    TResult Function(MusicPlayerPlaying value)? playing,
-    required TResult orElse(),
-  }) {
-    if (playing != null) {
-      return playing(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class MusicPlayerPlaying extends MusicPlayerState {
   const factory MusicPlayerPlaying(
       {required final ConcatenatingAudioSource playlist,
-      required final int currentIndex}) = _$MusicPlayerPlaying;
+      required final int currentIndex,
+      final bool isProcessing,
+      final Object? error,
+      final StackTrace? stackTrace}) = _$MusicPlayerPlaying;
   const MusicPlayerPlaying._() : super._();
 
+  @override
   ConcatenatingAudioSource get playlist;
+  @override
   int get currentIndex;
+  @override
+  bool get isProcessing;
+  @override
+  Object? get error;
+  @override
+  StackTrace? get stackTrace;
+  @override
   @JsonKey(ignore: true)
   _$$MusicPlayerPlayingCopyWith<_$MusicPlayerPlaying> get copyWith =>
       throw _privateConstructorUsedError;
