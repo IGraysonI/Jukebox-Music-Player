@@ -11,6 +11,7 @@ import '../../albums/page/albums_page.dart';
 import '../../artists/page/artists_page.dart';
 import '../../audio_query/bloc/audio_query_bloc.dart';
 import '../../audio_query/scope/audio_query_root_scope.dart';
+import '../../music_player/widgets/mini_player.dart';
 import '../../songs/page/songs_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -106,14 +107,28 @@ class _NavigationDestinationView extends StatelessWidget {
               AudioQueryRooyScope.stateOf(context)!.audioQueryBloc.state.songs,
         );
       case 1:
-        return const AlbumsPage(albums: [], isScrollable: true);
+        return AlbumsPage(
+          albums:
+              AudioQueryRooyScope.stateOf(context)!.audioQueryBloc.state.albums,
+          isScrollable: true,
+        );
       case 2:
-        return const ArtistsPage(artists: []);
+        return ArtistsPage(
+          artists: AudioQueryRooyScope.stateOf(context)!
+              .audioQueryBloc
+              .state
+              .artists,
+        );
       default:
         return Center(child: Text('Для $selectedIndex ничего нет'));
     }
   }
 
   @override
-  Widget build(BuildContext context) => _buildBody(context);
+  Widget build(BuildContext context) => Column(
+        children: [
+          Expanded(child: _buildBody(context)),
+          const MiniPlayer(),
+        ],
+      );
 }

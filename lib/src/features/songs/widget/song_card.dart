@@ -24,8 +24,9 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListTile(
         leading: showArtist!
-            //TODO: Добавить условие для песен без обложки
-            ? Image(image: FileImage(File(song.albumArtwork!)))
+            ? song.albumArtwork != null
+                ? Image(image: FileImage(File(song.albumArtwork!)))
+                : const Image(image: AssetImage('assets/images/no_image.jpg'))
             : Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Column(

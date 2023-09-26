@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../common/widgets/space.dart';
-import '../../audio_query/scope/audio_query_root_scope.dart';
 import '../bloc/music_player_bloc.dart';
 import '../scope/music_player_root_scope.dart';
 
@@ -45,8 +44,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
   @override
   Widget build(BuildContext context) {
     final player = MusicPlayerRootScope.stateOf(context)!.player;
-    final songs =
-        AudioQueryRooyScope.stateOf(context)!.audioQueryBloc.state.songs;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -64,33 +61,41 @@ class _MusicPlayerState extends State<MusicPlayer> {
             StreamBuilder<SequenceState?>(
               stream: player.sequenceStateStream,
               builder: (context, snapshot) {
-                final state = snapshot.data;
-                final song = songs[state?.currentIndex ?? widget.songIndex];
-                return song.albumArtwork == null
-                    ? const SizedBox.shrink()
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.file(
-                          File(song.albumArtwork!),
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          fit: BoxFit.fill,
-                        ),
-                      );
+                if (snapshot.hasData) {
+                  final state = snapshot.data;
+                  final song = state?.currentSource?.tag as SongInfo;
+                  return song.albumArtwork == null
+                      ? const SizedBox.shrink()
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.file(
+                            File(song.albumArtwork!),
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                } else {
+                  return const SizedBox.shrink();
+                }
               },
             ),
             Space.sm(),
             StreamBuilder<SequenceState?>(
               stream: player.sequenceStateStream,
               builder: (context, snapshot) {
-                final state = snapshot.data;
-                final song = songs[state?.currentIndex ?? widget.songIndex];
-                return Text(
-                  song.title!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                );
+                if (snapshot.hasData) {
+                  final state = snapshot.data;
+                  final song = state?.currentSource?.tag as SongInfo;
+                  return Text(
+                    song.title!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
               },
             ),
             Space.sm(),
@@ -196,7 +201,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.skip_next_outlined),
-                  onPressed: () => setState(player.seekToNext),
+                  onPressed: player.seekToNext,
                 ),
                 StreamBuilder<bool>(
                   stream: player.shuffleModeEnabledStream,
