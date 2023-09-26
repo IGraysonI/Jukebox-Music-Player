@@ -7,6 +7,7 @@ import '../../../common/debug_instruments/debug_instruments.dart';
 import '../../../common/debug_instruments/instruments_configurator.dart';
 import '../../../common/extensions/build_context_extensions.dart';
 import '../../../common/widgets/space.dart';
+import '../../../core/firebase/firebase_crashlytics_wrapper.dart';
 import '../../albums/page/albums_page.dart';
 import '../../artists/page/artists_page.dart';
 import '../../audio_query/bloc/audio_query_bloc.dart';
@@ -58,6 +59,11 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Jukebox'),
         actions: [
+          if (kDebugMode)
+            const IconButton(
+              onPressed: FirebaseCrashlyticsWrapper.crash,
+              icon: Icon(Icons.bug_report_rounded),
+            ),
           if (kDebugMode)
             DebugInstruments(
               instrumentConfigurator: InstrumentConfigurator(

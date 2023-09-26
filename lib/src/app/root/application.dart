@@ -7,7 +7,6 @@ import '../../features/music_player/scope/music_player_root_scope.dart';
 import '../router/application_navigation.dart';
 import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';
-import 'application_global_context.dart';
 import 'application_initialization.dart';
 import 'application_lifecycle_observer.dart';
 import 'application_theme.dart';
@@ -22,12 +21,10 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ApplicationLifecycleObserver(
         child: ApplicationInitialization(
-          child: ApplicationGlobalContext(
-            child: Builder(
-              builder: (context) => ApplicationTheme(
-                themeManager: ThemeManager(sharedPrefsStore: context.cache),
-                child: _Application(),
-              ),
+          child: Builder(
+            builder: (context) => ApplicationTheme(
+              themeManager: ThemeManager(sharedPrefsStore: context.cache),
+              child: _Application(),
             ),
           ),
         ),

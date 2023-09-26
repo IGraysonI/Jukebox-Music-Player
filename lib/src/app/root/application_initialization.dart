@@ -44,18 +44,19 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
 
   /// Инициализация компонентов приложения
   Future<void> _initApp() async {
+    ApplicationLogger().init();
+    l.i('ApplicationLogger инициализирован');
+
     firebaseApp = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     l.i('Firebase инициализирован');
 
-    ApplicationLogger().init();
-    l.i('ApplicationLogger инициализирован');
-
     await sharedPrefsStore.init();
     l.i('SharedPrefsStore инициализирован');
 
     await FirebaseCrashlyticsWrapper.setCustomKey('kDebugMode', kDebugMode);
+    l.i('CustomKey kDebugMode установлен');
   }
 
   @override
