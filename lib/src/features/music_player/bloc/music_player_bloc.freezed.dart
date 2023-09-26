@@ -220,41 +220,40 @@ abstract class MusicPlayerPlaying extends MusicPlayerState {
 
 /// @nodoc
 mixin _$MusicPlayerEvent {
-  ConcatenatingAudioSource get playlist => throw _privateConstructorUsedError;
+  List<SongInfo> get songs => throw _privateConstructorUsedError;
   int get selectedSongIndex => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            ConcatenatingAudioSource playlist, int selectedSongIndex)
-        playPlaylist,
+    required TResult Function(List<SongInfo> songs, int selectedSongIndex)
+        createPlaylist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ConcatenatingAudioSource playlist, int selectedSongIndex)?
-        playPlaylist,
+    TResult? Function(List<SongInfo> songs, int selectedSongIndex)?
+        createPlaylist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ConcatenatingAudioSource playlist, int selectedSongIndex)?
-        playPlaylist,
+    TResult Function(List<SongInfo> songs, int selectedSongIndex)?
+        createPlaylist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MusicPlayerPlayPlaylist value) playPlaylist,
+    required TResult Function(MusicPlayerCreatePlaylist value) createPlaylist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MusicPlayerPlayPlaylist value)? playPlaylist,
+    TResult? Function(MusicPlayerCreatePlaylist value)? createPlaylist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MusicPlayerPlayPlaylist value)? playPlaylist,
+    TResult Function(MusicPlayerCreatePlaylist value)? createPlaylist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -270,7 +269,7 @@ abstract class $MusicPlayerEventCopyWith<$Res> {
           MusicPlayerEvent value, $Res Function(MusicPlayerEvent) then) =
       _$MusicPlayerEventCopyWithImpl<$Res, MusicPlayerEvent>;
   @useResult
-  $Res call({ConcatenatingAudioSource playlist, int selectedSongIndex});
+  $Res call({List<SongInfo> songs, int selectedSongIndex});
 }
 
 /// @nodoc
@@ -286,14 +285,14 @@ class _$MusicPlayerEventCopyWithImpl<$Res, $Val extends MusicPlayerEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playlist = null,
+    Object? songs = null,
     Object? selectedSongIndex = null,
   }) {
     return _then(_value.copyWith(
-      playlist: null == playlist
-          ? _value.playlist
-          : playlist // ignore: cast_nullable_to_non_nullable
-              as ConcatenatingAudioSource,
+      songs: null == songs
+          ? _value.songs
+          : songs // ignore: cast_nullable_to_non_nullable
+              as List<SongInfo>,
       selectedSongIndex: null == selectedSongIndex
           ? _value.selectedSongIndex
           : selectedSongIndex // ignore: cast_nullable_to_non_nullable
@@ -303,35 +302,36 @@ class _$MusicPlayerEventCopyWithImpl<$Res, $Val extends MusicPlayerEvent>
 }
 
 /// @nodoc
-abstract class _$$MusicPlayerPlayPlaylistCopyWith<$Res>
+abstract class _$$MusicPlayerCreatePlaylistCopyWith<$Res>
     implements $MusicPlayerEventCopyWith<$Res> {
-  factory _$$MusicPlayerPlayPlaylistCopyWith(_$MusicPlayerPlayPlaylist value,
-          $Res Function(_$MusicPlayerPlayPlaylist) then) =
-      __$$MusicPlayerPlayPlaylistCopyWithImpl<$Res>;
+  factory _$$MusicPlayerCreatePlaylistCopyWith(
+          _$MusicPlayerCreatePlaylist value,
+          $Res Function(_$MusicPlayerCreatePlaylist) then) =
+      __$$MusicPlayerCreatePlaylistCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ConcatenatingAudioSource playlist, int selectedSongIndex});
+  $Res call({List<SongInfo> songs, int selectedSongIndex});
 }
 
 /// @nodoc
-class __$$MusicPlayerPlayPlaylistCopyWithImpl<$Res>
-    extends _$MusicPlayerEventCopyWithImpl<$Res, _$MusicPlayerPlayPlaylist>
-    implements _$$MusicPlayerPlayPlaylistCopyWith<$Res> {
-  __$$MusicPlayerPlayPlaylistCopyWithImpl(_$MusicPlayerPlayPlaylist _value,
-      $Res Function(_$MusicPlayerPlayPlaylist) _then)
+class __$$MusicPlayerCreatePlaylistCopyWithImpl<$Res>
+    extends _$MusicPlayerEventCopyWithImpl<$Res, _$MusicPlayerCreatePlaylist>
+    implements _$$MusicPlayerCreatePlaylistCopyWith<$Res> {
+  __$$MusicPlayerCreatePlaylistCopyWithImpl(_$MusicPlayerCreatePlaylist _value,
+      $Res Function(_$MusicPlayerCreatePlaylist) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playlist = null,
+    Object? songs = null,
     Object? selectedSongIndex = null,
   }) {
-    return _then(_$MusicPlayerPlayPlaylist(
-      playlist: null == playlist
-          ? _value.playlist
-          : playlist // ignore: cast_nullable_to_non_nullable
-              as ConcatenatingAudioSource,
+    return _then(_$MusicPlayerCreatePlaylist(
+      songs: null == songs
+          ? _value._songs
+          : songs // ignore: cast_nullable_to_non_nullable
+              as List<SongInfo>,
       selectedSongIndex: null == selectedSongIndex
           ? _value.selectedSongIndex
           : selectedSongIndex // ignore: cast_nullable_to_non_nullable
@@ -342,70 +342,76 @@ class __$$MusicPlayerPlayPlaylistCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$MusicPlayerPlayPlaylist extends MusicPlayerPlayPlaylist {
-  const _$MusicPlayerPlayPlaylist(
-      {required this.playlist, required this.selectedSongIndex})
-      : super._();
+class _$MusicPlayerCreatePlaylist extends MusicPlayerCreatePlaylist {
+  const _$MusicPlayerCreatePlaylist(
+      {required final List<SongInfo> songs, required this.selectedSongIndex})
+      : _songs = songs,
+        super._();
 
+  final List<SongInfo> _songs;
   @override
-  final ConcatenatingAudioSource playlist;
+  List<SongInfo> get songs {
+    if (_songs is EqualUnmodifiableListView) return _songs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_songs);
+  }
+
   @override
   final int selectedSongIndex;
 
   @override
   String toString() {
-    return 'MusicPlayerEvent.playPlaylist(playlist: $playlist, selectedSongIndex: $selectedSongIndex)';
+    return 'MusicPlayerEvent.createPlaylist(songs: $songs, selectedSongIndex: $selectedSongIndex)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MusicPlayerPlayPlaylist &&
-            (identical(other.playlist, playlist) ||
-                other.playlist == playlist) &&
+            other is _$MusicPlayerCreatePlaylist &&
+            const DeepCollectionEquality().equals(other._songs, _songs) &&
             (identical(other.selectedSongIndex, selectedSongIndex) ||
                 other.selectedSongIndex == selectedSongIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, playlist, selectedSongIndex);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_songs), selectedSongIndex);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MusicPlayerPlayPlaylistCopyWith<_$MusicPlayerPlayPlaylist> get copyWith =>
-      __$$MusicPlayerPlayPlaylistCopyWithImpl<_$MusicPlayerPlayPlaylist>(
-          this, _$identity);
+  _$$MusicPlayerCreatePlaylistCopyWith<_$MusicPlayerCreatePlaylist>
+      get copyWith => __$$MusicPlayerCreatePlaylistCopyWithImpl<
+          _$MusicPlayerCreatePlaylist>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            ConcatenatingAudioSource playlist, int selectedSongIndex)
-        playPlaylist,
+    required TResult Function(List<SongInfo> songs, int selectedSongIndex)
+        createPlaylist,
   }) {
-    return playPlaylist(playlist, selectedSongIndex);
+    return createPlaylist(songs, selectedSongIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(ConcatenatingAudioSource playlist, int selectedSongIndex)?
-        playPlaylist,
+    TResult? Function(List<SongInfo> songs, int selectedSongIndex)?
+        createPlaylist,
   }) {
-    return playPlaylist?.call(playlist, selectedSongIndex);
+    return createPlaylist?.call(songs, selectedSongIndex);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ConcatenatingAudioSource playlist, int selectedSongIndex)?
-        playPlaylist,
+    TResult Function(List<SongInfo> songs, int selectedSongIndex)?
+        createPlaylist,
     required TResult orElse(),
   }) {
-    if (playPlaylist != null) {
-      return playPlaylist(playlist, selectedSongIndex);
+    if (createPlaylist != null) {
+      return createPlaylist(songs, selectedSongIndex);
     }
     return orElse();
   }
@@ -413,44 +419,44 @@ class _$MusicPlayerPlayPlaylist extends MusicPlayerPlayPlaylist {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(MusicPlayerPlayPlaylist value) playPlaylist,
+    required TResult Function(MusicPlayerCreatePlaylist value) createPlaylist,
   }) {
-    return playPlaylist(this);
+    return createPlaylist(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(MusicPlayerPlayPlaylist value)? playPlaylist,
+    TResult? Function(MusicPlayerCreatePlaylist value)? createPlaylist,
   }) {
-    return playPlaylist?.call(this);
+    return createPlaylist?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(MusicPlayerPlayPlaylist value)? playPlaylist,
+    TResult Function(MusicPlayerCreatePlaylist value)? createPlaylist,
     required TResult orElse(),
   }) {
-    if (playPlaylist != null) {
-      return playPlaylist(this);
+    if (createPlaylist != null) {
+      return createPlaylist(this);
     }
     return orElse();
   }
 }
 
-abstract class MusicPlayerPlayPlaylist extends MusicPlayerEvent {
-  const factory MusicPlayerPlayPlaylist(
-      {required final ConcatenatingAudioSource playlist,
-      required final int selectedSongIndex}) = _$MusicPlayerPlayPlaylist;
-  const MusicPlayerPlayPlaylist._() : super._();
+abstract class MusicPlayerCreatePlaylist extends MusicPlayerEvent {
+  const factory MusicPlayerCreatePlaylist(
+      {required final List<SongInfo> songs,
+      required final int selectedSongIndex}) = _$MusicPlayerCreatePlaylist;
+  const MusicPlayerCreatePlaylist._() : super._();
 
   @override
-  ConcatenatingAudioSource get playlist;
+  List<SongInfo> get songs;
   @override
   int get selectedSongIndex;
   @override
   @JsonKey(ignore: true)
-  _$$MusicPlayerPlayPlaylistCopyWith<_$MusicPlayerPlayPlaylist> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$MusicPlayerCreatePlaylistCopyWith<_$MusicPlayerCreatePlaylist>
+      get copyWith => throw _privateConstructorUsedError;
 }

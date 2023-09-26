@@ -1,3 +1,4 @@
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:just_audio/just_audio.dart';
@@ -5,14 +6,7 @@ import 'package:just_audio/just_audio.dart';
 part 'music_player_bloc.freezed.dart';
 
 class MusicPlayerBloc extends Bloc<MusicPlayerEvent, MusicPlayerState> {
-  MusicPlayerBloc() : super(MusicPlayerState.initial()) {
-    on<MusicPlayerPlayPlaylist>(_playPlaylist);
-  }
-
-  Future<void> _playPlaylist(
-    MusicPlayerPlayPlaylist event,
-    Emitter<MusicPlayerState> emit,
-  ) async {}
+  MusicPlayerBloc() : super(MusicPlayerState.initial());
 }
 
 @freezed
@@ -36,9 +30,4 @@ class MusicPlayerState with _$MusicPlayerState {
 @freezed
 class MusicPlayerEvent with _$MusicPlayerEvent {
   const MusicPlayerEvent._();
-
-  const factory MusicPlayerEvent.playPlaylist({
-    required ConcatenatingAudioSource playlist,
-    required int selectedSongIndex,
-  }) = MusicPlayerPlayPlaylist;
 }

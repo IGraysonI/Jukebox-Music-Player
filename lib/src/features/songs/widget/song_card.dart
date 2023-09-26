@@ -5,6 +5,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 
 import '../../../common/extensions/string_extensions.dart';
 import '../../music_player/pages/music_player.dart';
+import '../page/songs_page.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({
@@ -51,7 +52,10 @@ class SongCard extends StatelessWidget {
         onTap: () => Navigator.push<Object>(
           context,
           MaterialPageRoute(
-            builder: (context) => MusicPlayer(songIndex: songIndex),
+            builder: (routeContext) => MusicPlayer(
+              songIndex: songIndex,
+              songs: SongsPage.of(context).songs,
+            ),
           ),
         ),
         dense: false,

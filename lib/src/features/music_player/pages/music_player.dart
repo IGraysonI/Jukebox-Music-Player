@@ -2,6 +2,7 @@ import 'dart:io';
 
 // import 'package:audiotagger/audiotagger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -11,8 +12,10 @@ import '../bloc/music_player_bloc.dart';
 import '../scope/music_player_root_scope.dart';
 
 class MusicPlayer extends StatefulWidget {
-  const MusicPlayer({required this.songIndex, Key? key}) : super(key: key);
+  const MusicPlayer({required this.songs, required this.songIndex, Key? key})
+      : super(key: key);
 
+  final List<SongInfo> songs;
   final int songIndex;
 
   @override
@@ -20,16 +23,11 @@ class MusicPlayer extends StatefulWidget {
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
-  late final ConcatenatingAudioSource _playlist;
-
   @override
   void initState() {
-    _playlist = ConcatenatingAudioSource(
+    final playlist = ConcatenatingAudioSource(
       useLazyPreparation: false,
-      children: AudioQueryRooyScope.stateOf(context)!
-          .audioQueryBloc
-          .state
-          .songs
+      children: widget.songs
           .map(
             (song) => AudioSource.file(
               song.filePath!,
@@ -39,11 +37,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           .toList(),
     );
 
-    MusicPlayerRootScope.playPlaylist(
-      context,
-      _playlist,
-      widget.songIndex,
-    );
+    MusicPlayerRootScope.playPlaylist(context, playlist, widget.songIndex);
 
     super.initState();
   }

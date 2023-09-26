@@ -98,10 +98,13 @@ class _NavigationDestinationView extends StatelessWidget {
 
   final int selectedIndex;
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     switch (selectedIndex) {
       case 0:
-        return const SongsPage();
+        return SongsPage(
+          songs:
+              AudioQueryRooyScope.stateOf(context)!.audioQueryBloc.state.songs,
+        );
       case 1:
         return const AlbumsPage(albums: [], isScrollable: true);
       case 2:
@@ -112,5 +115,5 @@ class _NavigationDestinationView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => _buildBody();
+  Widget build(BuildContext context) => _buildBody(context);
 }
