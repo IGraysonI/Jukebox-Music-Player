@@ -113,7 +113,15 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 ],
               );
             } else {
-              return const SizedBox.shrink();
+              return SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: Text(
+                    'Нет воспроизводимых треков',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              );
             }
           },
         ),
