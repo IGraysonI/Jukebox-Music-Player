@@ -3,11 +3,9 @@ import 'dart:io';
 // import 'package:audiotagger/audiotagger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../common/widgets/space.dart';
-import '../bloc/music_player_bloc.dart';
 import '../scope/music_player_root_scope.dart';
 
 class MusicPlayer extends StatefulWidget {
@@ -53,176 +51,173 @@ class _MusicPlayerState extends State<MusicPlayer> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: BlocBuilder<MusicPlayerBloc, MusicPlayerState>(
-        bloc: MusicPlayerRootScope.stateOf(context)!.musicPlayerBloc,
-        builder: (context, state) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            StreamBuilder<SequenceState?>(
-              stream: player.sequenceStateStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final state = snapshot.data;
-                  final song = state?.currentSource?.tag as SongInfo;
-                  return song.albumArtwork == null
-                      ? const SizedBox.shrink()
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.file(
-                            File(song.albumArtwork!),
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            fit: BoxFit.fill,
-                          ),
-                        );
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            ),
-            Space.sm(),
-            StreamBuilder<SequenceState?>(
-              stream: player.sequenceStateStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final state = snapshot.data;
-                  final song = state?.currentSource?.tag as SongInfo;
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          StreamBuilder<SequenceState?>(
+            stream: player.sequenceStateStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final state = snapshot.data;
+                final song = state?.currentSource?.tag as SongInfo;
+                return song.albumArtwork == null
+                    ? const SizedBox.shrink()
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.file(
+                          File(song.albumArtwork!),
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          fit: BoxFit.fill,
+                        ),
+                      );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
+          Space.sm(),
+          StreamBuilder<SequenceState?>(
+            stream: player.sequenceStateStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final state = snapshot.data;
+                final song = state?.currentSource?.tag as SongInfo;
+                return Text(
+                  song.title!,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
+          Space.sm(),
+          StreamBuilder<Duration?>(
+            stream: player.durationStream,
+            builder: (context, snapshot) {
+              final duration = snapshot.data ?? Duration.zero;
+              return StreamBuilder<Duration?>(
+                stream: player.positionStream,
+                builder: (context, snapshot) {
+                  var position = snapshot.data ?? Duration.zero;
+                  if (position > duration) {
+                    position = duration;
+                  }
+                  return Slider(
+                    value: position.inMilliseconds.toDouble(),
+                    onChanged: (value) => player.seek(
+                      Duration(milliseconds: value.toInt()),
+                    ),
+                    min: 0,
+                    max: duration.inMilliseconds.toDouble(),
+                  );
+                },
+              );
+            },
+          ),
+          Space.sm(),
+          StreamBuilder<Duration?>(
+            stream: player.positionStream,
+            builder: (context, snapshot) {
+              var position = snapshot.data ?? Duration.zero;
+              return StreamBuilder<Duration?>(
+                stream: player.durationStream,
+                builder: (context, snapshot) {
+                  final duration = snapshot.data ?? Duration.zero;
+                  if (position > duration) {
+                    position = duration;
+                  }
                   return Text(
-                    song.title!,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                    '${position.inMinutes}:${position.inSeconds.remainder(60).toString().padLeft(2, '0')} / ${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  );
+                },
+              );
+            },
+          ),
+          Space.sm(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              StreamBuilder<LoopMode>(
+                stream: player.loopModeStream,
+                builder: (context, snapshot) {
+                  final loopMode = snapshot.data ?? LoopMode.off;
+                  return IconButton(
+                    icon: Icon(
+                      loopMode == LoopMode.off
+                          ? Icons.repeat_outlined
+                          : loopMode == LoopMode.one
+                              ? Icons.repeat_one_outlined
+                              : Icons.repeat_on_outlined,
+                    ),
+                    onPressed: () => player.setLoopMode(
+                      loopMode == LoopMode.off
+                          ? LoopMode.one
+                          : loopMode == LoopMode.one
+                              ? LoopMode.all
+                              : LoopMode.off,
                     ),
                   );
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            ),
-            Space.sm(),
-            StreamBuilder<Duration?>(
-              stream: player.durationStream,
-              builder: (context, snapshot) {
-                final duration = snapshot.data ?? Duration.zero;
-                return StreamBuilder<Duration?>(
-                  stream: player.positionStream,
-                  builder: (context, snapshot) {
-                    var position = snapshot.data ?? Duration.zero;
-                    if (position > duration) {
-                      position = duration;
-                    }
-                    return Slider(
-                      value: position.inMilliseconds.toDouble(),
-                      onChanged: (value) => player.seek(
-                        Duration(milliseconds: value.toInt()),
-                      ),
-                      min: 0,
-                      max: duration.inMilliseconds.toDouble(),
-                    );
-                  },
-                );
-              },
-            ),
-            Space.sm(),
-            StreamBuilder<Duration?>(
-              stream: player.positionStream,
-              builder: (context, snapshot) {
-                var position = snapshot.data ?? Duration.zero;
-                return StreamBuilder<Duration?>(
-                  stream: player.durationStream,
-                  builder: (context, snapshot) {
-                    final duration = snapshot.data ?? Duration.zero;
-                    if (position > duration) {
-                      position = duration;
-                    }
-                    return Text(
-                      '${position.inMinutes}:${position.inSeconds.remainder(60).toString().padLeft(2, '0')} / ${duration.inMinutes}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    );
-                  },
-                );
-              },
-            ),
-            Space.sm(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                StreamBuilder<LoopMode>(
-                  stream: player.loopModeStream,
-                  builder: (context, snapshot) {
-                    final loopMode = snapshot.data ?? LoopMode.off;
-                    return IconButton(
-                      icon: Icon(
-                        loopMode == LoopMode.off
-                            ? Icons.repeat_outlined
-                            : loopMode == LoopMode.one
-                                ? Icons.repeat_one_outlined
-                                : Icons.repeat_on_outlined,
-                      ),
-                      onPressed: () => player.setLoopMode(
-                        loopMode == LoopMode.off
-                            ? LoopMode.one
-                            : loopMode == LoopMode.one
-                                ? LoopMode.all
-                                : LoopMode.off,
-                      ),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.skip_previous_outlined),
-                  onPressed: () {
-                    if (player.position.inSeconds > 3) {
-                      player.seek(Duration.zero);
-                    } else {
-                      player.seekToPrevious();
-                    }
-                  },
-                ),
-                StreamBuilder<PlayerState>(
-                  stream: player.playerStateStream,
-                  builder: (context, snapshot) {
-                    final playing = snapshot.data?.playing ?? false;
-                    final buffering = snapshot.data?.processingState ==
-                        ProcessingState.buffering;
-                    return buffering
-                        ? const SizedBox(
-                            width: 64,
-                            height: 64,
-                            child: CircularProgressIndicator(),
-                          )
-                        : IconButton(
-                            icon: Icon(
-                              playing ? Icons.pause : Icons.play_arrow,
-                            ),
-                            iconSize: 64,
-                            onPressed: playing ? player.pause : player.play,
-                          );
-                  },
-                ),
-                IconButton(
-                  icon: const Icon(Icons.skip_next_outlined),
-                  onPressed: player.seekToNext,
-                ),
-                StreamBuilder<bool>(
-                  stream: player.shuffleModeEnabledStream,
-                  builder: (context, snapshot) {
-                    final shuffleModeEnabled = snapshot.data ?? false;
-                    return IconButton(
-                      icon: Icon(
-                        shuffleModeEnabled
-                            ? Icons.shuffle_on_outlined
-                            : Icons.shuffle_outlined,
-                      ),
-                      onPressed: () => player.setShuffleModeEnabled(
-                        !shuffleModeEnabled,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.skip_previous_outlined),
+                onPressed: () {
+                  if (player.position.inSeconds > 3) {
+                    player.seek(Duration.zero);
+                  } else {
+                    player.seekToPrevious();
+                  }
+                },
+              ),
+              StreamBuilder<PlayerState>(
+                stream: player.playerStateStream,
+                builder: (context, snapshot) {
+                  final playing = snapshot.data?.playing ?? false;
+                  final buffering = snapshot.data?.processingState ==
+                      ProcessingState.buffering;
+                  return buffering
+                      ? const SizedBox(
+                          width: 64,
+                          height: 64,
+                          child: CircularProgressIndicator(),
+                        )
+                      : IconButton(
+                          icon: Icon(
+                            playing ? Icons.pause : Icons.play_arrow,
+                          ),
+                          iconSize: 64,
+                          onPressed: playing ? player.pause : player.play,
+                        );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.skip_next_outlined),
+                onPressed: player.seekToNext,
+              ),
+              StreamBuilder<bool>(
+                stream: player.shuffleModeEnabledStream,
+                builder: (context, snapshot) {
+                  final shuffleModeEnabled = snapshot.data ?? false;
+                  return IconButton(
+                    icon: Icon(
+                      shuffleModeEnabled
+                          ? Icons.shuffle_on_outlined
+                          : Icons.shuffle_outlined,
+                    ),
+                    onPressed: () => player.setShuffleModeEnabled(
+                      !shuffleModeEnabled,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

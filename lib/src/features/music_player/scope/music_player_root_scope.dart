@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../bloc/music_player_bloc.dart';
-
 class MusicPlayerRootScope extends StatefulWidget {
   const MusicPlayerRootScope({required this.child, Key? key}) : super(key: key);
 
@@ -35,22 +33,18 @@ class MusicPlayerRootScope extends StatefulWidget {
 }
 
 class _MusicPlayerRootScopeState extends State<MusicPlayerRootScope> {
-  MusicPlayerBloc? _musicPlayerBloc;
   AudioPlayer? _audioPlayer;
 
-  MusicPlayerBloc get musicPlayerBloc => _musicPlayerBloc!;
   AudioPlayer get player => _audioPlayer!;
 
   @override
   void didChangeDependencies() {
-    _musicPlayerBloc = MusicPlayerBloc();
     _audioPlayer = AudioPlayer();
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    _musicPlayerBloc?.close();
     _audioPlayer?.dispose();
     super.dispose();
   }
