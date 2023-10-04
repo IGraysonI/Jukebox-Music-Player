@@ -5,13 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/debug_instruments/debug_instruments.dart';
 import '../../../common/debug_instruments/instruments_configurator.dart';
 import '../../../common/extensions/build_context_extensions.dart';
+import '../../../common/utils/player_utils.dart';
 import '../../../common/widgets/space.dart';
 import '../../../core/firebase/firebase_crashlytics_wrapper.dart';
 import '../../albums/page/albums_page.dart';
 import '../../artists/page/artists_page.dart';
 import '../../audio_query/bloc/audio_query_bloc.dart';
 import '../../audio_query/scope/audio_query_root_scope.dart';
-import '../../music_player/widgets/mini_player.dart';
+import '../../music_player/widgets/player.dart';
 import '../../songs/page/songs_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -85,10 +86,39 @@ class _HomePageState extends State<HomePage> {
             }
           },
         ),
-        bottomNavigationBar: NavigationBar(
-          onDestinationSelected: _onItemTapped,
-          selectedIndex: _selectedNavigatorIndex,
-          destinations: _navigationBarItems,
+        bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: playerExpandProgress,
+          builder: (BuildContext context, double height, Widget? child) {
+            final value = percentageFromValueInRange(
+              min: playerMinHeight,
+              max: playerMaxHeight,
+              value: height,
+            );
+
+            var opacity = 1 - value;
+            if (opacity < 0) opacity = 0;
+            if (opacity > 1) opacity = 1;
+
+            return SizedBox(
+              height: kBottomNavigationBarHeight -
+                  kBottomNavigationBarHeight * value,
+              child: Transform.translate(
+                offset: Offset(0, kBottomNavigationBarHeight * value * 0.5),
+                child: Opacity(
+                  opacity: opacity,
+                  child: OverflowBox(
+                    maxHeight: kBottomNavigationBarHeight,
+                    child: child,
+                  ),
+                ),
+              ),
+            );
+          },
+          child: NavigationBar(
+            onDestinationSelected: _onItemTapped,
+            selectedIndex: _selectedNavigatorIndex,
+            destinations: _navigationBarItems,
+          ),
         ),
       );
 }
@@ -125,10 +155,7 @@ class _NavigationDestinationView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          Expanded(child: _buildBody(context)),
-          const MiniPlayer(),
-        ],
+  Widget build(BuildContext context) => Stack(
+        children: [_buildBody(context), const DetailedPlayer()],
       );
 }
