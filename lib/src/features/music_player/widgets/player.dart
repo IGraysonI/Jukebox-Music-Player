@@ -27,7 +27,6 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
         stream:
             MusicPlayerRootScope.stateOf(context)!.player.sequenceStateStream,
         builder: (context, snapshot) {
-          // final playerMinHeight = MediaQuery.of(context).size.height * 0.1;
           final playerMaxHeight = MediaQuery.of(context).size.height;
           if (snapshot.hasData) {
             return Miniplayer(
@@ -378,15 +377,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
               },
             );
           } else {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: Text(
-                  'Нет воспроизводимых треков',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
-            );
+            return const SizedBox.shrink();
           }
         },
       );

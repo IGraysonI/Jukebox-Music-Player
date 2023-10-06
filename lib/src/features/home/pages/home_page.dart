@@ -88,29 +88,27 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: ValueListenableBuilder(
           valueListenable: playerExpandProgress,
-          // ValueNotifier(MediaQuery.of(context).size.height * 0.1),
           builder: (BuildContext context, double height, Widget? child) {
             final value = PlayerUtils.percentageFromValueInRange(
-              // min: MediaQuery.of(context).size.height * 0.1,
               max: MediaQuery.of(context).size.height,
               min: PlayerUtils.playerMinHeight,
-              // max: PlayerUtils.playerMaxHeight(context),
               value: height,
             );
+            final navigationBarHeight =
+                const NavigationBarThemeData().height ?? 80;
 
             var opacity = 1 - value;
             if (opacity < 0) opacity = 0;
             if (opacity > 1) opacity = 1;
 
             return SizedBox(
-              height: kBottomNavigationBarHeight -
-                  kBottomNavigationBarHeight * value,
+              height: navigationBarHeight - navigationBarHeight * value,
               child: Transform.translate(
-                offset: Offset(0, kBottomNavigationBarHeight * value * 0.5),
+                offset: Offset(0, navigationBarHeight * value * 0.5),
                 child: Opacity(
                   opacity: opacity,
                   child: OverflowBox(
-                    maxHeight: kBottomNavigationBarHeight,
+                    maxHeight: navigationBarHeight,
                     child: child,
                   ),
                 ),
