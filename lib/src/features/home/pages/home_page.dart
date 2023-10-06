@@ -88,10 +88,13 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: ValueListenableBuilder(
           valueListenable: playerExpandProgress,
+          // ValueNotifier(MediaQuery.of(context).size.height * 0.1),
           builder: (BuildContext context, double height, Widget? child) {
-            final value = percentageFromValueInRange(
-              min: playerMinHeight,
-              max: playerMaxHeight,
+            final value = PlayerUtils.percentageFromValueInRange(
+              // min: MediaQuery.of(context).size.height * 0.1,
+              max: MediaQuery.of(context).size.height,
+              min: PlayerUtils.playerMinHeight,
+              // max: PlayerUtils.playerMaxHeight(context),
               value: height,
             );
 

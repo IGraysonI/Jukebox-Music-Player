@@ -1,27 +1,41 @@
-const double playerMinHeight = 70;
-const double playerMaxHeight = 370;
-const miniplayerPercentageDeclaration = 0.2;
+import 'package:flutter/material.dart';
 
-double valueFromPercentageInRange({
-  required final double min,
-  required final double max,
-  required final double percentage,
-}) =>
-    percentage * (max - min) + min;
+final ValueNotifier<double> playerExpandProgress =
+    ValueNotifier(_playerMinHeight);
 
-double percentageFromValueInRange({
-  required final double min,
-  required final double max,
-  required final double value,
-}) =>
-    (value - min) / (max - min);
+const double _playerMinHeight = 70;
+// const double playerMaxHeight = 370;
+const _miniplayerPercentageDeclaration = 0.2;
 
-double borderDouble({
-  required double minRange,
-  required double maxRange,
-  required double value,
-}) {
-  if (value > maxRange) return maxRange;
-  if (value < minRange) return minRange;
-  return value;
+class PlayerUtils {
+  PlayerUtils._();
+
+  static double get playerMinHeight => _playerMinHeight;
+
+  static double get miniplayerPercentageDeclaration =>
+      _miniplayerPercentageDeclaration;
+
+  static double valueFromPercentageInRange({
+    required final double min,
+    required final double max,
+    required final double percentage,
+  }) =>
+      percentage * (max - min) + min;
+
+  static double percentageFromValueInRange({
+    required final double min,
+    required final double max,
+    required final double value,
+  }) =>
+      (value - min) / (max - min);
+
+  static double borderDouble({
+    required double minRange,
+    required double maxRange,
+    required double value,
+  }) {
+    if (value > maxRange) return maxRange;
+    if (value < minRange) return minRange;
+    return value;
+  }
 }

@@ -167,10 +167,10 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
 
     /// Drag below minHeight
     else if (onDismissed != null) {
-      final percentageDown = borderDouble(
+      final percentageDown = PlayerUtils.borderDouble(
         minRange: 0,
         maxRange: 1,
-        value: percentageFromValueInRange(
+        value: PlayerUtils.percentageFromValueInRange(
           min: widget.minHeight,
           max: 0,
           value: _dragHeight,
@@ -293,7 +293,7 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                 GestureDetector(
                   onTap: () => _animateToHeight(widget.minHeight),
                   child: Opacity(
-                    opacity: borderDouble(
+                    opacity: PlayerUtils.borderDouble(
                       minRange: 0,
                       maxRange: 1,
                       value: percentage,
@@ -311,7 +311,7 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                       builder:
                           (BuildContext context, double value, Widget? child) {
                         return Opacity(
-                          opacity: borderDouble(
+                          opacity: PlayerUtils.borderDouble(
                             minRange: 0,
                             maxRange: 1,
                             value: 1 - value * 0.8,
@@ -376,7 +376,8 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                       /// Determine to which SnapPosition the widget should snap
                       var snap = PanelState.min;
 
-                      final percentageMax = percentageFromValueInRange(
+                      final percentageMax =
+                          PlayerUtils.percentageFromValueInRange(
                         min: widget.minHeight,
                         max: widget.maxHeight,
                         value: _dragHeight,
@@ -397,7 +398,7 @@ class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
 
                         /// DismissedPercentage > 0.2 -> dismiss
                         else if (onDismissed != null &&
-                            percentageFromValueInRange(
+                            PlayerUtils.percentageFromValueInRange(
                                   min: widget.minHeight,
                                   max: 0,
                                   value: _dragHeight,
