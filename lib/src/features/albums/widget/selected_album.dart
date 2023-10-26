@@ -7,8 +7,7 @@ import '../../../common/widgets/space.dart';
 import '../../songs/widget/song_card.dart';
 
 class SelectedAlbum extends StatelessWidget {
-  const SelectedAlbum({required this.album, required this.songs, Key? key})
-      : super(key: key);
+  const SelectedAlbum({required this.album, required this.songs, super.key});
 
   final AlbumInfo album;
   final List<SongInfo> songs;

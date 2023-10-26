@@ -5,10 +5,10 @@ import '../theme/theme_manager.dart';
 /// Виджет темы, находится в корне виджетов приложения
 class ApplicationTheme extends InheritedWidget {
   const ApplicationTheme({
-    required Widget child,
+    required super.child,
     required this.themeManager,
-    Key? key,
-  }) : super(key: key, child: child);
+    super.key,
+  });
 
   final ThemeManager themeManager;
 

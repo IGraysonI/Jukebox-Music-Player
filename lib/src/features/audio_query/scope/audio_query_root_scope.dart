@@ -4,7 +4,7 @@ import '../bloc/audio_query_bloc.dart';
 import '../data/audio_query_repository.dart';
 
 class AudioQueryRooyScope extends StatefulWidget {
-  const AudioQueryRooyScope({required this.child, Key? key}) : super(key: key);
+  const AudioQueryRooyScope({required this.child, super.key});
 
   final Widget child;
 

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../common/extensions/build_context_extensions.dart';
 import '../../features/audio_query/scope/audio_query_root_scope.dart';
 import '../../features/music_player/scope/music_player_root_scope.dart';
-import '../logger/l.dart';
 import '../router/application_navigation.dart';
 import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';
@@ -13,10 +12,7 @@ import 'application_theme.dart';
 
 /// Корневой виджет
 class Application extends StatelessWidget {
-  const Application({Key? key}) : super(key: key);
-
-  static _ApplicationState of(BuildContext context) =>
-      context.findAncestorStateOfType<_ApplicationState>()!;
+  const Application({super.key});
 
   @override
   Widget build(BuildContext context) => ApplicationLifecycleObserver(
@@ -32,29 +28,12 @@ class Application extends StatelessWidget {
 }
 
 /// Конфигурация корневого виджета
-class _Application extends StatefulWidget {
-  @override
-  State<_Application> createState() => _ApplicationState();
-}
-
-class _ApplicationState extends State<_Application> {
-  late final ApplicationNavigation _navigation;
-
-  @override
-  void initState() {
-    l.i('Приложение запущено');
-    _navigation = ApplicationNavigation();
-
-    super.initState();
-  }
-
+class _Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
         animation: ApplicationTheme.of(context).themeManager,
         builder: (context, child) => MaterialApp.router(
-          routeInformationProvider: _navigation.router.routeInformationProvider,
-          routeInformationParser: _navigation.router.routeInformationParser,
-          routerDelegate: _navigation.router.routerDelegate,
+          routerConfig: ApplicationNavigation.router,
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: ApplicationTheme.of(context).themeManager.themeMode,

@@ -28,8 +28,8 @@ class Miniplayer extends StatefulWidget {
     this.onDismissed,
     this.controller,
     this.backgroundBoxShadow = Colors.black45,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// Required option to set the minimum height
   final double minHeight;

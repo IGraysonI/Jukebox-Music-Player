@@ -13,7 +13,7 @@ import '../scope/music_player_root_scope.dart';
 // final ValueNotifier<double> playerExpandProgress = ValueNotifier(200);
 
 class DetailedPlayer extends StatefulWidget {
-  const DetailedPlayer({Key? key}) : super(key: key);
+  const DetailedPlayer({super.key});
 
   @override
   State<DetailedPlayer> createState() => _DetailedPlayerState();

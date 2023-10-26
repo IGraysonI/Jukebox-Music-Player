@@ -2,11 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:just_audio/just_audio.dart';
 
 import '../../../common/extensions/string_extensions.dart';
-import '../../music_player/scope/music_player_root_scope.dart';
-import '../page/songs_page.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({
@@ -14,8 +11,8 @@ class SongCard extends StatelessWidget {
     required this.song,
     this.showArtist = true,
     this.showArtwork = true,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final int songIndex;
   final SongInfo song;
@@ -52,15 +49,15 @@ class SongCard extends StatelessWidget {
         ),
         trailing: const Icon(Icons.more_vert_rounded, color: Colors.black),
         onTap: () {
-          final playlist = ConcatenatingAudioSource(
-            useLazyPreparation: false,
-            children: SongsPage.of(context)
-                .songs
-                .map((song) => AudioSource.file(song.filePath!, tag: song))
-                .toList(),
-          );
+          // final playlist = ConcatenatingAudioSource(
+          //   useLazyPreparation: false,
+          //   children: SongsPage.of(context)
+          //       .songs
+          //       .map((song) => AudioSource.file(song.filePath!, tag: song))
+          //       .toList(),
+          // );
 
-          MusicPlayerRootScope.playPlaylist(context, playlist, songIndex);
+          // MusicPlayerRootScope.playPlaylist(context, playlist, songIndex);
         },
         dense: false,
       );

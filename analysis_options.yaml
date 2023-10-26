@@ -1,12 +1,15 @@
 include: package:flutter_lints/flutter.yaml
-
 analyzer:
   exclude:
+
     #generated code
     - 'lib/**/*.g.dart'
     - 'lib/generated_plugin_registrant.dart'
     - '**/*.g.dart'
     - '**/*.lock'
+    - 'lib/src/common/l10n/generated/**'
+    - 'lib/src/features/report/widget/call_rate_dashboard/call_rate_dashboard.dart'
+    - '../packages/**'
     # implicit-dynamic: false
   errors:
     missing_required_param: warning
@@ -36,7 +39,7 @@ linter:
   rules:
     #public_member_api_docs: true Only for public packages
     lines_longer_than_80_chars: true
-    do_not_use_environment: true
+    
     require_trailing_commas: true
     #sort_pub_dependencies: true
     sort_constructors_first: true
@@ -46,7 +49,8 @@ linter:
 
 
     # Disabled
-    library_private_types_in_public_api: false # зачем этот линтер вообще нужен?
+    do_not_use_environment: false
+    library_private_types_in_public_api: false 
     unnecessary_final: false
     depend_on_referenced_packages: false
     always_specify_types: false
@@ -63,7 +67,8 @@ linter:
     avoid_types_on_closure_parameters: false
     avoid_relative_lib_imports: false
     always_use_package_imports: false
-
+    no_runtimeType_toString: true
+    
     # Enabled
     use_named_constants: true
     use_is_even_rather_than_modulo: true
@@ -100,7 +105,7 @@ linter:
     missing_whitespace_between_adjacent_strings: true
     no_adjacent_strings_in_list: true
     no_logic_in_create_state: true
-    no_runtimeType_toString: true
+  
     only_throw_errors: true
     overridden_fields: true
     package_names: true
@@ -237,8 +242,8 @@ linter:
     cast_nullable_to_non_nullable: true
     no_default_cases: false
 
-     # Deprecated
+    # Deprecated
     #avoid_as (deprecated)
     #prefer_bool_in_asserts (deprecated)
     #super_goes_last (deprecated)
-    
+    #invariant_booleans (deprecated)

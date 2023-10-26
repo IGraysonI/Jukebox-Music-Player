@@ -6,7 +6,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import '../page/selected_album_page.dart';
 
 class AlbumCard extends StatelessWidget {
-  const AlbumCard({required this.album, Key? key}) : super(key: key);
+  const AlbumCard({required this.album, super.key});
 
   final AlbumInfo album;
 

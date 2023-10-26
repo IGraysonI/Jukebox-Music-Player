@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import '../bloc/application_bloc_observer.dart';
 import '../firebase/firebase_crashlytics_wrapper.dart';
 import '../logger/l.dart';
+import '../router/application_navigation.dart';
 import '../utils/error_utils.dart';
 import 'application.dart';
 
@@ -38,4 +39,7 @@ Future<void> _initializeApplication() async {
 
   /// Включает метод toString() для Equatable
   EquatableConfig.stringify = true;
+
+  /// Инициализация навигации
+  ApplicationNavigation.instance;
 }

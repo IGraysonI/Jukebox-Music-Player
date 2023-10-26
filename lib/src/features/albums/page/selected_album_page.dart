@@ -4,7 +4,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import '../widget/selected_album.dart';
 
 class SelectedAlbumPage extends StatefulWidget {
-  const SelectedAlbumPage({required this.album, Key? key}) : super(key: key);
+  const SelectedAlbumPage({required this.album, super.key});
 
   final AlbumInfo album;
 

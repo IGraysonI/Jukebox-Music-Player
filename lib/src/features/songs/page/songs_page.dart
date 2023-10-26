@@ -1,34 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-
-import '../widget/song_card.dart';
 
 class SongsPage extends StatefulWidget {
-  const SongsPage({required this.songs, Key? key}) : super(key: key);
-
-  final List<SongInfo> songs;
+  const SongsPage({super.key});
 
   static _SongsPageState of(BuildContext context) =>
       context.findAncestorStateOfType<_SongsPageState>()!;
+
+  static String page() => 'SongsPage';
 
   @override
   State<SongsPage> createState() => _SongsPageState();
 }
 
 class _SongsPageState extends State<SongsPage> {
-  late final List<SongInfo> songs;
-
   @override
-  void initState() {
-    songs = widget.songs;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) => SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) => SongCard(songIndex: index, song: songs[index]),
-          childCount: songs.length,
-        ),
+  Widget build(BuildContext context) => CustomScrollView(
+        slivers: [
+          const SliverAppBar(title: Text('Songs'), floating: true, snap: true),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Text(index.toString()),
+              // => SongCard(songIndex: index, song: songs[index]),
+              childCount: 10,
+            ),
+          ),
+        ],
       );
 }

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ApplicationGlobalContext extends StatefulWidget {
-  const ApplicationGlobalContext({required this.child, Key? key})
-      : super(key: key);
+  const ApplicationGlobalContext({required this.child, super.key});
 
   final Widget child;
 
@@ -22,7 +21,7 @@ class _ApplicationGlobalContextState extends State<ApplicationGlobalContext> {
 
 /// Дерево провайдеров
 class _ProviderTree extends StatelessWidget {
-  const _ProviderTree({required this.child, Key? key}) : super(key: key);
+  const _ProviderTree({required this.child});
 
   final Widget child;
 

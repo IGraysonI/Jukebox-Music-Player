@@ -4,8 +4,8 @@ class MiniplayerWillPopScope extends StatefulWidget {
   const MiniplayerWillPopScope({
     required this.child,
     required this.onWillPop,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget child;
   final WillPopCallback onWillPop;

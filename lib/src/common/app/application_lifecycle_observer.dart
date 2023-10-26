@@ -74,9 +74,9 @@ class _ApplicationLifecycleObserverState
 class _InheritedStateContainer extends InheritedWidget {
   const _InheritedStateContainer({
     required this.data,
-    required Widget child,
-    Key? key,
-  }) : super(key: key, child: child);
+    required super.child,
+    super.key,
+  });
 
   final _ApplicationLifecycleObserverState data;
 

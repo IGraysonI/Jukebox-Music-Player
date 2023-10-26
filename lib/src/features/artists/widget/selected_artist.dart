@@ -7,8 +7,7 @@ import '../../../common/widgets/space.dart';
 import '../../albums/page/albums_page.dart';
 
 class SelectedArtist extends StatelessWidget {
-  const SelectedArtist({required this.artist, required this.albums, Key? key})
-      : super(key: key);
+  const SelectedArtist({required this.artist, required this.albums, super.key});
 
   final ArtistInfo artist;
   final List<AlbumInfo> albums;
@@ -42,7 +41,7 @@ class SelectedArtist extends StatelessWidget {
               Space.sm(),
             ],
           ),
-          AlbumsPage(albums: albums, isScrollable: false),
+          const AlbumsPage(),
         ],
       ),
     );

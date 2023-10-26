@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPlayerRootScope extends StatefulWidget {
-  const MusicPlayerRootScope({required this.child, Key? key}) : super(key: key);
+  const MusicPlayerRootScope({required this.child, super.key});
 
   final Widget child;
 

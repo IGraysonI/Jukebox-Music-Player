@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../widget/artist_card.dart';
+class ArtistsPage extends StatefulWidget {
+  const ArtistsPage({super.key});
 
-class ArtistsPage extends StatelessWidget {
-  const ArtistsPage({required this.artists, Key? key}) : super(key: key);
-
-  final List<ArtistInfo> artists;
+  static String page() => 'ArtistsPage';
 
   @override
-  Widget build(BuildContext context) => SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-          child: AlignedGridView.count(
-            itemCount: artists.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            itemBuilder: (context, index) => ArtistCard(artist: artists[index]),
+  State<ArtistsPage> createState() => _ArtistsPageState();
+}
+
+class _ArtistsPageState extends State<ArtistsPage> {
+  @override
+  Widget build(BuildContext context) => CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            title: Text('Artists'),
+            floating: true,
+            snap: true,
           ),
-        ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+              child: AlignedGridView.count(
+                itemCount: 10,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                itemBuilder: (context, index) => Text(index.toString()),
+                // ArtistCard(artist: widget.artists[index]),
+              ),
+            ),
+          ),
+        ],
       );
 }

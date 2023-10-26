@@ -56,19 +56,19 @@ class SharedPrefsStore implements KeyValueStore {
       return;
     }
     switch (T) {
-      case int:
+      case const (int):
         await _sharedPreferences.setInt(typeStoreKey.key, value as int);
         break;
-      case String:
+      case const (String):
         await _sharedPreferences.setString(typeStoreKey.key, value as String);
         break;
-      case double:
+      case const (double):
         await _sharedPreferences.setDouble(typeStoreKey.key, value as double);
         break;
-      case bool:
+      case const (bool):
         await _sharedPreferences.setBool(typeStoreKey.key, value as bool);
         break;
-      case List:
+      case const (List):
         await _sharedPreferences.setStringList(
           typeStoreKey.key,
           value as List<String>,

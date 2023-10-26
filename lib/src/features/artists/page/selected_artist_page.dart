@@ -4,7 +4,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import '../widget/selected_artist.dart';
 
 class SelectedArtistPage extends StatefulWidget {
-  const SelectedArtistPage({required this.artist, Key? key}) : super(key: key);
+  const SelectedArtistPage({required this.artist, super.key});
 
   final ArtistInfo artist;
 

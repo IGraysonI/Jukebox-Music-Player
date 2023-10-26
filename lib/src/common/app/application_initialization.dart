@@ -13,8 +13,7 @@ import '../theme/theme_manager.dart';
 /// Инициализация сервисов приложения
 @immutable
 class ApplicationInitialization extends StatefulWidget {
-  const ApplicationInitialization({required this.child, Key? key})
-      : super(key: key);
+  const ApplicationInitialization({required this.child, super.key});
 
   final Widget child;
 

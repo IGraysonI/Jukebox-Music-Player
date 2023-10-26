@@ -6,7 +6,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import '../page/selected_artist_page.dart';
 
 class ArtistCard extends StatelessWidget {
-  const ArtistCard({required this.artist, Key? key}) : super(key: key);
+  const ArtistCard({required this.artist, super.key});
 
   final ArtistInfo artist;
 

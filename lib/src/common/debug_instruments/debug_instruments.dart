@@ -4,8 +4,7 @@ import 'instruments_configurator.dart';
 import 'shared_preferences_component.dart';
 
 class DebugInstruments extends StatelessWidget {
-  const DebugInstruments({required this.instrumentConfigurator, Key? key})
-      : super(key: key);
+  const DebugInstruments({required this.instrumentConfigurator, super.key});
 
   final InstrumentConfigurator instrumentConfigurator;
 
@@ -25,8 +24,7 @@ class DebugInstruments extends StatelessWidget {
 }
 
 class _DebugInstrumentsPage extends StatelessWidget {
-  const _DebugInstrumentsPage({required this.instrumentConfigurator, Key? key})
-      : super(key: key);
+  const _DebugInstrumentsPage({required this.instrumentConfigurator});
 
   final InstrumentConfigurator instrumentConfigurator;
 

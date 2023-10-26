@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../core/logger/l.dart';
+import '../logger/l.dart';
 
 class ApplicationNavigationObserver extends NavigatorObserver {
   @override
