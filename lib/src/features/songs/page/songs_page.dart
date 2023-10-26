@@ -25,13 +25,10 @@ class _SongsPageState extends State<SongsPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: songs.length,
-          itemBuilder: (context, index) =>
-              SongCard(songIndex: index, song: songs[index]),
+  Widget build(BuildContext context) => SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) => SongCard(songIndex: index, song: songs[index]),
+          childCount: songs.length,
         ),
       );
 }

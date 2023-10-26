@@ -12,16 +12,16 @@ class AlbumsPage extends StatelessWidget {
   final bool isScrollable;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-      child: AlignedGridView.count(
-        physics: isScrollable ? null : const NeverScrollableScrollPhysics(),
-        itemCount: albums.length,
-        shrinkWrap: true,
-        crossAxisCount: 2,
-        itemBuilder: (context, index) => AlbumCard(album: albums[index]),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+          child: AlignedGridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: albums.length,
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            itemBuilder: (context, index) => AlbumCard(album: albums[index]),
+          ),
+        ),
+      );
 }

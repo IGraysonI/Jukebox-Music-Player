@@ -48,44 +48,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Jukebox'),
-          actions: [
-            if (kDebugMode)
-              const IconButton(
-                onPressed: FirebaseCrashlyticsWrapper.crash,
-                icon: Icon(Icons.bug_report_rounded),
-              ),
-            if (kDebugMode)
-              DebugInstruments(
-                instrumentConfigurator: InstrumentConfigurator(
-                  sharedPreferences: context.cache.sharedPreferences,
-                ),
-              ),
-          ],
-        ),
-        body: BlocBuilder<AudioQueryBloc, AudioQueryState>(
-          bloc: AudioQueryRooyScope.stateOf(context)!.audioQueryBloc,
-          builder: (context, state) {
-            if (state.isProcessing) {
-              //TODO: Добавить кастомный экран загрузки
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CircularProgressIndicator(),
-                    Space.sm(),
-                    const Text('Идёт загрузка ваших аудио файлов'),
-                  ],
-                ),
-              );
-            } else {
-              return _NavigationDestinationView(
-                selectedIndex: _selectedNavigatorIndex,
-              );
-            }
-          },
-        ),
         bottomNavigationBar: ValueListenableBuilder(
           valueListenable: playerExpandProgress,
           builder: (BuildContext context, double height, Widget? child) {
@@ -120,6 +82,57 @@ class _HomePageState extends State<HomePage> {
             selectedIndex: _selectedNavigatorIndex,
             destinations: _navigationBarItems,
           ),
+        ),
+        body: Stack(
+          children: [
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  title: const Text('Jukebox'),
+                  actions: [
+                    if (kDebugMode)
+                      const IconButton(
+                        onPressed: FirebaseCrashlyticsWrapper.crash,
+                        icon: Icon(Icons.bug_report_rounded),
+                      ),
+                    if (kDebugMode)
+                      DebugInstruments(
+                        instrumentConfigurator: InstrumentConfigurator(
+                          sharedPreferences: context.cache.sharedPreferences,
+                        ),
+                      ),
+                  ],
+                  floating: true,
+                  snap: true,
+                ),
+                BlocBuilder<AudioQueryBloc, AudioQueryState>(
+                  bloc: AudioQueryRooyScope.stateOf(context)!.audioQueryBloc,
+                  builder: (context, state) {
+                    if (state.isProcessing) {
+                      //TODO: Добавить кастомный экран загрузки
+                      return SliverFillRemaining(
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const CircularProgressIndicator(),
+                              Space.sm(),
+                              const Text('Идёт загрузка ваших аудио файлов'),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return _NavigationDestinationView(
+                        selectedIndex: _selectedNavigatorIndex,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+            const DetailedPlayer(),
+          ],
         ),
       );
 }
@@ -156,7 +169,5 @@ class _NavigationDestinationView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Stack(
-        children: [_buildBody(context), const DetailedPlayer()],
-      );
+  Widget build(BuildContext context) => _buildBody(context);
 }
