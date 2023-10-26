@@ -7,6 +7,36 @@ import '../data/audio_query_repository.dart';
 
 part 'audio_query_bloc.freezed.dart';
 
+@freezed
+class AudioQueryState with _$AudioQueryState {
+  const factory AudioQueryState({
+    required final List<SongInfo> songs,
+    required final List<AlbumInfo> albums,
+    required final List<ArtistInfo> artists,
+    @Default(false) bool isProcessing,
+    Object? error,
+    StackTrace? stackTrace,
+  }) = _AudioQueryState;
+
+  const AudioQueryState._();
+
+  factory AudioQueryState.initial() => const AudioQueryState(
+        songs: [],
+        albums: [],
+        artists: [],
+        isProcessing: true,
+      );
+}
+
+@freezed
+class AudioQueryEvent with _$AudioQueryEvent {
+  const AudioQueryEvent._();
+
+  /// Получение списка аудио файлов, альбомов, исполнителей на устройстве
+  /// пользователя
+  const factory AudioQueryEvent.getAudioFiles() = GetAudioFiles;
+}
+
 /// Блок для работы с аудио файлами на устройстве пользователя (получение
 /// списка аудио файлов, альбомов, исполнителей)
 class AudioQueryBloc extends Bloc<AudioQueryEvent, AudioQueryState> {
@@ -41,34 +71,4 @@ class AudioQueryBloc extends Bloc<AudioQueryEvent, AudioQueryState> {
       l.e('AudioQueryCubit exception with error: $e and stactTrace: $st');
     }
   }
-}
-
-@freezed
-class AudioQueryState with _$AudioQueryState {
-  const factory AudioQueryState({
-    required final List<SongInfo> songs,
-    required final List<AlbumInfo> albums,
-    required final List<ArtistInfo> artists,
-    @Default(false) bool isProcessing,
-    Object? error,
-    StackTrace? stackTrace,
-  }) = _AudioQueryState;
-
-  const AudioQueryState._();
-
-  factory AudioQueryState.initial() => const AudioQueryState(
-        songs: [],
-        albums: [],
-        artists: [],
-        isProcessing: true,
-      );
-}
-
-@freezed
-class AudioQueryEvent with _$AudioQueryEvent {
-  const AudioQueryEvent._();
-
-  /// Получение списка аудио файлов, альбомов, исполнителей на устройстве
-  /// пользователя
-  const factory AudioQueryEvent.getAudioFiles() = GetAudioFiles;
 }

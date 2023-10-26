@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../common/utils/player_utils.dart';
+import '../../audio_query/bloc/audio_query_bloc.dart';
+import '../../audio_query/scope/audio_query_root_scope.dart';
 import '../../music_player/widgets/player.dart';
 
 class BottomNavigationPage extends StatefulWidget {
@@ -69,11 +72,20 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             ],
           ),
         ),
-        body: Stack(
-          children: [
-            SafeArea(child: widget.child),
-            const DetailedPlayer(),
-          ],
+        body: BlocBuilder<AudioQueryBloc, AudioQueryState>(
+          bloc: AudioQueryRooyScope.of(context).audioQueryBloc,
+          builder: (context, state) {
+            if (state.isProcessing) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              return Stack(
+                children: [
+                  SafeArea(child: widget.child),
+                  const DetailedPlayer(),
+                ],
+              );
+            }
+          },
         ),
       );
 }
