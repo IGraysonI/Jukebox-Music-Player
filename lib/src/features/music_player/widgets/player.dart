@@ -377,7 +377,8 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
               },
             );
           } else {
-            return const SizedBox.shrink();
+            // return const SizedBox.shrink();
+            return const Text('dsadsad', style: TextStyle(color: Colors.red));
           }
         },
       );
