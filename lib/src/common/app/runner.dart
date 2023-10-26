@@ -5,11 +5,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-import '../common/utils/error_utils.dart';
-import '../core/bloc/application_bloc_observer.dart';
-import '../core/firebase/firebase_crashlytics_wrapper.dart';
-import '../core/logger/l.dart';
-import 'root/application.dart';
+import '../bloc/application_bloc_observer.dart';
+import '../firebase/firebase_crashlytics_wrapper.dart';
+import '../logger/l.dart';
+import '../utils/error_utils.dart';
+import 'application.dart';
 
 /// Запуск приложения в своей зоне
 Future<void> runner() async {

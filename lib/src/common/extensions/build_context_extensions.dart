@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
-import '../../app/root/application_initialization.dart';
+import '../app/application_initialization.dart';
 import '../cache/shared_prefs_store.dart';
 
 /// Расширение на [BuildContext] для удобства получения сервисов

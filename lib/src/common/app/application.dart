@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../common/extensions/build_context_extensions.dart';
-import '../../core/logger/l.dart';
 import '../../features/audio_query/scope/audio_query_root_scope.dart';
 import '../../features/music_player/scope/music_player_root_scope.dart';
+import '../logger/l.dart';
 import '../router/application_navigation.dart';
 import '../theme/theme_constants.dart';
 import '../theme/theme_manager.dart';

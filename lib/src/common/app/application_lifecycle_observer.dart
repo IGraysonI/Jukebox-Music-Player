@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../../core/logger/l.dart';
+import '../logger/l.dart';
 
 typedef ApplicationLifecycleCallback = _ApplicationLifecycleCallback;
 

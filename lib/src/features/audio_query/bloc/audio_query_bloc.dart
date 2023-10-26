@@ -2,7 +2,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../core/logger/l.dart';
+import '../../../common/logger/l.dart';
 import '../data/audio_query_repository.dart';
 
 part 'audio_query_bloc.freezed.dart';

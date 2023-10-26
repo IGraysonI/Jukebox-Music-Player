@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common/cache/shared_prefs_store.dart';
-import '../../core/cache/shared_prefs_keys.dart';
+import '../cache/shared_prefs_keys.dart';
 
 class ThemeManager with ChangeNotifier {
   ThemeManager({required SharedPrefsStore sharedPrefsStore})

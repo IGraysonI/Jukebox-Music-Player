@@ -1,3 +1,3 @@
-import 'src/app/runner.dart';
+import 'src/common/app/runner.dart';
 
 void main() => runner();

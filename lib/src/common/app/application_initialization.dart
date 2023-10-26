@@ -6,8 +6,8 @@ import 'package:logger/logger.dart';
 import '../../../firebase_options.dart';
 import '../../common/cache/shared_prefs_store.dart';
 import '../../common/widgets/splash_screen.dart';
-import '../../core/firebase/firebase_crashlytics_wrapper.dart';
-import '../../core/logger/l.dart';
+import '../firebase/firebase_crashlytics_wrapper.dart';
+import '../logger/l.dart';
 import '../theme/theme_manager.dart';
 
 /// Инициализация сервисов приложения

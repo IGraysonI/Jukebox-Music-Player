@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import '../../core/firebase/firebase_crashlytics_wrapper.dart';
-import '../../core/logger/l.dart';
+import '../firebase/firebase_crashlytics_wrapper.dart';
+import '../logger/l.dart';
 
 @sealed
 abstract class ErrorUtils {
