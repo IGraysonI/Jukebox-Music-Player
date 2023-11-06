@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
+
+import '../../audio_query/scope/audio_query_root_scope.dart';
 
 class MusicPlayerRootScope extends StatefulWidget {
   const MusicPlayerRootScope({required this.child, super.key});
@@ -14,6 +17,52 @@ class MusicPlayerRootScope extends StatefulWidget {
               _InheritedMusicPlayerRootScope>()
           ?.widget as _InheritedMusicPlayerRootScope?)
       ?.state;
+
+  static ConcatenatingAudioSource createPlaylist(
+    BuildContext context, {
+    List<SongInfo>? songs,
+    AlbumInfo? albumInfo,
+    ArtistInfo? artistInfo,
+  }) {
+    final songsForPlaylist = <AudioSource>[];
+
+    if (songs != null) {
+      songsForPlaylist.addAll(
+        songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+      );
+    } else if (albumInfo != null) {
+      songsForPlaylist.addAll(
+        AudioQueryRooyScope.stateOf(context)!
+            .audioQueryBloc
+            .state
+            .songs
+            .where((song) => song.albumId == albumInfo.id)
+            .map((song) => AudioSource.file(song.filePath!, tag: song)),
+      );
+    } else if (artistInfo != null) {
+      songsForPlaylist.addAll(
+        AudioQueryRooyScope.stateOf(context)!
+            .audioQueryBloc
+            .state
+            .songs
+            .where((song) => song.artistId == artistInfo.id)
+            .map((song) => AudioSource.file(song.filePath!, tag: song)),
+      );
+    } else {
+      songsForPlaylist.addAll(
+        AudioQueryRooyScope.stateOf(context)!
+            .audioQueryBloc
+            .state
+            .songs
+            .map((song) => AudioSource.file(song.filePath!, tag: song)),
+      );
+    }
+
+    return ConcatenatingAudioSource(
+      useLazyPreparation: false,
+      children: songsForPlaylist,
+    );
+  }
 
   /// Воспроизводит плэйлист
   static void playPlaylist(

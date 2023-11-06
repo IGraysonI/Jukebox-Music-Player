@@ -25,11 +25,6 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> _getAlbumSongs(AlbumInfo album) async {
     var songs = <SongInfo>[];
     songs = await _audioQuery.getSongsFromAlbum(albumId: album.id);
@@ -37,23 +32,21 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: FutureBuilder(
-        future: _initializeAudioFiles,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return SelectedAlbum(album: _album, songs: _songs);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        body: FutureBuilder(
+          future: _initializeAudioFiles,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return SelectedAlbum(album: _album, songs: _songs);
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      );
 }
