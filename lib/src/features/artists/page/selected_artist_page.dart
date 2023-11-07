@@ -8,6 +8,8 @@ class SelectedArtistPage extends StatefulWidget {
 
   final ArtistInfo artist;
 
+  static String page() => 'SelectedArtistPage';
+
   @override
   State<SelectedArtistPage> createState() => _SelectedArtistPageState();
 }
@@ -25,11 +27,6 @@ class _SelectedArtistPageState extends State<SelectedArtistPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> _getArtistAlbums(ArtistInfo artist) async {
     var albums = <AlbumInfo>[];
     albums = await _audioQuery.getAlbumsFromArtist(artist: artist.name!);
@@ -37,23 +34,21 @@ class _SelectedArtistPageState extends State<SelectedArtistPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: FutureBuilder(
-        future: _initializeAudioFiles,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return SelectedArtist(artist: _artist, albums: _albums);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        body: FutureBuilder(
+          future: _initializeAudioFiles,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return SelectedArtist(artist: _artist, albums: _albums);
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      );
 }

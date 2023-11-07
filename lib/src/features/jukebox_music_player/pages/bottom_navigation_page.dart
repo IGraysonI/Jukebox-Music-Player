@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../common/utils/player_utils.dart';
 import '../../audio_query/bloc/audio_query_bloc.dart';
 import '../../audio_query/scope/audio_query_root_scope.dart';
-import '../../music_player/widgets/player.dart';
+import '../../music_player/widgets/detailed_player.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({required this.child, super.key});

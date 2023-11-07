@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/albums/page/albums_page.dart';
 import '../../features/artists/page/artists_page.dart';
+import '../../features/artists/page/selected_artist_page.dart';
 import '../../features/jukebox_music_player/pages/bottom_navigation_page.dart';
 import '../../features/songs/page/songs_page.dart';
 import 'application_navigation_observer.dart';
@@ -45,6 +47,16 @@ class ApplicationNavigation {
                 path: '/${ArtistsPage.page()}',
                 pageBuilder: (context, state) =>
                     getPage(child: const ArtistsPage(), state: state),
+              ),
+              GoRoute(
+                name: SelectedArtistPage.page(),
+                path: '/${SelectedArtistPage.page()}',
+                pageBuilder: (context, state) => getPage(
+                  child: SelectedArtistPage(
+                    artist: state.extra! as ArtistInfo,
+                  ),
+                  state: state,
+                ),
               ),
             ],
           ),

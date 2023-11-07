@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../../../common/widgets/space.dart';
-import '../../albums/page/albums_page.dart';
+import '../../albums/widget/albums_widget.dart';
 
 class SelectedArtist extends StatelessWidget {
   const SelectedArtist({required this.artist, required this.albums, super.key});
@@ -13,37 +12,27 @@ class SelectedArtist extends StatelessWidget {
   final List<AlbumInfo> albums;
 
   @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const ScrollPhysics(),
-      child: Column(
-        children: [
-          if (artist.artistArtPath == null)
-            const SizedBox.shrink()
-          else
-            Image.file(
-              File(artist.artistArtPath!),
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width,
-              fit: BoxFit.fill,
+  Widget build(BuildContext context) => CustomScrollView(
+        // physics: const ScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            expandedHeight: MediaQuery.of(context).size.height * 0.3,
+            flexibleSpace: FlexibleSpaceBar(
+              background: artist.artistArtPath == null
+                  ? const SizedBox.shrink()
+                  : Image.file(
+                      File(artist.artistArtPath!),
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.fill,
+                    ),
             ),
-          Space.sm(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                artist.name!,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              Space.sm(),
-            ],
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            floating: true,
+            snap: true,
           ),
-          const AlbumsPage(),
+          AlbumsWidget(albums: albums),
         ],
-      ),
-    );
-  }
+      );
 }
