@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:go_router/go_router.dart';
 
 import '../page/selected_album_page.dart';
 
@@ -12,11 +13,7 @@ class AlbumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () => Navigator.of(context).push<void>(
-          MaterialPageRoute(
-            builder: (context) => SelectedAlbumPage(album: album),
-          ),
-        ),
+        onTap: () => context.pushNamed(SelectedAlbumPage.page(), extra: album),
         child: Card(
           elevation: 8,
           child: Column(

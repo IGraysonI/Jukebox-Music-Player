@@ -3,6 +3,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/albums/page/albums_page.dart';
+import '../../features/albums/page/selected_album_page.dart';
 import '../../features/artists/page/artists_page.dart';
 import '../../features/artists/page/selected_artist_page.dart';
 import '../../features/jukebox_music_player/pages/bottom_navigation_page.dart';
@@ -18,7 +19,7 @@ class ApplicationNavigation {
         parentNavigatorKey: parentNavigatorKey,
         branches: [
           StatefulShellBranch(
-            navigatorKey: firstTabNavigatorKey,
+            navigatorKey: songsTabNavigatorKey,
             routes: [
               GoRoute(
                 name: SongsPage.page(),
@@ -29,7 +30,7 @@ class ApplicationNavigation {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: secondTabNavigatorKey,
+            navigatorKey: albumsTabNavigatorKey,
             routes: [
               GoRoute(
                 name: AlbumsPage.page(),
@@ -37,10 +38,18 @@ class ApplicationNavigation {
                 pageBuilder: (context, state) =>
                     getPage(child: const AlbumsPage(), state: state),
               ),
+              GoRoute(
+                name: SelectedAlbumPage.page(),
+                path: '/${SelectedAlbumPage.page()}',
+                pageBuilder: (context, state) => getPage(
+                  child: SelectedAlbumPage(album: state.extra! as AlbumInfo),
+                  state: state,
+                ),
+              ),
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: settingsTabNavigatorKey,
+            navigatorKey: artistsTabNavigatorKey,
             routes: [
               GoRoute(
                 name: ArtistsPage.page(),
@@ -85,11 +94,11 @@ class ApplicationNavigation {
 
   static final GlobalKey<NavigatorState> parentNavigatorKey =
       GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> firstTabNavigatorKey =
+  static final GlobalKey<NavigatorState> songsTabNavigatorKey =
       GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> secondTabNavigatorKey =
+  static final GlobalKey<NavigatorState> albumsTabNavigatorKey =
       GlobalKey<NavigatorState>();
-  static final GlobalKey<NavigatorState> settingsTabNavigatorKey =
+  static final GlobalKey<NavigatorState> artistsTabNavigatorKey =
       GlobalKey<NavigatorState>();
 
   BuildContext get context =>

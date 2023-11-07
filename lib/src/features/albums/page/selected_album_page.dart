@@ -8,6 +8,8 @@ class SelectedAlbumPage extends StatefulWidget {
 
   final AlbumInfo album;
 
+  static String page() => 'SelectedAlbumPage';
+
   @override
   State<SelectedAlbumPage> createState() => _SelectedAlbumPageState();
 }
