@@ -34,21 +34,14 @@ class _SelectedArtistPageState extends State<SelectedArtistPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-        ),
-        body: FutureBuilder(
-          future: _initializeAudioFiles,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return SelectedArtist(artist: _artist, albums: _albums);
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ),
+  Widget build(BuildContext context) => FutureBuilder(
+        future: _initializeAudioFiles,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return SelectedArtist(artist: _artist, albums: _albums);
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       );
 }
