@@ -1,16 +1,50 @@
 include: package:flutter_lints/flutter.yaml
-analyzer:
-  exclude:
 
-    #generated code
-    - 'lib/**/*.g.dart'
-    - 'lib/generated_plugin_registrant.dart'
-    - '**/*.g.dart'
-    - '**/*.lock'
-    - 'lib/src/common/l10n/generated/**'
-    - 'lib/src/features/report/widget/call_rate_dashboard/call_rate_dashboard.dart'
-    - '../packages/**'
-    # implicit-dynamic: false
+# Analyzer options
+analyzer:
+  # Exclude files from analysis. Must be relative to the root of the package.
+  exclude:
+    # Build
+    - "build/**"
+    # Tests
+    - "test/**.mocks.dart"
+    - ".test_coverage.dart"
+    - "coverage/**"
+    # Assets
+    - "assets/**"
+    # Generated
+    - "lib/src/common/localization/generated/**"
+    - "lib/src/common/constants/pubspec.yaml.g.dart"
+    - "lib/src/common/model/generated/**"
+    - "**.g.dart"
+    - "**.gql.dart"
+    - "**.freezed.dart"
+    - "**.config.dart"
+    - "**.mocks.dart"
+    - "**.gen.dart"
+    - "**.pb.dart"
+    - "**.pbenum.dart"
+    - "**.pbjson.dart"
+    # Flutter Version Manager
+    - ".fvm/**"
+    # Tools
+    #- "tool/**"
+    - "scripts/**"
+    - ".dart_tool/**"
+    # Platform
+    - "ios/**"
+    - "android/**"
+    - "web/**"
+    - "macos/**"
+    - "windows/**"
+    - "linux/**"
+
+  # Enable the following options to enable strong mode.
+  language:
+    strict-casts: true
+    strict-raw-types: true
+    strict-inference: true
+
   errors:
     missing_required_param: warning
     missing_return: warning

@@ -52,5 +52,5 @@ class _ScopeProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      AudioQueryRooyScope(child: MusicPlayerRootScope(child: child));
+      AudioQueryRooyScope(child: MusicPlayerScope(child: child));
 }

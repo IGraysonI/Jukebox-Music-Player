@@ -360,8 +360,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
   @override
   Widget build(BuildContext context) => SafeArea(
         child: StreamBuilder<SequenceState?>(
-          stream:
-              MusicPlayerRootScope.stateOf(context)!.player.sequenceStateStream,
+          stream: MusicPlayerScope.stateOf(context)!.player.sequenceStateStream,
           builder: (context, snapshot) {
             final playerMaxHeight = MediaQuery.of(context).size.height;
             if (snapshot.hasData) {
@@ -374,7 +373,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
                 onDismissed: null,
                 curve: Curves.easeOut,
                 builder: (height, percentage) {
-                  _player = MusicPlayerRootScope.stateOf(context)!.player;
+                  _player = MusicPlayerScope.stateOf(context)!.player;
                   _isMiniPlayer =
                       percentage < PlayerUtils.miniplayerPercentageDeclaration;
 

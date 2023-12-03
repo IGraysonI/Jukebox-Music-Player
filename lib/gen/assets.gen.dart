@@ -13,8 +13,7 @@ class $AssetsImagesGen {
   const $AssetsImagesGen();
 
   /// File path: assets/images/no_image.jpg
-  AssetGenImage get noImage =>
-      const AssetGenImage('assets/images/no_image.jpg');
+  AssetGenImage get noImage => const AssetGenImage('assets/images/no_image.jpg');
 
   /// List of all assets
   List<AssetGenImage> get values => [noImage];

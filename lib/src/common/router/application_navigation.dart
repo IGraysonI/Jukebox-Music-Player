@@ -109,7 +109,7 @@ class ApplicationNavigation {
   GoRouteInformationParser get routeInformationParser =>
       router.routeInformationParser;
 
-  static Page getPage({
+  static Page<Widget> getPage({
     required Widget child,
     required GoRouterState state,
   }) =>

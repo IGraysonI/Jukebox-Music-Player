@@ -2,8 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
-
-import '../logger/l.dart';
+import 'package:l/l.dart';
 
 typedef ApplicationLifecycleCallback = _ApplicationLifecycleCallback;
 
@@ -107,28 +106,28 @@ class _ApplicationLifecycleCallback {
   void call(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.resumed:
-        if (onResumed != null) l.t('execute onResumed callback [$debugLabel]');
+        if (onResumed != null) l.i('execute onResumed callback [$debugLabel]');
         onResumed?.call();
         break;
       case AppLifecycleState.inactive:
         if (onInactive != null) {
-          l.t('execute onInactive callback [$debugLabel]');
+          l.i('execute onInactive callback [$debugLabel]');
         }
         onInactive?.call();
         break;
       case AppLifecycleState.paused:
-        if (onPaused != null) l.t('execute onPaused callback [$debugLabel]');
+        if (onPaused != null) l.i('execute onPaused callback [$debugLabel]');
         onPaused?.call();
         break;
       case AppLifecycleState.detached:
         if (onDetached != null) {
-          l.t('execute onDetached callback [$debugLabel]');
+          l.i('execute onDetached callback [$debugLabel]');
         }
         onDetached?.call();
         break;
       case AppLifecycleState.hidden:
         if (onHidden != null) {
-          l.t('execute onDetached callback [$debugLabel]');
+          l.i('execute onDetached callback [$debugLabel]');
         }
         onDetached?.call();
         break;
@@ -136,7 +135,7 @@ class _ApplicationLifecycleCallback {
   }
 
   void callSequence() {
-    l.t('execute callSequence [$debugLabel]');
+    l.i('execute callSequence [$debugLabel]');
     onInactive?.call();
     onPaused?.call();
     onResumed?.call();

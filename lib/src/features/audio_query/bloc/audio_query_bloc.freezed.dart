@@ -24,14 +24,12 @@ mixin _$AudioQueryState {
   StackTrace? get stackTrace => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $AudioQueryStateCopyWith<AudioQueryState> get copyWith =>
-      throw _privateConstructorUsedError;
+  $AudioQueryStateCopyWith<AudioQueryState> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $AudioQueryStateCopyWith<$Res> {
-  factory $AudioQueryStateCopyWith(
-          AudioQueryState value, $Res Function(AudioQueryState) then) =
+  factory $AudioQueryStateCopyWith(AudioQueryState value, $Res Function(AudioQueryState) then) =
       _$AudioQueryStateCopyWithImpl<$Res, AudioQueryState>;
   @useResult
   $Res call(
@@ -44,8 +42,7 @@ abstract class $AudioQueryStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AudioQueryStateCopyWithImpl<$Res, $Val extends AudioQueryState>
-    implements $AudioQueryStateCopyWith<$Res> {
+class _$AudioQueryStateCopyWithImpl<$Res, $Val extends AudioQueryState> implements $AudioQueryStateCopyWith<$Res> {
   _$AudioQueryStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -90,11 +87,9 @@ class _$AudioQueryStateCopyWithImpl<$Res, $Val extends AudioQueryState>
 }
 
 /// @nodoc
-abstract class _$$_AudioQueryStateCopyWith<$Res>
-    implements $AudioQueryStateCopyWith<$Res> {
-  factory _$$_AudioQueryStateCopyWith(
-          _$_AudioQueryState value, $Res Function(_$_AudioQueryState) then) =
-      __$$_AudioQueryStateCopyWithImpl<$Res>;
+abstract class _$$AudioQueryStateImplCopyWith<$Res> implements $AudioQueryStateCopyWith<$Res> {
+  factory _$$AudioQueryStateImplCopyWith(_$AudioQueryStateImpl value, $Res Function(_$AudioQueryStateImpl) then) =
+      __$$AudioQueryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,11 +102,9 @@ abstract class _$$_AudioQueryStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AudioQueryStateCopyWithImpl<$Res>
-    extends _$AudioQueryStateCopyWithImpl<$Res, _$_AudioQueryState>
-    implements _$$_AudioQueryStateCopyWith<$Res> {
-  __$$_AudioQueryStateCopyWithImpl(
-      _$_AudioQueryState _value, $Res Function(_$_AudioQueryState) _then)
+class __$$AudioQueryStateImplCopyWithImpl<$Res> extends _$AudioQueryStateCopyWithImpl<$Res, _$AudioQueryStateImpl>
+    implements _$$AudioQueryStateImplCopyWith<$Res> {
+  __$$AudioQueryStateImplCopyWithImpl(_$AudioQueryStateImpl _value, $Res Function(_$AudioQueryStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -124,7 +117,7 @@ class __$$_AudioQueryStateCopyWithImpl<$Res>
     Object? error = freezed,
     Object? stackTrace = freezed,
   }) {
-    return _then(_$_AudioQueryState(
+    return _then(_$AudioQueryStateImpl(
       songs: null == songs
           ? _value._songs
           : songs // ignore: cast_nullable_to_non_nullable
@@ -152,8 +145,8 @@ class __$$_AudioQueryStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AudioQueryState extends _AudioQueryState {
-  const _$_AudioQueryState(
+class _$AudioQueryStateImpl extends _AudioQueryState {
+  const _$AudioQueryStateImpl(
       {required final List<SongInfo> songs,
       required final List<AlbumInfo> albums,
       required final List<ArtistInfo> artists,
@@ -206,15 +199,13 @@ class _$_AudioQueryState extends _AudioQueryState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AudioQueryState &&
+            other is _$AudioQueryStateImpl &&
             const DeepCollectionEquality().equals(other._songs, _songs) &&
             const DeepCollectionEquality().equals(other._albums, _albums) &&
             const DeepCollectionEquality().equals(other._artists, _artists) &&
-            (identical(other.isProcessing, isProcessing) ||
-                other.isProcessing == isProcessing) &&
+            (identical(other.isProcessing, isProcessing) || other.isProcessing == isProcessing) &&
             const DeepCollectionEquality().equals(other.error, error) &&
-            (identical(other.stackTrace, stackTrace) ||
-                other.stackTrace == stackTrace));
+            (identical(other.stackTrace, stackTrace) || other.stackTrace == stackTrace));
   }
 
   @override
@@ -230,8 +221,8 @@ class _$_AudioQueryState extends _AudioQueryState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AudioQueryStateCopyWith<_$_AudioQueryState> get copyWith =>
-      __$$_AudioQueryStateCopyWithImpl<_$_AudioQueryState>(this, _$identity);
+  _$$AudioQueryStateImplCopyWith<_$AudioQueryStateImpl> get copyWith =>
+      __$$AudioQueryStateImplCopyWithImpl<_$AudioQueryStateImpl>(this, _$identity);
 }
 
 abstract class _AudioQueryState extends AudioQueryState {
@@ -241,7 +232,7 @@ abstract class _AudioQueryState extends AudioQueryState {
       required final List<ArtistInfo> artists,
       final bool isProcessing,
       final Object? error,
-      final StackTrace? stackTrace}) = _$_AudioQueryState;
+      final StackTrace? stackTrace}) = _$AudioQueryStateImpl;
   const _AudioQueryState._() : super._();
 
   @override
@@ -258,8 +249,7 @@ abstract class _AudioQueryState extends AudioQueryState {
   StackTrace? get stackTrace;
   @override
   @JsonKey(ignore: true)
-  _$$_AudioQueryStateCopyWith<_$_AudioQueryState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$AudioQueryStateImplCopyWith<_$AudioQueryStateImpl> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -300,14 +290,12 @@ mixin _$AudioQueryEvent {
 
 /// @nodoc
 abstract class $AudioQueryEventCopyWith<$Res> {
-  factory $AudioQueryEventCopyWith(
-          AudioQueryEvent value, $Res Function(AudioQueryEvent) then) =
+  factory $AudioQueryEventCopyWith(AudioQueryEvent value, $Res Function(AudioQueryEvent) then) =
       _$AudioQueryEventCopyWithImpl<$Res, AudioQueryEvent>;
 }
 
 /// @nodoc
-class _$AudioQueryEventCopyWithImpl<$Res, $Val extends AudioQueryEvent>
-    implements $AudioQueryEventCopyWith<$Res> {
+class _$AudioQueryEventCopyWithImpl<$Res, $Val extends AudioQueryEvent> implements $AudioQueryEventCopyWith<$Res> {
   _$AudioQueryEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -317,25 +305,22 @@ class _$AudioQueryEventCopyWithImpl<$Res, $Val extends AudioQueryEvent>
 }
 
 /// @nodoc
-abstract class _$$GetAudioFilesCopyWith<$Res> {
-  factory _$$GetAudioFilesCopyWith(
-          _$GetAudioFiles value, $Res Function(_$GetAudioFiles) then) =
-      __$$GetAudioFilesCopyWithImpl<$Res>;
+abstract class _$$GetAudioFilesImplCopyWith<$Res> {
+  factory _$$GetAudioFilesImplCopyWith(_$GetAudioFilesImpl value, $Res Function(_$GetAudioFilesImpl) then) =
+      __$$GetAudioFilesImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$GetAudioFilesCopyWithImpl<$Res>
-    extends _$AudioQueryEventCopyWithImpl<$Res, _$GetAudioFiles>
-    implements _$$GetAudioFilesCopyWith<$Res> {
-  __$$GetAudioFilesCopyWithImpl(
-      _$GetAudioFiles _value, $Res Function(_$GetAudioFiles) _then)
+class __$$GetAudioFilesImplCopyWithImpl<$Res> extends _$AudioQueryEventCopyWithImpl<$Res, _$GetAudioFilesImpl>
+    implements _$$GetAudioFilesImplCopyWith<$Res> {
+  __$$GetAudioFilesImplCopyWithImpl(_$GetAudioFilesImpl _value, $Res Function(_$GetAudioFilesImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$GetAudioFiles extends GetAudioFiles {
-  const _$GetAudioFiles() : super._();
+class _$GetAudioFilesImpl extends GetAudioFiles {
+  const _$GetAudioFilesImpl() : super._();
 
   @override
   String toString() {
@@ -344,8 +329,7 @@ class _$GetAudioFiles extends GetAudioFiles {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAudioFiles);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is _$GetAudioFilesImpl);
   }
 
   @override
@@ -409,6 +393,6 @@ class _$GetAudioFiles extends GetAudioFiles {
 }
 
 abstract class GetAudioFiles extends AudioQueryEvent {
-  const factory GetAudioFiles() = _$GetAudioFiles;
+  const factory GetAudioFiles() = _$GetAudioFilesImpl;
   const GetAudioFiles._() : super._();
 }

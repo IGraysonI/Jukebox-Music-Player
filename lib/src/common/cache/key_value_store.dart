@@ -8,7 +8,7 @@ typedef ValueStoreParser<T> = T? Function(Map<String, Object?>);
 abstract class KeyValueStore {
   /// Метод проверяющий, что по ключу [typedStoreKey]
   /// хранится какое-либо значение
-  Future<bool> contains(TypeStoreKey typedStoreKey);
+  Future<bool> contains(TypeStoreKey<bool> typedStoreKey);
 
   /// Метод для инициализации хранилища
   Future<void> init();

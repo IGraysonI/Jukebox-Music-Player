@@ -1,13 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+import 'package:l/l.dart';
 
 import '../../../firebase_options.dart';
 import '../../common/cache/shared_prefs_store.dart';
 import '../../common/widgets/splash_screen.dart';
 import '../firebase/firebase_crashlytics_wrapper.dart';
-import '../logger/l.dart';
 import '../theme/theme_manager.dart';
 
 /// Инициализация сервисов приложения
@@ -27,7 +26,6 @@ class ApplicationInitialization extends StatefulWidget {
 
 class _ApplicationInitializationState extends State<ApplicationInitialization> {
   late final SharedPrefsStore sharedPrefsStore = SharedPrefsStore();
-  late final Logger logger = l;
   late final ThemeManager themeManager;
   late final FirebaseApp firebaseApp;
   bool _applicationIsInitialized = false;
@@ -46,9 +44,6 @@ class _ApplicationInitializationState extends State<ApplicationInitialization> {
     firebaseApp = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-
-    ApplicationLogger().init();
-    l.i('ApplicationLogger инициализирован');
 
     await sharedPrefsStore.init();
     l.i('SharedPrefsStore инициализирован');

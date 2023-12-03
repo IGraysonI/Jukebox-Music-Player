@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../audio_query/scope/audio_query_root_scope.dart';
-
-class MusicPlayerRootScope extends StatefulWidget {
-  const MusicPlayerRootScope({required this.child, super.key});
+class MusicPlayerScope extends StatefulWidget {
+  const MusicPlayerScope({required this.child, super.key});
 
   final Widget child;
 
-  static _MusicPlayerRootScopeState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MusicPlayerRootScopeState>()!;
+  static _MusicPlayerScopeState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MusicPlayerScopeState>()!;
 
-  static _MusicPlayerRootScopeState? stateOf(BuildContext context) => (context
+  static _MusicPlayerScopeState? stateOf(BuildContext context) => (context
           .getElementForInheritedWidgetOfExactType<
               _InheritedMusicPlayerRootScope>()
           ?.widget as _InheritedMusicPlayerRootScope?)
@@ -26,37 +24,37 @@ class MusicPlayerRootScope extends StatefulWidget {
   }) {
     final songsForPlaylist = <AudioSource>[];
 
-    if (songs != null) {
-      songsForPlaylist.addAll(
-        songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
-      );
-    } else if (albumInfo != null) {
-      songsForPlaylist.addAll(
-        AudioQueryRooyScope.stateOf(context)!
-            .audioQueryBloc
-            .state
-            .songs
-            .where((song) => song.albumId == albumInfo.id)
-            .map((song) => AudioSource.file(song.filePath!, tag: song)),
-      );
-    } else if (artistInfo != null) {
-      songsForPlaylist.addAll(
-        AudioQueryRooyScope.stateOf(context)!
-            .audioQueryBloc
-            .state
-            .songs
-            .where((song) => song.artistId == artistInfo.id)
-            .map((song) => AudioSource.file(song.filePath!, tag: song)),
-      );
-    } else {
-      songsForPlaylist.addAll(
-        AudioQueryRooyScope.stateOf(context)!
-            .audioQueryBloc
-            .state
-            .songs
-            .map((song) => AudioSource.file(song.filePath!, tag: song)),
-      );
-    }
+    // if (songs != null) {
+    // songsForPlaylist.addAll(
+    //   songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+    // );
+    // } else if (albumInfo != null) {
+    //   songsForPlaylist.addAll(
+    //     AudioQueryRooyScope.stateOf(context)!
+    //         .audioQueryBloc
+    //         .state
+    //         .songs
+    //         .where((song) => song.albumId == albumInfo.id)
+    //         .map((song) => AudioSource.file(song.filePath!, tag: song)),
+    //   );
+    // } else if (artistInfo != null) {
+    //   songsForPlaylist.addAll(
+    //     AudioQueryRooyScope.stateOf(context)!
+    //         .audioQueryBloc
+    //         .state
+    //         .songs
+    //         .where((song) => song.artistId == artistInfo.id)
+    //         .map((song) => AudioSource.file(song.filePath!, tag: song)),
+    //   );
+    // } else {
+    //   songsForPlaylist.addAll(
+    //     AudioQueryRooyScope.stateOf(context)!
+    //         .audioQueryBloc
+    //         .state
+    //         .songs
+    //         .map((song) => AudioSource.file(song.filePath!, tag: song)),
+    //   );
+    // }
 
     return ConcatenatingAudioSource(
       useLazyPreparation: false,
@@ -78,10 +76,10 @@ class MusicPlayerRootScope extends StatefulWidget {
         ..play();
 
   @override
-  State<MusicPlayerRootScope> createState() => _MusicPlayerRootScopeState();
+  State<MusicPlayerScope> createState() => _MusicPlayerScopeState();
 }
 
-class _MusicPlayerRootScopeState extends State<MusicPlayerRootScope> {
+class _MusicPlayerScopeState extends State<MusicPlayerScope> {
   AudioPlayer? _audioPlayer;
 
   AudioPlayer get player => _audioPlayer!;
@@ -112,7 +110,7 @@ class _InheritedMusicPlayerRootScope extends InheritedWidget {
     required super.child,
   });
 
-  final _MusicPlayerRootScopeState state;
+  final _MusicPlayerScopeState state;
 
   @override
   bool updateShouldNotify(_InheritedMusicPlayerRootScope oldWidget) =>

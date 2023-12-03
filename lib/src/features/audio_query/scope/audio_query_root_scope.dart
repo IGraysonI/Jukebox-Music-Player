@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../bloc/audio_query_bloc.dart';
-import '../data/audio_query_repository.dart';
-
 class AudioQueryRooyScope extends StatefulWidget {
   const AudioQueryRooyScope({required this.child, super.key});
 
@@ -22,20 +19,20 @@ class AudioQueryRooyScope extends StatefulWidget {
 }
 
 class _AudioQueryRooyScopeState extends State<AudioQueryRooyScope> {
-  AudioQueryBloc? _audioQueryBloc;
+  // AudioQueryBloc? _audioQueryBloc;
 
-  AudioQueryBloc get audioQueryBloc => _audioQueryBloc!;
+  // AudioQueryBloc get audioQueryBloc => _audioQueryBloc!;
 
   @override
   void didChangeDependencies() {
-    _audioQueryBloc =
-        AudioQueryBloc(audioQueryRepository: AudioQueryRepository());
+    // _audioQueryBloc = AudioQueryBloc(audioQueryRepository:
+    // AudioQueryRepository());
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    _audioQueryBloc?.close();
+    // _audioQueryBloc?.close();
     super.dispose();
   }
 
