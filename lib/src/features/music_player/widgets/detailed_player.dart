@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../common/utils/player_utils.dart';
+import '../../../common/utils/player_util.dart';
 import '../../../common/widgets/space.dart';
 import '../../mini_player/controller/mini_player_controller.dart';
 import '../../mini_player/widget/miniplayer.dart';
-import '../scope/music_player_root_scope.dart';
+import '../scope/music_player_scope.dart';
 
 class DetailedPlayer extends StatefulWidget {
   const DetailedPlayer({super.key});
@@ -360,8 +360,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
   @override
   Widget build(BuildContext context) => SafeArea(
         child: StreamBuilder<SequenceState?>(
-          stream:
-              MusicPlayerRootScope.stateOf(context)!.player.sequenceStateStream,
+          stream: MusicPlayerScope.audioPlayerOf(context).sequenceStateStream,
           builder: (context, snapshot) {
             final playerMaxHeight = MediaQuery.of(context).size.height;
             if (snapshot.hasData) {
@@ -374,7 +373,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
                 onDismissed: null,
                 curve: Curves.easeOut,
                 builder: (height, percentage) {
-                  _player = MusicPlayerRootScope.stateOf(context)!.player;
+                  _player = MusicPlayerScope.audioPlayerOf(context);
                   _isMiniPlayer =
                       percentage < PlayerUtils.miniplayerPercentageDeclaration;
 

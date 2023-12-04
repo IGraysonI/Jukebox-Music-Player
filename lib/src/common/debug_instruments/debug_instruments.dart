@@ -11,8 +11,8 @@ class DebugInstruments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => Navigator.of(context).push<MaterialPageRoute>(
-        MaterialPageRoute(
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(
           builder: (context) => _DebugInstrumentsPage(
             instrumentConfigurator: instrumentConfigurator,
           ),
@@ -35,8 +35,8 @@ class _DebugInstrumentsPage extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            onTap: () => Navigator.of(context).push<MaterialPageRoute>(
-              MaterialPageRoute(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
                 builder: (context) => const SharedPrefsComponent(),
               ),
             ),

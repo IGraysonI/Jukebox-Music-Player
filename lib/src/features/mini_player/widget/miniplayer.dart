@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../common/utils/player_utils.dart';
+import '../../../common/utils/player_util.dart';
 import '../controller/mini_player_controller.dart';
 import '../scope/miniplayer_will_pop_scope.dart';
 

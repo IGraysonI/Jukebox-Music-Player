@@ -46,7 +46,7 @@ class SharedPrefsStore implements KeyValueStore {
   }
 
   @override
-  Future<bool> contains(TypeStoreKey typeStoreKey) async =>
+  Future<bool> contains(TypeStoreKey<bool> typeStoreKey) async =>
       _sharedPreferences.containsKey(typeStoreKey.key);
 
   @override

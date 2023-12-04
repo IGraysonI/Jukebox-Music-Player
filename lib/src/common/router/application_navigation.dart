@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/albums/page/albums_page.dart';
 import '../../features/albums/page/selected_album_page.dart';
-import '../../features/artists/page/artists_page.dart';
+import '../../features/artists/page/artist_page.dart';
 import '../../features/artists/page/selected_artist_page.dart';
 import '../../features/jukebox_music_player/pages/bottom_navigation_page.dart';
-import '../../features/songs/page/songs_page.dart';
+import '../../features/songs/page/song_page.dart';
 import 'application_navigation_observer.dart';
 
 class ApplicationNavigation {
@@ -109,7 +109,7 @@ class ApplicationNavigation {
   GoRouteInformationParser get routeInformationParser =>
       router.routeInformationParser;
 
-  static Page getPage({
+  static Page<Widget> getPage({
     required Widget child,
     required GoRouterState state,
   }) =>

@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../../../common/extensions/string_extensions.dart';
-import '../../music_player/scope/music_player_root_scope.dart';
+import '../../../common/extension/string_extensions.dart';
+import '../../music_player/scope/music_player_scope.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({
@@ -51,9 +51,9 @@ class SongCard extends StatelessWidget {
           ],
         ),
         trailing: const Icon(Icons.more_vert_rounded, color: Colors.black),
-        onTap: () => MusicPlayerRootScope.playPlaylist(
+        onTap: () => MusicPlayerScope.playPlaylist(
           context,
-          MusicPlayerRootScope.createPlaylist(context, albumInfo: album),
+          MusicPlayerScope.createPlaylist(context, albumInfo: album),
           songIndex,
         ),
         dense: false,
