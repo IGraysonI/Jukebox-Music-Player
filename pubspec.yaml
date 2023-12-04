@@ -40,7 +40,6 @@ dependencies:
   window_manager: ^0.3.5
 
   # Utils
-  freezed: ^2.4.5
   # audiotagger: ^2.2.1
   collection: any
   async: any
@@ -66,8 +65,6 @@ dev_dependencies:
   flutter_lints: ^3.0.1
 
   # Codegen
-  flutter_gen_runner: ^5.3.2
-  flutter_gen: ^5.3.2
   build_runner: ^2.4.6
   pubspec_generator: '>=4.0.0 <5.0.0'
 
