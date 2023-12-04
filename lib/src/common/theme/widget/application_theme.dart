@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/theme_manager.dart';
+import '../theme_manager.dart';
 
 /// Виджет темы, находится в корне виджетов приложения
 class ApplicationTheme extends InheritedWidget {

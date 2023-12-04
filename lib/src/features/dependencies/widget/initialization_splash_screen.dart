@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/theme/theme_constants.dart';
 import '../../../common/widgets/radial_progress_indicator.dart';
 
 class InitializationSplashScreen extends StatelessWidget {
@@ -12,10 +13,10 @@ class InitializationSplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = View.of(context).platformDispatcher.platformBrightness ==
             Brightness.dark
-        ? ThemeData.dark()
-        : ThemeData.light();
+        ? darkTheme
+        : lightTheme;
     return Material(
-      color: theme.primaryColor,
+      color: theme.colorScheme.primary,
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: Center(
