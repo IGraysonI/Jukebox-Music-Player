@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/albums/page/albums_page.dart';
 import '../../features/albums/page/selected_album_page.dart';
-import '../../features/artists/page/artists_page.dart';
+import '../../features/artists/page/artist_page.dart';
 import '../../features/artists/page/selected_artist_page.dart';
 import '../../features/jukebox_music_player/pages/bottom_navigation_page.dart';
 import '../../features/songs/page/song_page.dart';

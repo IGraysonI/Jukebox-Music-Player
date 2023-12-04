@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../common/controller/state_consumer.dart';
-import '../../audio_query/controller/audio_query_controller.dart';
 import '../../audio_query/controller/audio_query_state.dart';
 import '../../audio_query/scope/audio_query_scope.dart';
 import '../widget/song_card.dart';
@@ -19,26 +18,12 @@ class SongsPage extends StatefulWidget {
 }
 
 class _SongsPageState extends State<SongsPage> {
-  late final AudioQueryController _audioQueryController;
-
-  @override
-  void initState() {
-    super.initState();
-    _audioQueryController = AudioQueryScope.controllerOf(context);
-  }
-
-  @override
-  void dispose() {
-    _audioQueryController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) => CustomScrollView(
         slivers: [
           const SliverAppBar(title: Text('Songs'), floating: true, snap: true),
           StateConsumer<AudioQueryState>(
-            controller: _audioQueryController,
+            controller: AudioQueryScope.controllerOf(context),
             builder: (context, state, _) => switch (state) {
               AuthenticationState$Processing() => const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator()),

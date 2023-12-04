@@ -41,6 +41,7 @@ class _AudioQueryScopeState extends State<AudioQueryScope> {
   @override
   Widget build(BuildContext context) => _InheritedAudioQueryScope(
         controller: _audioQueryController,
+        state: this,
         child: widget.child,
       );
 }
@@ -49,10 +50,12 @@ class _AudioQueryScopeState extends State<AudioQueryScope> {
 class _InheritedAudioQueryScope extends InheritedWidget {
   const _InheritedAudioQueryScope({
     required this.controller,
+    required this.state,
     required super.child,
   });
 
   final AudioQueryController controller;
+  final _AudioQueryScopeState state;
 
   /// The state from the closest instance of this class
   /// that encloses the given context, if any.
@@ -83,5 +86,5 @@ class _InheritedAudioQueryScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant _InheritedAudioQueryScope oldWidget) =>
-      !identical(controller, oldWidget.controller);
+      !identical(this, oldWidget.state);
 }
