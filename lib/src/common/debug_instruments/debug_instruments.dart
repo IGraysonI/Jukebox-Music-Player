@@ -4,16 +4,15 @@ import 'instruments_configurator.dart';
 import 'shared_preferences_component.dart';
 
 class DebugInstruments extends StatelessWidget {
-  const DebugInstruments({required this.instrumentConfigurator, Key? key})
-      : super(key: key);
+  const DebugInstruments({required this.instrumentConfigurator, super.key});
 
   final InstrumentConfigurator instrumentConfigurator;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => Navigator.of(context).push<MaterialPageRoute>(
-        MaterialPageRoute(
+      onPressed: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(
           builder: (context) => _DebugInstrumentsPage(
             instrumentConfigurator: instrumentConfigurator,
           ),
@@ -25,8 +24,7 @@ class DebugInstruments extends StatelessWidget {
 }
 
 class _DebugInstrumentsPage extends StatelessWidget {
-  const _DebugInstrumentsPage({required this.instrumentConfigurator, Key? key})
-      : super(key: key);
+  const _DebugInstrumentsPage({required this.instrumentConfigurator});
 
   final InstrumentConfigurator instrumentConfigurator;
 
@@ -37,14 +35,14 @@ class _DebugInstrumentsPage extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            onTap: () => Navigator.of(context).push<MaterialPageRoute>(
-              MaterialPageRoute(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
                 builder: (context) => const SharedPrefsComponent(),
               ),
             ),
             title: const Text('Cache'),
             leading: const Icon(Icons.storage_rounded),
-          )
+          ),
         ],
       ),
     );

@@ -4,9 +4,11 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import '../widget/selected_album.dart';
 
 class SelectedAlbumPage extends StatefulWidget {
-  const SelectedAlbumPage({required this.album, Key? key}) : super(key: key);
+  const SelectedAlbumPage({required this.album, super.key});
 
   final AlbumInfo album;
+
+  static String page() => 'SelectedAlbumPage';
 
   @override
   State<SelectedAlbumPage> createState() => _SelectedAlbumPageState();
@@ -25,11 +27,6 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> _getAlbumSongs(AlbumInfo album) async {
     var songs = <SongInfo>[];
     songs = await _audioQuery.getSongsFromAlbum(albumId: album.id);
@@ -37,14 +34,7 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: FutureBuilder(
+  Widget build(BuildContext context) => FutureBuilder(
         future: _initializeAudioFiles,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
@@ -53,7 +43,5 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
             return const Center(child: CircularProgressIndicator());
           }
         },
-      ),
-    );
-  }
+      );
 }

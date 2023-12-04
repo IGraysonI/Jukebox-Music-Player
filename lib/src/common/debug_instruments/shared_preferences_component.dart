@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'instruments_configurator.dart';
 
 class SharedPrefsComponent extends StatefulWidget {
-  const SharedPrefsComponent({Key? key}) : super(key: key);
+  const SharedPrefsComponent({super.key});
 
   @override
   State<SharedPrefsComponent> createState() => _SharedPrefsComponentState();
@@ -44,7 +44,7 @@ class _SharedPrefsComponentState extends State<SharedPrefsComponent> {
             ListTile(
               title: Text(key),
               subtitle: Text(_sharedPrefsMap[key].toString()),
-            )
+            ),
         ],
       ),
     );

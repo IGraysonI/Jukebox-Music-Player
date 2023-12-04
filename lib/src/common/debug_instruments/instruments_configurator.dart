@@ -1,6 +1,5 @@
+import 'package:l/l.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../core/logger/l.dart';
 
 /// Конфигурируем инстременты на переданные инстансы
 /// Все объекты, которые будут необходимы в debug instruments должны быть
