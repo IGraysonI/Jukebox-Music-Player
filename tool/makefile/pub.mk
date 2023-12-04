@@ -25,7 +25,6 @@ codegen: get
 # Generate intl messages
 intl:
 	@dart pub global run intl_utils:generate
-	@dart format --fix -l 120 .
 
 # Generate all
 gen: codegen
@@ -46,7 +45,3 @@ outdated: get
 dependencies: upgrade
 	@fvm flutter pub outdated --dependency-overrides \
 		--dev-dependencies --prereleases --show-all --transitive
-
-# Format code
-format:
-	@dart format --fix -l 120 .

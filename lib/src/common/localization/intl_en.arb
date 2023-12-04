@@ -4,7 +4,8 @@
     "languageCode": "en",
     "language": "English",
     "@ Title": {},
-    "title": "Chat App",
+    "title": "Jukebox",
+
     "@ ############# Errors #############": {},
     "errSomethingWentWrong": "Something went wrong",
     "errError": "Error",
@@ -34,6 +35,7 @@
     "errGatewayTimeout": "Gateway timeout",
     "errUnknownServerError": "Unknown server error",
     "errAnUnknownErrorWasReceivedFromTheServer": "An unknown error was received from the server",
+
     "@ ############# Buttons #############": {},
     "logOutButton": "Log Out",
     "logInButton": "Log In",
@@ -60,6 +62,7 @@
     "addToStarredButton": "Add to starred",
     "moveToTrashButton": "Move to trash",
     "restoreButton": "Restore",
+    
     "@ ############# Labels #############": {},
     "emailLabel": "Email",
     "nameLabel": "Name",
@@ -93,6 +96,7 @@
     "storageLabel": "Storage",
     "helpLabel": "Help",
     "selectedLabel": "Selected",
+
     "@ ############# Descriptions #############": {},
     "logOutDescription": "You will be logged out from your account"
 }
