@@ -39,15 +39,19 @@ class _SongsPageState extends State<SongsPage> {
           const SliverAppBar(title: Text('Songs'), floating: true, snap: true),
           StateConsumer<AudioQueryState>(
             controller: _audioQueryController,
-            builder: (context, state, _) => SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) =>
-                    SongCard(songIndex: index, song: state.songs[index]),
-                // const Text('s'),
-                childCount: state.songs.length,
-                // childCount: 2,
-              ),
-            ),
+            builder: (context, state, _) => switch (state) {
+              AuthenticationState$Processing() => const SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+              AuthenticationState$Idle() => SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) =>
+                        SongCard(songIndex: index, song: state.songs[index]),
+                    childCount: state.songs.length,
+                  ),
+                ),
+              () => const SliverFillRemaining(child: SizedBox.shrink()),
+            },
           ),
         ],
       );

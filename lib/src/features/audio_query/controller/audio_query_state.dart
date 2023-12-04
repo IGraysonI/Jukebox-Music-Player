@@ -37,12 +37,13 @@ sealed class AudioQueryState extends _$AudioQueryStateBase {
 }
 
 /// {@nodoc}
-base mixin _$AuthenticationState on AudioQueryState {}
+// base mixin _$AuthenticationState on AudioQueryState {}
 
 /// Idling state
 /// {@nodoc}
 final class AuthenticationState$Idle extends AudioQueryState
-    with _$AuthenticationState {
+// with _$AuthenticationState
+{
   /// {@nodoc}
   const AuthenticationState$Idle({
     required super.songs,
@@ -59,7 +60,8 @@ final class AuthenticationState$Idle extends AudioQueryState
 /// Processing
 /// {@nodoc}
 final class AuthenticationState$Processing extends AudioQueryState
-    with _$AuthenticationState {
+// with _$AuthenticationState
+{
   /// {@nodoc}
   const AuthenticationState$Processing({
     required super.songs,
