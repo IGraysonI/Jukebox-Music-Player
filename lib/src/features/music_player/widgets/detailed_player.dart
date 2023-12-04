@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../common/utils/player_utils.dart';
+import '../../../common/utils/player_util.dart';
 import '../../../common/widgets/space.dart';
 import '../../mini_player/controller/mini_player_controller.dart';
 import '../../mini_player/widget/miniplayer.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import '../../features/audio_query/scope/audio_query_scope.dart';
 import '../../features/dependencies/scope/dependencies_scope.dart';
 import '../../features/music_player/scope/music_player_root_scope.dart';
 import '../localization/localization.dart';
@@ -46,8 +47,10 @@ class Application extends StatelessWidget {
                 data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
                 child: WindowScope(
                   title: Localization.of(context).title,
-                  child: MusicPlayerScope(
-                    child: child ?? const SizedBox.shrink(),
+                  child: AudioQueryScope(
+                    child: MusicPlayerScope(
+                      child: child ?? const SizedBox.shrink(),
+                    ),
                   ),
                 ),
               ),

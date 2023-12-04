@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/utils/player_utils.dart';
+import '../../../common/utils/player_util.dart';
 import '../../music_player/widgets/detailed_player.dart';
 
 class BottomNavigationPage extends StatefulWidget {
