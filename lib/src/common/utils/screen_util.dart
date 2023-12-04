@@ -52,13 +52,11 @@ extension ScreenUtilExtenstion on BuildContext {
 }
 
 // ignore: avoid_classes_with_only_static_members
-/// {@template screen_util}
 /// Screen logical size representation
 ///
 /// phone   | <= 600 dp      | 4 column
 /// tablet  | 600..10023 dp  | 8 column
 /// desktop | >= 1024 dp     | 12 column
-/// {@endtemplate}
 sealed class ScreenUtil {
   /// {@macro screen_util}
   static ScreenSize screenSize() {

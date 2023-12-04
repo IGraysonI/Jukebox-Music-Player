@@ -34,9 +34,6 @@ class _MutableDependencies implements Dependencies {
 
   @override
   late FirebaseApp firebaseApp;
-
-  //TODO: repositories and blocs
-  // late SomeRepository someRepository;
 }
 
 @internal
@@ -113,12 +110,6 @@ mixin InitializeDependencies {
             );
           }
         ),
-        (
-          'Log app open',
-          //TODO: Log app open
-          (_) {},
-        ),
-        //TODO: repositoryies and blocs
         (
           'Fake delay 1',
           (_) => Future<void>.delayed(const Duration(milliseconds: 500)),

@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../features/audio_query/scope/audio_query_scope.dart';
 import '../../features/dependencies/scope/dependencies_scope.dart';
-import '../../features/music_player/scope/music_player_root_scope.dart';
+import '../../features/music_player/scope/music_player_scope.dart';
 import '../localization/localization.dart';
 import '../router/application_navigation.dart';
 import '../theme/theme_constants.dart';
@@ -11,9 +11,7 @@ import '../theme/theme_manager.dart';
 import '../theme/widget/application_theme.dart';
 import 'window_scope.dart';
 
-/// {@template app}
-/// App widget
-/// {@endtemplate}
+/// Application widget
 class Application extends StatelessWidget {
   /// {@macro app}
   const Application({super.key});
@@ -39,7 +37,6 @@ class Application extends StatelessWidget {
               routerConfig: ApplicationNavigation.router,
               theme: lightTheme,
               darkTheme: darkTheme,
-              //FIXME: No ApplicationTheme found in context
               themeMode: ApplicationTheme.of(context).themeManager.themeMode,
               supportedLocales: Localization.supportedLocales,
               locale: const Locale('en', 'US'), //TODO: add localization

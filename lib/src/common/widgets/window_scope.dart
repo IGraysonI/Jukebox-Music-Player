@@ -6,9 +6,7 @@ import 'package:window_manager/window_manager.dart';
 
 import 'space.dart';
 
-/// {@template window_scope}
 /// WindowScope widget.
-/// {@endtemplate}
 class WindowScope extends StatefulWidget {
   /// {@macro window_scope}
   const WindowScope({

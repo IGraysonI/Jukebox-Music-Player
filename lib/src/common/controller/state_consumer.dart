@@ -21,9 +21,7 @@ typedef StateConsumerBuilder<S> = Widget Function(
   Widget? child,
 );
 
-/// {@template state_consumer}
 /// StateBuilder widget.
-/// {@endtemplate}
 class StateConsumer<S extends Object> extends StatefulWidget {
   const StateConsumer({
     required this.controller,

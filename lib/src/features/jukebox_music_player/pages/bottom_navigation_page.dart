@@ -69,22 +69,11 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
             ],
           ),
         ),
-        body:
-            // BlocBuilder<AudioQueryBloc, AudioQueryState>(
-            //   bloc: AudioQueryRooyScope.of(context).audioQueryBloc,
-            //   builder: (context, state) {
-            //     if (state.isProcessing) {
-            //       return const Center(child: CircularProgressIndicator());
-            //     } else {
-            // return
-            Stack(
+        body: Stack(
           children: [
             SafeArea(child: widget.child),
             const DetailedPlayer(),
           ],
-          // );
-          // }
-          // },
         ),
       );
 }

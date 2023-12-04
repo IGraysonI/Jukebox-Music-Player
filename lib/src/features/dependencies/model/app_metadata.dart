@@ -1,8 +1,6 @@
 import 'package:meta/meta.dart';
 
-/// {@template app_metadata}
 /// App metadata
-/// {@endtemplate}
 @immutable
 class AppMetadata {
   const AppMetadata({

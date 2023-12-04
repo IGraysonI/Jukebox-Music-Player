@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' show Listenable, ChangeNotifier;
 import 'package:meta/meta.dart';
 
-/// {@template controller}
 /// The controller responsible for processing the logic, the connection of
 /// widgets and the date of the layer.
-/// {@endtemplate}
 abstract interface class IController implements Listenable {
   /// Whether the controller is currently handling a requests
   bool get isProcessing;

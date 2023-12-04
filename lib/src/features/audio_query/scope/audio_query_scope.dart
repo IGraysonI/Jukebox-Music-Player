@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import '../controller/audio_query_controller.dart';
 import '../data/audio_query_repository.dart';
 
-/// {@template audio_query_root_scope}
 /// AudioQueryScope widget.
-/// {@endtemplate}
 class AudioQueryScope extends StatefulWidget {
   /// {@macro audio_query_root_scope}
   const AudioQueryScope({
@@ -59,8 +57,10 @@ class _InheritedAudioQueryScope extends InheritedWidget {
   /// The state from the closest instance of this class
   /// that encloses the given context, if any.
   /// For example: `AudioQueryScope.maybeOf(context)`
-  static _InheritedAudioQueryScope? maybeOf(BuildContext context,
-          {bool listen = true}) =>
+  static _InheritedAudioQueryScope? maybeOf(
+    BuildContext context, {
+    bool listen = true,
+  }) =>
       listen
           ? context
               .dependOnInheritedWidgetOfExactType<_InheritedAudioQueryScope>()
@@ -75,8 +75,10 @@ class _InheritedAudioQueryScope extends InheritedWidget {
   /// The state from the closest instance of this class
   /// that encloses the given context.
   /// For example: `AudioQueryScope.of(context)`
-  static _InheritedAudioQueryScope of(BuildContext context,
-          {bool listen = true}) =>
+  static _InheritedAudioQueryScope of(
+    BuildContext context, {
+    bool listen = true,
+  }) =>
       maybeOf(context, listen: listen) ?? _notFoundInheritedWidgetOfExactType();
 
   @override

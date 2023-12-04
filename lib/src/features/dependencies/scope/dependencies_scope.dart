@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../model/dependencies.dart';
 
-/// {@template dependencies_scope}
 /// DependenciesScope widget.
-/// {@endtemplate}
 class DependenciesScope extends StatelessWidget {
   /// {@macro dependencies_scope}
   const DependenciesScope({

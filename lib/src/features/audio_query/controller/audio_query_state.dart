@@ -6,9 +6,7 @@ typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(
   S state,
 );
 
-/// {@template audio_query_state}
 /// AudioQueryState.
-/// {@endtemplate}
 sealed class AudioQueryState extends _$AudioQueryStateBase {
   /// {@macro authentication_state}
   const AudioQueryState({

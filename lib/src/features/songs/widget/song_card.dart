@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
 import '../../../common/extensions/string_extensions.dart';
-import '../../music_player/scope/music_player_root_scope.dart';
+import '../../music_player/scope/music_player_scope.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({

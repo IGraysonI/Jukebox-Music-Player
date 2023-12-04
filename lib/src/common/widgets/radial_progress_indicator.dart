@@ -2,9 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// {@template radial_progress_indicator}
 /// RadialProgressIndicator widget
-/// {@endtemplate}
 class RadialProgressIndicator extends StatefulWidget {
   /// {@macro radial_progress_indicator}
   const RadialProgressIndicator({
