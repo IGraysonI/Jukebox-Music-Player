@@ -42,10 +42,8 @@ enum EnvironmentFlavor {
   /// Production
   production('production');
 
-  /// {@nodoc}
   const EnvironmentFlavor(this.value);
 
-  /// {@nodoc}
   factory EnvironmentFlavor.from(String? value) =>
       switch (value?.trim().toLowerCase()) {
         'development' || 'debug' || 'develop' || 'dev' => development,

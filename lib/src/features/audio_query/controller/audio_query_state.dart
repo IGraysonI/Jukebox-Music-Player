@@ -36,15 +36,13 @@ sealed class AudioQueryState extends _$AudioQueryStateBase {
   }) = AuthenticationState$Processing;
 }
 
-/// {@nodoc}
 // base mixin _$AuthenticationState on AudioQueryState {}
 
 /// Idling state
-/// {@nodoc}
+
 final class AuthenticationState$Idle extends AudioQueryState
 // with _$AuthenticationState
 {
-  /// {@nodoc}
   const AuthenticationState$Idle({
     required super.songs,
     required super.albums,
@@ -58,11 +56,10 @@ final class AuthenticationState$Idle extends AudioQueryState
 }
 
 /// Processing
-/// {@nodoc}
+
 final class AuthenticationState$Processing extends AudioQueryState
 // with _$AuthenticationState
 {
-  /// {@nodoc}
   const AuthenticationState$Processing({
     required super.songs,
     required super.albums,
@@ -74,10 +71,8 @@ final class AuthenticationState$Processing extends AudioQueryState
   String? get error => null;
 }
 
-/// {@nodoc}
 @immutable
 abstract base class _$AudioQueryStateBase {
-  /// {@nodoc}
   const _$AudioQueryStateBase({
     required this.songs,
     required this.albums,
