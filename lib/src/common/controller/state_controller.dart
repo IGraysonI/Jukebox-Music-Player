@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
-import 'controller.dart';
+import 'package:jukebox_music_player/src/common/controller/controller.dart';
 
 /// State controller.
 abstract interface class IStateController<State extends Object>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'space.dart';
+import 'package:jukebox_music_player/src/common/widgets/space.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

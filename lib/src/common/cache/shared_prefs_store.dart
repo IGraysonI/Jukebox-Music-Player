@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'key_value_store.dart';
-import 'type_store_key.dart';
+import 'package:jukebox_music_player/src/common/cache/key_value_store.dart';
+import 'package:jukebox_music_player/src/common/cache/type_store_key.dart';
 
 ///Singletor реализация [KeyValueStore] на основе [SharedPreferences]
 class SharedPrefsStore implements KeyValueStore {

@@ -1,4 +1,4 @@
-import 'type_store_key.dart';
+import 'package:jukebox_music_player/src/common/cache/type_store_key.dart';
 
 /// Парсер для типа [T]
 typedef ValueStoreParser<T> = T? Function(Map<String, Object?>);

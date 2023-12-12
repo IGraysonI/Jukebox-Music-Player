@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../common/utils/player_util.dart';
-import '../controller/mini_player_controller.dart';
-import '../scope/miniplayer_will_pop_scope.dart';
+import 'package:jukebox_music_player/src/common/utils/player_util.dart';
+import 'package:jukebox_music_player/src/features/mini_player/controller/mini_player_controller.dart';
+import 'package:jukebox_music_player/src/features/mini_player/scope/miniplayer_will_pop_scope.dart';
 
 /// Type definition for the builder function
 typedef MiniplayerBuilder = Widget Function(double height, double percentage);
@@ -67,10 +67,10 @@ class Miniplayer extends StatefulWidget {
   final Color backgroundBoxShadow;
 
   @override
-  _MiniplayerState createState() => _MiniplayerState();
+  MiniplayerState createState() => MiniplayerState();
 }
 
-class _MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
+class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
   final ValueNotifier<double> _dragDownPercentage = ValueNotifier(0);
   final StreamController<double> _heightController =
       StreamController<double>.broadcast();

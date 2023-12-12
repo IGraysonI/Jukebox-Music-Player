@@ -6,17 +6,17 @@ import 'package:l/l.dart';
 import 'package:meta/meta.dart';
 import 'package:platform_info/platform_info.dart';
 
-import '../../../../firebase_options.dart';
-import '../../../common/cache/shared_prefs_store.dart';
-import '../../../common/constant/config.dart';
-import '../../../common/constant/pubspec.yaml.g.dart';
-import '../../../common/controller/controller.dart';
-import '../../../common/controller/controller_observer.dart';
-import '../../../common/firebase/firebase_crashlytics_wrapper.dart';
-import '../../../common/router/application_navigation.dart';
-import '../../../common/utils/screen_util.dart';
-import '../model/app_metadata.dart';
-import '../model/dependencies.dart';
+import 'package:jukebox_music_player/firebase_options.dart';
+import 'package:jukebox_music_player/src/common/cache/shared_prefs_store.dart';
+import 'package:jukebox_music_player/src/common/constant/config.dart';
+import 'package:jukebox_music_player/src/common/constant/pubspec.yaml.g.dart';
+import 'package:jukebox_music_player/src/common/controller/controller.dart';
+import 'package:jukebox_music_player/src/common/controller/controller_observer.dart';
+import 'package:jukebox_music_player/src/common/firebase/firebase_crashlytics_wrapper.dart';
+import 'package:jukebox_music_player/src/common/router/application_navigation.dart';
+import 'package:jukebox_music_player/src/common/utils/screen_util.dart';
+import 'package:jukebox_music_player/src/features/dependencies/model/app_metadata.dart';
+import 'package:jukebox_music_player/src/features/dependencies/model/dependencies.dart';
 
 typedef _InitializationStep = FutureOr<void> Function(
   _MutableDependencies dependencies,

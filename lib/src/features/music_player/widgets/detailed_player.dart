@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../../common/utils/player_util.dart';
-import '../../../common/widgets/space.dart';
-import '../../mini_player/controller/mini_player_controller.dart';
-import '../../mini_player/widget/miniplayer.dart';
-import '../scope/music_player_scope.dart';
+import 'package:jukebox_music_player/src/common/utils/player_util.dart';
+import 'package:jukebox_music_player/src/common/widgets/space.dart';
+import 'package:jukebox_music_player/src/features/mini_player/controller/mini_player_controller.dart';
+import 'package:jukebox_music_player/src/features/mini_player/widget/miniplayer.dart';
+import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
 
 class DetailedPlayer extends StatefulWidget {
   const DetailedPlayer({super.key});

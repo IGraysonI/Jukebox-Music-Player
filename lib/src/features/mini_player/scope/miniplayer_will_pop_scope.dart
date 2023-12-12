@@ -11,18 +11,18 @@ class MiniplayerWillPopScope extends StatefulWidget {
   final WillPopCallback onWillPop;
 
   @override
-  _MiniplayerWillPopScopeState createState() => _MiniplayerWillPopScopeState();
+  MiniplayerWillPopScopeState createState() => MiniplayerWillPopScopeState();
 
-  static _MiniplayerWillPopScopeState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_MiniplayerWillPopScopeState>();
+  static MiniplayerWillPopScopeState? of(BuildContext context) =>
+      context.findAncestorStateOfType<MiniplayerWillPopScopeState>();
 }
 
-class _MiniplayerWillPopScopeState extends State<MiniplayerWillPopScope> {
+class MiniplayerWillPopScopeState extends State<MiniplayerWillPopScope> {
   ModalRoute<dynamic>? _route;
 
-  _MiniplayerWillPopScopeState? _descendant;
+  MiniplayerWillPopScopeState? _descendant;
 
-  _MiniplayerWillPopScopeState? get descendant => _descendant;
+  MiniplayerWillPopScopeState? get descendant => _descendant;
 
   @override
   void didChangeDependencies() {
@@ -40,7 +40,7 @@ class _MiniplayerWillPopScopeState extends State<MiniplayerWillPopScope> {
     super.dispose();
   }
 
-  set descendant(_MiniplayerWillPopScopeState? state) {
+  set descendant(MiniplayerWillPopScopeState? state) {
     _descendant = state;
     updateRouteCallback();
   }

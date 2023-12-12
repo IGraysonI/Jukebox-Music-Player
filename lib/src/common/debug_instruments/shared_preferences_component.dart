@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'instruments_configurator.dart';
+import 'package:jukebox_music_player/src/common/debug_instruments/instruments_configurator.dart';
 
 class SharedPrefsComponent extends StatefulWidget {
   const SharedPrefsComponent({super.key});

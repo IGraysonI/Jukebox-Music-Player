@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'color/color_scheme.dart';
+import 'package:jukebox_music_player/src/common/theme/color/color_scheme.dart';
 
 part 'theme_light.dart';
 part 'theme_dark.dart';

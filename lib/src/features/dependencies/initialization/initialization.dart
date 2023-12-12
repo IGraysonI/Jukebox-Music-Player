@@ -6,9 +6,9 @@ import 'package:flutter/services.dart' show SystemChrome, DeviceOrientation;
 import 'package:flutter/widgets.dart'
     show WidgetsBinding, WidgetsFlutterBinding;
 
-import '../../../common/utils/error_util.dart';
-import '../model/dependencies.dart';
-import 'initialize_dependencies.dart';
+import 'package:jukebox_music_player/src/common/utils/error_util.dart';
+import 'package:jukebox_music_player/src/features/dependencies/model/dependencies.dart';
+import 'package:jukebox_music_player/src/features/dependencies/initialization/initialize_dependencies.dart';
 
 typedef InitializationProgressTuple = ({int progress, String message});
 

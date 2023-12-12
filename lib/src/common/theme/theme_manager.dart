@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common/cache/shared_prefs_store.dart';
-import '../cache/shared_prefs_keys.dart';
+import 'package:jukebox_music_player/src/common/cache/shared_prefs_store.dart';
+import 'package:jukebox_music_player/src/common/cache/shared_prefs_keys.dart';
 
 class ThemeManager with ChangeNotifier {
   ThemeManager({required SharedPrefsStore sharedPrefsStore})

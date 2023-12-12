@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/theme/theme_constants.dart';
-import '../../../common/widgets/radial_progress_indicator.dart';
+import 'package:jukebox_music_player/src/common/theme/theme_constants.dart';
+import 'package:jukebox_music_player/src/common/widgets/radial_progress_indicator.dart';
 
 class InitializationSplashScreen extends StatelessWidget {
   const InitializationSplashScreen({required this.progress, super.key});

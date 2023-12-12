@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'type_store_key.dart';
+import 'package:jukebox_music_player/src/common/cache/type_store_key.dart';
 
 /// Типизированные ключи для хранилища
 class SharedPrefsKeys {

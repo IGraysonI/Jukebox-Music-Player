@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
 
-import '../page/selected_album_page.dart';
+import 'package:jukebox_music_player/src/features/albums/page/selected_album_page.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({required this.album, super.key});

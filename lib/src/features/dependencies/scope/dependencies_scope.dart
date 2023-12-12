@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/dependencies.dart';
+import 'package:jukebox_music_player/src/features/dependencies/model/dependencies.dart';
 
 /// DependenciesScope widget.
 class DependenciesScope extends StatelessWidget {

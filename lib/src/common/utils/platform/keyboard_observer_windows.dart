@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:win32/win32.dart' show GetKeyState;
 
-import 'keyboard_observer_interface.dart';
+import 'package:jukebox_music_player/src/common/utils/platform/keyboard_observer_interface.dart';
 
 IKeyboardObserver $getKeyboardObserver$Windows() => _KeyboardObserver$Windows();
 

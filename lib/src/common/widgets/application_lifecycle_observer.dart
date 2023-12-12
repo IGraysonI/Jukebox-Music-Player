@@ -4,25 +4,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:l/l.dart';
 
-typedef ApplicationLifecycleCallback = _ApplicationLifecycleCallback;
-
 class ApplicationLifecycleObserver extends StatefulWidget {
-  const ApplicationLifecycleObserver({required this.child});
+  const ApplicationLifecycleObserver({super.key, required this.child});
 
   final Widget child;
 
   @override
   State<ApplicationLifecycleObserver> createState() =>
-      _ApplicationLifecycleObserverState();
+      ApplicationLifecycleObserverState();
 
-  static _ApplicationLifecycleObserverState of(BuildContext context) => context
+  static ApplicationLifecycleObserverState of(BuildContext context) => context
       .dependOnInheritedWidgetOfExactType<_InheritedStateContainer>()!
       .data;
 }
 
-class _ApplicationLifecycleObserverState
+class ApplicationLifecycleObserverState
     extends State<ApplicationLifecycleObserver> {
-  final _lifecycleCallbacks = <_ApplicationLifecycleCallback>[];
+  final _lifecycleCallbacks = <ApplicationLifecycleCallback>[];
   AppLifecycleListener? _listener;
 
   @override
@@ -58,7 +56,7 @@ class _ApplicationLifecycleObserverState
   void _handleStateChange(AppLifecycleState state) =>
       l.w('State Change $state');
 
-  void addLifecycleCallback(_ApplicationLifecycleCallback callback) =>
+  void addLifecycleCallback(ApplicationLifecycleCallback callback) =>
       _lifecycleCallbacks.add(callback);
 
   void resetCallbacks() => _lifecycleCallbacks.clear();
@@ -77,14 +75,14 @@ class _InheritedStateContainer extends InheritedWidget {
     super.key,
   });
 
-  final _ApplicationLifecycleObserverState data;
+  final ApplicationLifecycleObserverState data;
 
   @override
   bool updateShouldNotify(_InheritedStateContainer old) => data != old.data;
 }
 
-class _ApplicationLifecycleCallback {
-  _ApplicationLifecycleCallback({
+class ApplicationLifecycleCallback {
+  ApplicationLifecycleCallback({
     this.onResumed,
     this.onPaused,
     this.onInactive,
@@ -147,7 +145,7 @@ class _ApplicationLifecycleCallback {
   // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is _ApplicationLifecycleCallback &&
+      other is ApplicationLifecycleCallback &&
           runtimeType == other.runtimeType &&
           onResumed == other.onResumed &&
           onPaused == other.onPaused &&

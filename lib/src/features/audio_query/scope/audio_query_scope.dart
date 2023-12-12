@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../controller/audio_query_controller.dart';
-import '../data/audio_query_repository.dart';
+import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_controller.dart';
+import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
 
 /// AudioQueryScope widget.
 class AudioQueryScope extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'instruments_configurator.dart';
-import 'shared_preferences_component.dart';
+import 'package:jukebox_music_player/src/common/debug_instruments/instruments_configurator.dart';
+import 'package:jukebox_music_player/src/common/debug_instruments/shared_preferences_component.dart';
 
 class DebugInstruments extends StatelessWidget {
   const DebugInstruments({required this.instrumentConfigurator, super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widget/albums_widget.dart';
+import 'package:jukebox_music_player/src/features/albums/widget/albums_widget.dart';
 
 class AlbumsPage extends StatefulWidget {
   const AlbumsPage({super.key});

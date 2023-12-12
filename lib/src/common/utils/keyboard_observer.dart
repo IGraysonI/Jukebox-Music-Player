@@ -1,5 +1,5 @@
-import 'platform/keyboard_observer_interface.dart';
-import 'platform/keyboard_observer_vm.dart';
+import 'package:jukebox_music_player/src/common/utils/platform/keyboard_observer_interface.dart';
+import 'package:jukebox_music_player/src/common/utils/platform/keyboard_observer_vm.dart';
 
 sealed class KeyboardObserver {
   KeyboardObserver._();

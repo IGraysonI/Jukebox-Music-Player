@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme_manager.dart';
+import 'package:jukebox_music_player/src/common/theme/theme_manager.dart';
 
 /// Виджет темы, находится в корне виджетов приложения
 class ApplicationTheme extends InheritedWidget {

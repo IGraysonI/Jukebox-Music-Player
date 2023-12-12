@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
-import 'keyboard_observer_interface.dart';
-import 'keyboard_observer_windows.dart';
+import 'package:jukebox_music_player/src/common/utils/platform/keyboard_observer_interface.dart';
+import 'package:jukebox_music_player/src/common/utils/platform/keyboard_observer_windows.dart';
 
 IKeyboardObserver $getKeyboardObserver() => io.Platform.isWindows
     ? $getKeyboardObserver$Windows()

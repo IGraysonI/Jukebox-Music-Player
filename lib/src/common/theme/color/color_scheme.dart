@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/utils/regex_validator.dart';
+import 'package:jukebox_music_player/src/common/utils/regex_validator.dart';
 
 LightColorPallete _lightColorPallete = const LightColorPallete();
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
 
-import '../page/selected_artist_page.dart';
+import 'package:jukebox_music_player/src/features/artists/page/selected_artist_page.dart';
 
 class ArtistCard extends StatelessWidget {
   const ArtistCard({required this.artist, super.key});

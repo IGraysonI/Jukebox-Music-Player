@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../common/controller/state_consumer.dart';
-import '../../audio_query/controller/audio_query_state.dart';
-import '../../audio_query/scope/audio_query_scope.dart';
-import '../widget/artist_card.dart';
+import 'package:jukebox_music_player/src/common/controller/state_consumer.dart';
+import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
+import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
+import 'package:jukebox_music_player/src/features/artists/widget/artist_card.dart';
 
 class ArtistsPage extends StatefulWidget {
   const ArtistsPage({super.key});

@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:l/l.dart';
 
-import '../firebase/firebase_crashlytics_wrapper.dart';
-import '../localization/localization.dart';
+import 'package:jukebox_music_player/src/common/firebase/firebase_crashlytics_wrapper.dart';
+import 'package:jukebox_music_player/src/common/localization/localization.dart';
 
 /// Error utility class.
 sealed class ErrorUtil {
