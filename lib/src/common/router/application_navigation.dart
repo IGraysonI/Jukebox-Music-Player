@@ -21,6 +21,7 @@ class ApplicationNavigation {
         branches: [
           StatefulShellBranch(
             navigatorKey: songsTabNavigatorKey,
+            observers: [ApplicationNavigatorObserver<SongsPage>()],
             routes: [
               GoRoute(
                 name: SongsPage.page(),
@@ -32,6 +33,7 @@ class ApplicationNavigation {
           ),
           StatefulShellBranch(
             navigatorKey: albumsTabNavigatorKey,
+            observers: [ApplicationNavigatorObserver<AlbumsPage>()],
             routes: [
               GoRoute(
                 name: AlbumsPage.page(),
@@ -51,6 +53,7 @@ class ApplicationNavigation {
           ),
           StatefulShellBranch(
             navigatorKey: artistsTabNavigatorKey,
+            observers: [ApplicationNavigatorObserver<ArtistsPage>()],
             routes: [
               GoRoute(
                 name: ArtistsPage.page(),
@@ -77,8 +80,9 @@ class ApplicationNavigation {
         ),
       ),
       GoRoute(
-        path: SettingPage.page(),
+        parentNavigatorKey: parentNavigatorKey,
         name: SettingPage.page(),
+        path: '/${SettingPage.page()}',
         pageBuilder: (context, state) => getPage(
           child: const SettingPage(),
           state: state,
@@ -89,7 +93,7 @@ class ApplicationNavigation {
     router = GoRouter(
       navigatorKey: parentNavigatorKey,
       initialLocation: '/${SongsPage.page()}',
-      observers: [ApplicationNavigationObserver()],
+      observers: [ApplicationNavigatorObserver<GoRouter>()],
       routes: routes,
     );
   }
@@ -122,5 +126,9 @@ class ApplicationNavigation {
     required Widget child,
     required GoRouterState state,
   }) =>
-      MaterialPage(key: state.pageKey, child: child);
+      MaterialPage(
+        key: state.pageKey,
+        child: child,
+        name: state.name,
+      );
 }
