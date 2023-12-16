@@ -40,21 +40,13 @@ final class AudioQueryController extends StateController<AudioQueryState>
           );
         },
         (error, _) => setState(
-          AudioQueryState.idle(
-            songs: state.songs,
-            albums: state.albums,
-            artists: state.artists,
+          state.copyWith(
             message: 'Error getting audio files',
             error: ErrorUtil.formatMessage(error),
           ),
         ),
         () => setState(
-          AudioQueryState.idle(
-            songs: state.songs,
-            albums: state.albums,
-            artists: state.artists,
-            message: 'Getting audio files done',
-          ),
+          state.copyWith(message: 'Getting audio files done'),
         ),
       );
 }

@@ -12,12 +12,9 @@ import 'package:jukebox_music_player/src/features/dependencies/initialization/in
 
 typedef InitializationProgressTuple = ({int progress, String message});
 
-abstract interface class InitializationProgressListenable
-    implements ValueListenable<InitializationProgressTuple> {}
-
 class InitializationExecutor
     with ChangeNotifier, InitializeDependencies
-    implements InitializationProgressListenable {
+    implements ValueListenable<InitializationProgressTuple> {
   InitializationExecutor();
 
   /// Ephemerally initializes the application and prepares it for use.

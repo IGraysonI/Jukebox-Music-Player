@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:jukebox_music_player/src/features/settings/scope/setting_scope.dart';
 import 'package:l/l.dart';
 
 import 'package:jukebox_music_player/src/common/utils/logger_util.dart';
@@ -20,7 +21,9 @@ void main() => l.capture<void>(
                 initialization: initialization(),
                 splashScreen:
                     InitializationSplashScreen(progress: initialization),
-                child: const Application(),
+                child: const SettingsScope(
+                  child: Application(),
+                ),
               ),
             ),
           );

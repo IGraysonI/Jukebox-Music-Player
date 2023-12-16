@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'package:jukebox_music_player/src/common/widgets/space.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 
 /// WindowScope widget.
 class WindowScope extends StatefulWidget {

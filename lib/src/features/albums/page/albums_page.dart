@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/common/widgets/custom_sliver_app_bar.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/custom_sliver_app_bar.dart';
 
 import 'package:jukebox_music_player/src/features/albums/widget/albums_widget.dart';
 

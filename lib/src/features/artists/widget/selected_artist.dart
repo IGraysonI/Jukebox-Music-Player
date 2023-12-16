@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import 'package:jukebox_music_player/src/common/widgets/space.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/albums/widget/albums_widget.dart';
 
 class SelectedArtist extends StatelessWidget {

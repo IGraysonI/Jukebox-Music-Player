@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jukebox_music_player/src/common/widgets/space.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/settings/page/setting_page.dart';
 
 class CustomSliverAppBar extends StatelessWidget {

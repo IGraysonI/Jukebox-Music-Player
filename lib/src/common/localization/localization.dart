@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
@@ -39,6 +40,16 @@ final class Localization extends generated.GeneratedLocalization {
   /// Get supported locales.
   static List<Locale> get supportedLocales =>
       const generated.AppLocalizationDelegate().supportedLocales;
+
+  /// Computes the default locale.
+  ///
+  /// This is the locale that is used when no locale is specified.
+  static Locale computeDefaultLocale() {
+    final locale = PlatformDispatcher.instance.locale;
+    if (const generated.AppLocalizationDelegate().isSupported(locale))
+      return locale;
+    return const Locale('en');
+  }
 }
 
 @immutable

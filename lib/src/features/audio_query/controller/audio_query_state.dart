@@ -135,6 +135,30 @@ abstract base class _$AudioQueryStateBase {
         processing: processing ?? (_) => null,
       );
 
+  /// Copy with method for [AudioQueryState].
+  AudioQueryState copyWith({
+    List<SongInfo>? songs,
+    List<AlbumInfo>? albums,
+    List<ArtistInfo>? artists,
+    String? message,
+    String? error,
+  }) =>
+      map<AudioQueryState>(
+        idle: (s) => AudioQueryState.idle(
+          songs: songs ?? s.songs,
+          albums: albums ?? s.albums,
+          artists: artists ?? s.artists,
+          message: message ?? s.message,
+          error: error ?? s.error,
+        ),
+        processing: (s) => AudioQueryState.processing(
+          songs: songs ?? s.songs,
+          albums: albums ?? s.albums,
+          artists: artists ?? s.artists,
+          message: message ?? s.message,
+        ),
+      );
+
   @override
   int get hashCode => runtimeType.hashCode;
 

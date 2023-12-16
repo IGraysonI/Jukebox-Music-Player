@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:jukebox_music_player/src/common/theme/theme_mode_codec.dart';
+import 'package:jukebox_music_player/src/features/settings/data/locale_data_source.dart';
+import 'package:jukebox_music_player/src/features/settings/data/settings_repository.dart';
+import 'package:jukebox_music_player/src/features/settings/data/theme_data_source.dart';
 import 'package:l/l.dart';
 import 'package:meta/meta.dart';
 import 'package:platform_info/platform_info.dart';
 
 import 'package:jukebox_music_player/firebase_options.dart';
-import 'package:jukebox_music_player/src/common/cache/shared_prefs_store.dart';
 import 'package:jukebox_music_player/src/common/constant/config.dart';
 import 'package:jukebox_music_player/src/common/constant/pubspec.yaml.g.dart';
 import 'package:jukebox_music_player/src/common/controller/controller.dart';
@@ -17,6 +20,7 @@ import 'package:jukebox_music_player/src/common/router/application_navigation.da
 import 'package:jukebox_music_player/src/common/utils/screen_util.dart';
 import 'package:jukebox_music_player/src/features/dependencies/model/app_metadata.dart';
 import 'package:jukebox_music_player/src/features/dependencies/model/dependencies.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 typedef _InitializationStep = FutureOr<void> Function(
   _MutableDependencies dependencies,
@@ -30,10 +34,13 @@ class _MutableDependencies implements Dependencies {
   late ApplicationNavigation navigation;
 
   @override
-  late SharedPrefsStore sharedPrefsStore;
+  late SharedPreferences sharedPreferences;
 
   @override
   late FirebaseApp firebaseApp;
+
+  @override
+  late ISettingsRepository settingsRepository;
 }
 
 @internal
@@ -94,9 +101,9 @@ mixin InitializeDependencies {
               dependencies.navigation = ApplicationNavigation.instance,
         ),
         (
-          'Initialize shared prefs store',
-          (dependencies) =>
-              dependencies.sharedPrefsStore = SharedPrefsStore()..init(),
+          'Initialize SharedPreferences',
+          (dependencies) async => dependencies.sharedPreferences =
+              await SharedPreferences.getInstance(),
         ),
         (
           'Firebase initialize app',
@@ -107,6 +114,23 @@ mixin InitializeDependencies {
             await FirebaseCrashlyticsWrapper.setCustomKey(
               'kDebugMode',
               kDebugMode,
+            );
+          }
+        ),
+        (
+          'Settings repository',
+          (dependencies) {
+            final sharedPreferences = dependencies.sharedPreferences;
+            final themeDataSource = ThemeDataSourceImpl(
+              sharedPreferences: sharedPreferences,
+              codec: const ThemeModeCodec(),
+            );
+            final localeDataSource = LocaleDataSourceImpl(
+              sharedPreferences: sharedPreferences,
+            );
+            dependencies.settingsRepository = SettingsRepositoryImpl(
+              themeDataSource: themeDataSource,
+              localeDataSource: localeDataSource,
             );
           }
         ),
