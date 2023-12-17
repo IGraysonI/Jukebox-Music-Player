@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/elevated_card.dart';
 
 /// Button with arrow icon as default trailing.
-class CustomButton extends StatelessWidget {
+class CustomButton<T extends Object> extends StatelessWidget {
   const CustomButton({
     required this.title,
     this.description,
@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
     String? description,
     IconData? prefixIcon,
   }) =>
-      CustomButton(
+      CustomButton<T>(
         title: title,
         description: description,
         prefixIcon: prefixIcon,
@@ -37,18 +37,18 @@ class CustomButton extends StatelessWidget {
   /// Button with DropdownButton.
   factory CustomButton.withDropdown({
     required Widget title,
-    required List<DropdownMenuItem<Widget>>? items,
-    required void Function(Object?) onChange,
-    Widget? value,
+    required List<DropdownMenuItem<T>>? items,
+    required void Function(T?) onChange,
+    T? value,
     String? description,
     IconData? prefixIcon,
   }) =>
-      CustomButton(
+      CustomButton<T>(
         title: title,
         description: description,
         prefixIcon: prefixIcon,
         trailing: DropdownButtonHideUnderline(
-          child: DropdownButton(
+          child: DropdownButton<T>(
             value: value,
             items: items,
             onChanged: onChange,

@@ -48,7 +48,7 @@ final class Localization extends generated.GeneratedLocalization {
     final locale = PlatformDispatcher.instance.locale;
     if (const generated.AppLocalizationDelegate().isSupported(locale))
       return locale;
-    return const Locale('en');
+    return const Locale('ru');
   }
 }
 

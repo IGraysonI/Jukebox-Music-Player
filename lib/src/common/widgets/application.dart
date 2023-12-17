@@ -13,7 +13,6 @@ class Application extends StatelessWidget {
   /// {@macro app}
   const Application({super.key});
 
-  //TODO: change manager and ApplicationTheme
   @override
   Widget build(BuildContext context) {
     final theme = SettingsScope.themeOf(context).theme;

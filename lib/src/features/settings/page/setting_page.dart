@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/common/widgets/button/arrow_button.dart';
+import 'package:jukebox_music_player/src/common/extension/locale_extension.dart';
+import 'package:jukebox_music_player/src/common/localization/localization.dart';
+import 'package:jukebox_music_player/src/common/widgets/button/custom_button.dart';
+import 'package:jukebox_music_player/src/features/settings/scope/setting_scope.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -13,6 +16,7 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
+    final theme = SettingsScope.themeOf(context).theme;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -30,17 +34,35 @@ class _SettingPageState extends State<SettingPage> {
                   child: CustomButton.withSwitch(
                     title: const Text('Тема'),
                     description: 'Светлая / темная тема',
-                    value: false,
-                    onChanged: (value) {},
+                    //TODO: Get system theme
+                    value: theme.mode == ThemeMode.dark,
+                    onChanged: (value) {
+                      if (value) {
+                        SettingsScope.of(context).setThemeMode(ThemeMode.dark);
+                      } else {
+                        SettingsScope.of(context).setThemeMode(ThemeMode.light);
+                      }
+                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: CustomButton.withDropdown(
+                  child: CustomButton<Locale>.withDropdown(
                     title: const Text('Язык'),
                     description: 'Сменить язык приложения',
-                    items: const [],
-                    onChange: (p0) {},
+                    value: Localization.current.locale,
+                    items: Localization.supportedLocales
+                        .map(
+                          (e) => DropdownMenuItem<Locale>(
+                            value: e,
+                            child: Text(
+                              e.getDisplayLanguage(),
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChange: (p0) => SettingsScope.of(context).setLocale(p0!),
                   ),
                 ),
               ],
