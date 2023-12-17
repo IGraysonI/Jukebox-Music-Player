@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:jukebox_music_player/src/common/debug_instruments/instruments_configurator.dart';
+import 'package:jukebox_music_player/src/features/debug_instruments/instruments_configurator.dart';
 
 class SharedPrefsComponent extends StatefulWidget {
   const SharedPrefsComponent({super.key});
@@ -16,8 +16,8 @@ class _SharedPrefsComponentState extends State<SharedPrefsComponent> {
 
   @override
   void initState() {
-    _initialization();
     super.initState();
+    _initialization();
   }
 
   void _initialization() {
@@ -28,25 +28,22 @@ class _SharedPrefsComponentState extends State<SharedPrefsComponent> {
 
   void _sharedPrefs(SharedPreferences sharedPreferences) {
     final keys = sharedPreferences.getKeys();
-
     for (final key in keys) {
       _sharedPrefsMap.putIfAbsent(key, () => sharedPreferences.get(key));
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Shared Preferences')),
-      body: ListView(
-        children: [
-          for (final key in _sharedPrefsMap.keys)
-            ListTile(
-              title: Text(key),
-              subtitle: Text(_sharedPrefsMap[key].toString()),
-            ),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text('Shared Preferences')),
+        body: ListView(
+          children: [
+            for (final key in _sharedPrefsMap.keys)
+              ListTile(
+                title: Text(key),
+                subtitle: Text(_sharedPrefsMap[key].toString()),
+              ),
+          ],
+        ),
+      );
 }

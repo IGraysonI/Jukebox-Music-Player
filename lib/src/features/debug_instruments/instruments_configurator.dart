@@ -1,6 +1,8 @@
 import 'package:l/l.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final Map<Type, Object?> _di = {};
+
 /// Конфигурируем инстременты на переданные инстансы
 /// Все объекты, которые будут необходимы в debug instruments должны быть
 /// переданы в этом конфигураторе
@@ -17,5 +19,3 @@ class InstrumentConfigurator {
 
   static void printDi() => _di.forEach((key, value) => l.i('$key: $value'));
 }
-
-final Map<Type, Object?> _di = {};
