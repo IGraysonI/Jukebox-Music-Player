@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jukebox_music_player/src/features/debug_instruments/debug_instruments.dart';
+import 'package:jukebox_music_player/src/features/debug_instruments/instruments_configurator.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
+import 'package:jukebox_music_player/src/features/dependencies/scope/dependencies_scope.dart';
 import 'package:jukebox_music_player/src/features/settings/page/setting_page.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
@@ -36,9 +39,11 @@ class CustomSliverAppBar extends StatelessWidget {
         snap: true,
         actions: <Widget>[
           if (kDebugMode)
-            IconButton(
-              icon: const Icon(Icons.code),
-              onPressed: () {},
+            DebugInstruments(
+              instrumentConfigurator: InstrumentConfigurator(
+                sharedPreferences:
+                    DependenciesScope.of(context).sharedPreferences,
+              ),
             ),
           MenuAnchor(
             builder: (context, controller, child) => IconButton(
