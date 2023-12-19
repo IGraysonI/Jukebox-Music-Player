@@ -36,8 +36,6 @@ class SongsPageState extends State<SongsPage> {
                     childCount: state.songs.length,
                   ),
                 ),
-              //FIXME: Посмотреть это
-              // () => const SliverFillRemaining(child: SizedBox.shrink()),
             },
           ),
         ],

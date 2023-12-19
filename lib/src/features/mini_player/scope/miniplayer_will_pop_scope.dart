@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MiniplayerWillPopScope extends StatefulWidget {
@@ -8,7 +9,7 @@ class MiniplayerWillPopScope extends StatefulWidget {
   });
 
   final Widget child;
-  final WillPopCallback onWillPop;
+  final PopInvokedCallback onWillPop;
 
   @override
   MiniplayerWillPopScopeState createState() => MiniplayerWillPopScopeState();
@@ -17,7 +18,8 @@ class MiniplayerWillPopScope extends StatefulWidget {
       context.findAncestorStateOfType<MiniplayerWillPopScopeState>();
 }
 
-class MiniplayerWillPopScopeState extends State<MiniplayerWillPopScope> {
+class MiniplayerWillPopScopeState extends State<MiniplayerWillPopScope>
+    implements PopEntry {
   ModalRoute<dynamic>? _route;
 
   MiniplayerWillPopScopeState? _descendant;
@@ -36,7 +38,7 @@ class MiniplayerWillPopScopeState extends State<MiniplayerWillPopScope> {
 
   @override
   void dispose() {
-    _route?.removeScopedWillPopCallback(onWillPop);
+    _route?.unregisterPopEntry(this);
     super.dispose();
   }
 
@@ -45,25 +47,18 @@ class MiniplayerWillPopScopeState extends State<MiniplayerWillPopScope> {
     updateRouteCallback();
   }
 
-  Future<bool> onWillPop() async {
-    bool? willPop;
-
-    if (_descendant != null) {
-      willPop = await _descendant!.onWillPop();
-    }
-
-    if (willPop == null || willPop) {
-      willPop = await widget.onWillPop();
-    }
-
-    return willPop;
-  }
-
   void updateRouteCallback() {
-    _route?.removeScopedWillPopCallback(onWillPop);
+    _route?.unregisterPopEntry(this);
     _route = ModalRoute.of(context);
-    _route?.addScopedWillPopCallback(onWillPop);
+    _route?.registerPopEntry(this);
   }
+
+  @override
+  ValueListenable<bool> get canPopNotifier =>
+      ValueNotifier(_route?.canPop ?? false);
+
+  @override
+  PopInvokedCallback? get onPopInvoked => widget.onWillPop;
 
   @override
   Widget build(BuildContext context) => widget.child;

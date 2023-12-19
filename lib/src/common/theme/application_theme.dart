@@ -13,7 +13,6 @@ final class ApplicationTheme with Diagnosticable {
     required this.mode,
     required this.seed,
   })  : darkTheme = darkThemeData.copyWith(
-          //TODO: Может быть не правильно
           colorScheme: ColorScheme.fromSeed(seedColor: seed),
         ),
         lightTheme = lightThemeData.copyWith(
