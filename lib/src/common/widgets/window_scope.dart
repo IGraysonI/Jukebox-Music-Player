@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'space.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 
 /// WindowScope widget.
 class WindowScope extends StatefulWidget {
@@ -82,8 +82,6 @@ class __WindowTitleState extends State<_WindowTitle> with WindowListener {
     //TODO: do something
   }
 
-  //TODO: fix this
-  // ignore: avoid_positional_boolean_parameters
   void setAlwaysOnTop(bool value) => Future<void>(
         () async {
           await windowManager.setAlwaysOnTop(value);

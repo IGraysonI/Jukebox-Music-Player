@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/custom_sliver_app_bar.dart';
 
-import '../widget/albums_widget.dart';
+import 'package:jukebox_music_player/src/features/albums/widget/albums_widget.dart';
 
 class AlbumsPage extends StatefulWidget {
   const AlbumsPage({super.key});
@@ -15,7 +16,7 @@ class _AlbumsPageState extends State<AlbumsPage> {
   @override
   Widget build(BuildContext context) => const CustomScrollView(
         slivers: [
-          SliverAppBar(title: Text('Albums'), floating: true, snap: true),
+          CustomSliverAppBar(title: 'Albums'),
           AlbumsWidget(),
         ],
       );

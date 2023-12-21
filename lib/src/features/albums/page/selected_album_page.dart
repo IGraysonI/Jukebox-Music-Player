@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../widget/selected_album.dart';
+import 'package:jukebox_music_player/src/features/albums/widget/selected_album.dart';
 
 class SelectedAlbumPage extends StatefulWidget {
   const SelectedAlbumPage({required this.album, super.key});

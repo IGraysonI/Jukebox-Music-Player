@@ -8,7 +8,7 @@ typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(
 
 /// AudioQueryState.
 sealed class AudioQueryState extends _$AudioQueryStateBase {
-  /// {@macro authentication_state}
+  /// {@macro audio_query_state}
   const AudioQueryState({
     required super.songs,
     required super.albums,
@@ -17,33 +17,29 @@ sealed class AudioQueryState extends _$AudioQueryStateBase {
   });
 
   /// Idling state
-  /// {@macro authentication_state}
+  /// {@macro audio_query_state}
   const factory AudioQueryState.idle({
     required List<SongInfo> songs,
     required List<AlbumInfo> albums,
     required List<ArtistInfo> artists,
     String message,
     String? error,
-  }) = AuthenticationState$Idle;
+  }) = AudioQueryState$Idle;
 
   /// Processing
-  /// {@macro authentication_state}
+  /// {@macro audio_query_state}
   const factory AudioQueryState.processing({
     required List<SongInfo> songs,
     required List<AlbumInfo> albums,
     required List<ArtistInfo> artists,
     String message,
-  }) = AuthenticationState$Processing;
+  }) = AudioQueryState$Processing;
 }
-
-// base mixin _$AuthenticationState on AudioQueryState {}
 
 /// Idling state
 
-final class AuthenticationState$Idle extends AudioQueryState
-// with _$AuthenticationState
-{
-  const AuthenticationState$Idle({
+final class AudioQueryState$Idle extends AudioQueryState {
+  const AudioQueryState$Idle({
     required super.songs,
     required super.albums,
     required super.artists,
@@ -57,14 +53,12 @@ final class AuthenticationState$Idle extends AudioQueryState
 
 /// Processing
 
-final class AuthenticationState$Processing extends AudioQueryState
-// with _$AuthenticationState
-{
-  const AuthenticationState$Processing({
+final class AudioQueryState$Processing extends AudioQueryState {
+  const AudioQueryState$Processing({
     required super.songs,
     required super.albums,
     required super.artists,
-    super.message = 'Processing',
+    super.message = 'Processing ',
   });
 
   @override
@@ -111,20 +105,20 @@ abstract base class _$AudioQueryStateBase {
 
   /// Pattern matching for [AudioQueryState].
   R map<R>({
-    required AudioQueryStateMatch<R, AuthenticationState$Idle> idle,
-    required AudioQueryStateMatch<R, AuthenticationState$Processing> processing,
+    required AudioQueryStateMatch<R, AudioQueryState$Idle> idle,
+    required AudioQueryStateMatch<R, AudioQueryState$Processing> processing,
   }) =>
       switch (this) {
-        final AuthenticationState$Idle s => idle(s),
-        final AuthenticationState$Processing s => processing(s),
+        final AudioQueryState$Idle s => idle(s),
+        final AudioQueryState$Processing s => processing(s),
         _ => throw AssertionError(),
       };
 
   /// Pattern matching for [AudioQueryState].
   R maybeMap<R>({
     required R Function() orElse,
-    AudioQueryStateMatch<R, AuthenticationState$Idle>? idle,
-    AudioQueryStateMatch<R, AuthenticationState$Processing>? processing,
+    AudioQueryStateMatch<R, AudioQueryState$Idle>? idle,
+    AudioQueryStateMatch<R, AudioQueryState$Processing>? processing,
   }) =>
       map<R>(
         idle: idle ?? (_) => orElse(),
@@ -133,12 +127,36 @@ abstract base class _$AudioQueryStateBase {
 
   /// Pattern matching for [AudioQueryState].
   R? mapOrNull<R>({
-    AudioQueryStateMatch<R, AuthenticationState$Idle>? idle,
-    AudioQueryStateMatch<R, AuthenticationState$Processing>? processing,
+    AudioQueryStateMatch<R, AudioQueryState$Idle>? idle,
+    AudioQueryStateMatch<R, AudioQueryState$Processing>? processing,
   }) =>
       map<R?>(
         idle: idle ?? (_) => null,
         processing: processing ?? (_) => null,
+      );
+
+  /// Copy with method for [AudioQueryState].
+  AudioQueryState copyWith({
+    List<SongInfo>? songs,
+    List<AlbumInfo>? albums,
+    List<ArtistInfo>? artists,
+    String? message,
+    String? error,
+  }) =>
+      map<AudioQueryState>(
+        idle: (s) => AudioQueryState.idle(
+          songs: songs ?? s.songs,
+          albums: albums ?? s.albums,
+          artists: artists ?? s.artists,
+          message: message ?? s.message,
+          error: error ?? s.error,
+        ),
+        processing: (s) => AudioQueryState.processing(
+          songs: songs ?? s.songs,
+          albums: albums ?? s.albums,
+          artists: artists ?? s.artists,
+          message: message ?? s.message,
+        ),
       );
 
   @override

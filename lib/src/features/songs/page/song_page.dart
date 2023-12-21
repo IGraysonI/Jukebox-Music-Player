@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/controller/state_consumer.dart';
-import '../../audio_query/controller/audio_query_state.dart';
-import '../../audio_query/scope/audio_query_scope.dart';
-import '../widget/song_card.dart';
+import 'package:jukebox_music_player/src/common/controller/state_consumer.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/custom_sliver_app_bar.dart';
+import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
+import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
+import 'package:jukebox_music_player/src/features/songs/widget/song_card.dart';
 
 class SongsPage extends StatefulWidget {
   const SongsPage({super.key});
 
-  static _SongsPageState of(BuildContext context) =>
-      context.findAncestorStateOfType<_SongsPageState>()!;
+  static SongsPageState of(BuildContext context) =>
+      context.findAncestorStateOfType<SongsPageState>()!;
 
   static String page() => 'SongsPage';
 
   @override
-  State<SongsPage> createState() => _SongsPageState();
+  State<SongsPage> createState() => SongsPageState();
 }
 
-class _SongsPageState extends State<SongsPage> {
+class SongsPageState extends State<SongsPage> {
   @override
   Widget build(BuildContext context) => CustomScrollView(
         slivers: [
-          const SliverAppBar(title: Text('Songs'), floating: true, snap: true),
+          const CustomSliverAppBar(title: 'Songs'),
           StateConsumer<AudioQueryState>(
             controller: AudioQueryScope.controllerOf(context),
             builder: (context, state, _) => switch (state) {
-              AuthenticationState$Processing() => const SliverFillRemaining(
+              AudioQueryState$Processing() => const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator()),
                 ),
-              AuthenticationState$Idle() => SliverList(
+              AudioQueryState$Idle() => SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) =>
                         SongCard(songIndex: index, song: state.songs[index]),
                     childCount: state.songs.length,
                   ),
                 ),
-              () => const SliverFillRemaining(child: SizedBox.shrink()),
             },
           ),
         ],

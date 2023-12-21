@@ -1,35 +1,39 @@
 import 'package:flutter/widgets.dart';
 import 'package:l/l.dart';
 
-class ApplicationNavigationObserver extends NavigatorObserver {
+/// Application navigation observer.
+class ApplicationNavigatorObserver<T> extends NavigatorObserver {
+  String get _nav => '[$T]';
+
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) =>
-      l.i('Push: ${previousRoute?.name} -> ${route.name}');
+      l.d('$_nav push: ${previousRoute?.name} -> ${route.name}');
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) =>
-      l.i('Pop: ${previousRoute?.name} <- ${route.name}');
+      l.d('$_nav didPop: ${previousRoute?.name} <- ${route.name}');
 
   @override
-  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) =>
-      l.i('Remove: ${route.name}, previousRoute = ${previousRoute?.name}');
+  void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) => l.d(
+        '$_nav didRemove: ${route.name}, previousRoute= ${previousRoute?.name}',
+      );
 
   @override
   void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) =>
-      l.i('Replace: new = ${newRoute?.name} <- ${oldRoute?.name}');
+      l.d('$_nav didReplace: new= ${newRoute?.name}, old= ${oldRoute?.name}');
 
   @override
   void didStartUserGesture(
     Route<dynamic> route,
     Route<dynamic>? previousRoute,
   ) =>
-      l.i(
-        'StartUserGesture: ${route.name}, '
-        'previousRoute =  ${previousRoute?.name}',
+      l.d(
+        'didStartUserGesture: ${route.name}, '
+        'previousRoute= ${previousRoute?.name}',
       );
 
   @override
-  void didStopUserGesture() => l.i('StopUserGesture');
+  void didStopUserGesture() => l.d('didStopUserGesture');
 }
 
 extension on Route<dynamic> {

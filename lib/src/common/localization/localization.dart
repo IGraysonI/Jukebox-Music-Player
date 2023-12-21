@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
-import 'generated/l10n.dart' as generated
-    show GeneratedLocalization, AppLocalizationDelegate;
+import 'package:jukebox_music_player/src/common/localization/generated/l10n.dart'
+    as generated show GeneratedLocalization, AppLocalizationDelegate;
 
 /// Localization.
 final class Localization extends generated.GeneratedLocalization {
@@ -39,6 +40,16 @@ final class Localization extends generated.GeneratedLocalization {
   /// Get supported locales.
   static List<Locale> get supportedLocales =>
       const generated.AppLocalizationDelegate().supportedLocales;
+
+  /// Computes the default locale.
+  ///
+  /// This is the locale that is used when no locale is specified.
+  static Locale computeDefaultLocale() {
+    final locale = PlatformDispatcher.instance.locale;
+    if (const generated.AppLocalizationDelegate().isSupported(locale))
+      return locale;
+    return const Locale('ru');
+  }
 }
 
 @immutable

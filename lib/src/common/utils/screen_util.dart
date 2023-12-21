@@ -55,7 +55,7 @@ extension ScreenUtilExtenstion on BuildContext {
 /// Screen logical size representation
 ///
 /// phone   | <= 600 dp      | 4 column
-/// tablet  | 600..10023 dp  | 8 column
+/// tablet  | 600..1023 dp  | 8 column
 /// desktop | >= 1024 dp     | 12 column
 sealed class ScreenUtil {
   /// {@macro screen_util}

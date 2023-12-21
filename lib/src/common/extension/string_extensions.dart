@@ -1,5 +1,5 @@
 /// Расширение на [String]
-extension StringX on String {
+extension StringExtension on String {
   String getDurationForSongLenght() {
     final doubleDuration = double.parse(this);
     final duration = Duration(milliseconds: doubleDuration.round());

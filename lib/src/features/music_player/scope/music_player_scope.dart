@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 
-import '../../audio_query/scope/audio_query_scope.dart';
+import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 
 /// MusicPlayerScope widget.
 class MusicPlayerScope extends StatefulWidget {

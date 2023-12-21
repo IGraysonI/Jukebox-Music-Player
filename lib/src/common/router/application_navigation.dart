@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/albums/page/albums_page.dart';
-import '../../features/albums/page/selected_album_page.dart';
-import '../../features/artists/page/artist_page.dart';
-import '../../features/artists/page/selected_artist_page.dart';
-import '../../features/jukebox_music_player/pages/bottom_navigation_page.dart';
-import '../../features/songs/page/song_page.dart';
-import 'application_navigation_observer.dart';
+import 'package:jukebox_music_player/src/features/albums/page/albums_page.dart';
+import 'package:jukebox_music_player/src/features/albums/page/selected_album_page.dart';
+import 'package:jukebox_music_player/src/features/artists/page/artist_page.dart';
+import 'package:jukebox_music_player/src/features/artists/page/selected_artist_page.dart';
+import 'package:jukebox_music_player/src/features/jukebox_music_player/pages/bottom_navigation_page.dart';
+import 'package:jukebox_music_player/src/features/settings/page/setting_page.dart';
+import 'package:jukebox_music_player/src/features/songs/page/song_page.dart';
+import 'package:jukebox_music_player/src/common/router/application_navigation_observer.dart';
 
 class ApplicationNavigation {
   factory ApplicationNavigation() => _instance;
@@ -20,6 +21,7 @@ class ApplicationNavigation {
         branches: [
           StatefulShellBranch(
             navigatorKey: songsTabNavigatorKey,
+            observers: [ApplicationNavigatorObserver<SongsPage>()],
             routes: [
               GoRoute(
                 name: SongsPage.page(),
@@ -31,6 +33,7 @@ class ApplicationNavigation {
           ),
           StatefulShellBranch(
             navigatorKey: albumsTabNavigatorKey,
+            observers: [ApplicationNavigatorObserver<AlbumsPage>()],
             routes: [
               GoRoute(
                 name: AlbumsPage.page(),
@@ -50,6 +53,7 @@ class ApplicationNavigation {
           ),
           StatefulShellBranch(
             navigatorKey: artistsTabNavigatorKey,
+            observers: [ApplicationNavigatorObserver<ArtistsPage>()],
             routes: [
               GoRoute(
                 name: ArtistsPage.page(),
@@ -75,12 +79,21 @@ class ApplicationNavigation {
           state: state,
         ),
       ),
+      GoRoute(
+        parentNavigatorKey: parentNavigatorKey,
+        name: SettingPage.page(),
+        path: '/${SettingPage.page()}',
+        pageBuilder: (context, state) => getPage(
+          child: const SettingPage(),
+          state: state,
+        ),
+      ),
     ];
 
     router = GoRouter(
       navigatorKey: parentNavigatorKey,
       initialLocation: '/${SongsPage.page()}',
-      observers: [ApplicationNavigationObserver()],
+      observers: [ApplicationNavigatorObserver<GoRouter>()],
       routes: routes,
     );
   }
@@ -113,5 +126,9 @@ class ApplicationNavigation {
     required Widget child,
     required GoRouterState state,
   }) =>
-      MaterialPage(key: state.pageKey, child: child);
+      MaterialPage(
+        key: state.pageKey,
+        child: child,
+        name: state.name,
+      );
 }

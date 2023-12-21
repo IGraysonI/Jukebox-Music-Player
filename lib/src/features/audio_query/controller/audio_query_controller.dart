@@ -1,8 +1,8 @@
-import '../../../common/controller/droppable_controller_concurrency.dart';
-import '../../../common/controller/state_controller.dart';
-import '../../../common/utils/error_util.dart';
-import '../data/audio_query_repository.dart';
-import 'audio_query_state.dart';
+import 'package:jukebox_music_player/src/common/controller/droppable_controller_concurrency.dart';
+import 'package:jukebox_music_player/src/common/controller/state_controller.dart';
+import 'package:jukebox_music_player/src/common/utils/error_util.dart';
+import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
+import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
 
 final class AudioQueryController extends StateController<AudioQueryState>
     with DroppableControllerConcurency {
@@ -40,21 +40,13 @@ final class AudioQueryController extends StateController<AudioQueryState>
           );
         },
         (error, _) => setState(
-          AudioQueryState.idle(
-            songs: state.songs,
-            albums: state.albums,
-            artists: state.artists,
+          state.copyWith(
             message: 'Error getting audio files',
             error: ErrorUtil.formatMessage(error),
           ),
         ),
         () => setState(
-          AudioQueryState.idle(
-            songs: state.songs,
-            albums: state.albums,
-            artists: state.artists,
-            message: 'Getting audio files done',
-          ),
+          state.copyWith(message: 'Getting audio files done'),
         ),
       );
 }
