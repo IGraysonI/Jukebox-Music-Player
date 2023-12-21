@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-final ValueNotifier<double> playerExpandProgress =
-    ValueNotifier(_playerMinHeight);
+final ValueNotifier<double> playerExpandProgress = ValueNotifier(_playerMinHeight);
 
 const double _playerMinHeight = 70;
-// const double playerMaxHeight = 370;
 const _miniplayerPercentageDeclaration = 0.2;
 
-class PlayerUtils {
-  PlayerUtils._();
+/// {@template player_util}
+/// A utility class for the player.
+/// {@endtemplate}
+class PlayerUtil {
+  PlayerUtil._();
 
   static double get playerMinHeight => _playerMinHeight;
 
-  static double get miniplayerPercentageDeclaration =>
-      _miniplayerPercentageDeclaration;
+  static double get miniplayerPercentageDeclaration => _miniplayerPercentageDeclaration;
 
   static double valueFromPercentageInRange({
     required final double min,

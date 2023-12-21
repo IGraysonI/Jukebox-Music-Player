@@ -36,13 +36,11 @@ final class SettingsRepositoryImpl implements ISettingsRepository {
   Locale? fetchLocaleFromCache() => _localeDataSource.loadLocaleFromCache();
 
   @override
-  ApplicationTheme? fetchThemeFromCache() =>
-      _themeDataSource.loadThemeFromCache();
+  ApplicationTheme? fetchThemeFromCache() => _themeDataSource.loadThemeFromCache();
 
   @override
   Future<void> setLocale(Locale locale) => _localeDataSource.setLocale(locale);
 
   @override
-  Future<void> setTheme(ApplicationTheme theme) =>
-      _themeDataSource.setTheme(theme);
+  Future<void> setTheme(ApplicationTheme theme) => _themeDataSource.setTheme(theme);
 }

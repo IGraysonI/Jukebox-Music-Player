@@ -2,14 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:jukebox_music_player/src/common/theme/theme_mode_codec.dart';
-import 'package:jukebox_music_player/src/features/settings/data/locale_data_source.dart';
-import 'package:jukebox_music_player/src/features/settings/data/settings_repository.dart';
-import 'package:jukebox_music_player/src/features/settings/data/theme_data_source.dart';
-import 'package:l/l.dart';
-import 'package:meta/meta.dart';
-import 'package:platform_info/platform_info.dart';
-
 import 'package:jukebox_music_player/firebase_options.dart';
 import 'package:jukebox_music_player/src/common/constant/config.dart';
 import 'package:jukebox_music_player/src/common/constant/pubspec.yaml.g.dart';
@@ -17,9 +9,16 @@ import 'package:jukebox_music_player/src/common/controller/controller.dart';
 import 'package:jukebox_music_player/src/common/controller/controller_observer.dart';
 import 'package:jukebox_music_player/src/common/firebase/firebase_crashlytics_wrapper.dart';
 import 'package:jukebox_music_player/src/common/router/application_navigation.dart';
+import 'package:jukebox_music_player/src/common/theme/theme_mode_codec.dart';
 import 'package:jukebox_music_player/src/common/utils/screen_util.dart';
 import 'package:jukebox_music_player/src/features/dependencies/model/app_metadata.dart';
 import 'package:jukebox_music_player/src/features/dependencies/model/dependencies.dart';
+import 'package:jukebox_music_player/src/features/settings/data/locale_data_source.dart';
+import 'package:jukebox_music_player/src/features/settings/data/settings_repository.dart';
+import 'package:jukebox_music_player/src/features/settings/data/theme_data_source.dart';
+import 'package:l/l.dart';
+import 'package:meta/meta.dart';
+import 'package:platform_info/platform_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 typedef _InitializationStep = FutureOr<void> Function(
@@ -65,8 +64,7 @@ mixin InitializeDependencies {
     return dependencies;
   }
 
-  List<(String, _InitializationStep)> get _initializationSteps =>
-      <(String, _InitializationStep)>[
+  List<(String, _InitializationStep)> get _initializationSteps => <(String, _InitializationStep)>[
         (
           'Creating app metadata',
           (dependencies) async {
@@ -79,8 +77,7 @@ mixin InitializeDependencies {
               appVersionMinor: Pubspec.version.minor,
               appVersionPatch: Pubspec.version.patch,
               appBuildTimestamp: Pubspec.version.build.isNotEmpty
-                  ? (int.tryParse(Pubspec.version.build.firstOrNull ?? '-1') ??
-                      -1)
+                  ? (int.tryParse(Pubspec.version.build.firstOrNull ?? '-1') ?? -1)
                   : -1,
               operatingSystem: platform.operatingSystem.name,
               processorCount: platform.numberOfProcessors,
@@ -97,13 +94,11 @@ mixin InitializeDependencies {
         ),
         (
           'Initialize GoRouter navigator',
-          (dependencies) =>
-              dependencies.navigation = ApplicationNavigation.instance,
+          (dependencies) => dependencies.navigation = ApplicationNavigation.instance,
         ),
         (
           'Initialize SharedPreferences',
-          (dependencies) async => dependencies.sharedPreferences =
-              await SharedPreferences.getInstance(),
+          (dependencies) async => dependencies.sharedPreferences = await SharedPreferences.getInstance(),
         ),
         (
           'Firebase initialize app',
@@ -136,10 +131,6 @@ mixin InitializeDependencies {
         ),
         (
           'Fake delay 1',
-          (_) => Future<void>.delayed(const Duration(milliseconds: 500)),
-        ),
-        (
-          'Fake delay 2',
           (_) => Future<void>.delayed(const Duration(milliseconds: 500)),
         ),
       ];
