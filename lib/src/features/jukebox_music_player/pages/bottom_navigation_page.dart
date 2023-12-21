@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:jukebox_music_player/src/common/utils/player_util.dart';
-import 'package:jukebox_music_player/src/features/music_player/widgets/detailed_player.dart';
+import 'package:jukebox_music_player/src/features/music_player/widgets/music_player.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({required this.child, super.key});
@@ -19,14 +18,12 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         bottomNavigationBar: ValueListenableBuilder(
           valueListenable: playerExpandProgress,
           builder: (BuildContext context, double height, Widget? child) {
-            final value = PlayerUtils.percentageFromValueInRange(
+            final value = PlayerUtil.percentageFromValueInRange(
               max: MediaQuery.of(context).size.height,
-              min: PlayerUtils.playerMinHeight,
+              min: PlayerUtil.playerMinHeight,
               value: height,
             );
-            final navigationBarHeight =
-                const NavigationBarThemeData().height ?? 80;
-
+            final navigationBarHeight = const NavigationBarThemeData().height ?? 80;
             var opacity = 1 - value;
             if (opacity < 0) opacity = 0;
             if (opacity > 1) opacity = 1;
@@ -72,7 +69,7 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
         body: Stack(
           children: [
             SafeArea(child: widget.child),
-            const DetailedPlayer(),
+            const MusicPlayer(),
           ],
         ),
       );

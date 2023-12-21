@@ -42,10 +42,7 @@ final class ApplicationTheme with Diagnosticable {
   ThemeData computeTheme() => switch (mode) {
         ThemeMode.light => lightTheme,
         ThemeMode.dark => darkTheme,
-        ThemeMode.system =>
-          PlatformDispatcher.instance.platformBrightness == Brightness.dark
-              ? darkTheme
-              : lightTheme,
+        ThemeMode.system => PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme,
       };
 
   @override
@@ -60,10 +57,7 @@ final class ApplicationTheme with Diagnosticable {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ApplicationTheme &&
-          runtimeType == other.runtimeType &&
-          seed == other.seed &&
-          mode == other.mode;
+      other is ApplicationTheme && runtimeType == other.runtimeType && seed == other.seed && mode == other.mode;
 
   @override
   int get hashCode => mode.hashCode ^ seed.hashCode;

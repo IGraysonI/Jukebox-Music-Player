@@ -2,30 +2,25 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:just_audio/just_audio.dart';
-
 import 'package:jukebox_music_player/src/common/utils/player_util.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
-import 'package:jukebox_music_player/src/features/mini_player/controller/mini_player_controller.dart';
-import 'package:jukebox_music_player/src/features/mini_player/widget/miniplayer.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
+import 'package:jukebox_music_player/src/features/music_player/widgets/miniplayer.dart';
+import 'package:just_audio/just_audio.dart';
 
-class DetailedPlayer extends StatefulWidget {
-  const DetailedPlayer({super.key});
+class MusicPlayer extends StatefulWidget {
+  const MusicPlayer({super.key});
 
   @override
-  State<DetailedPlayer> createState() => _DetailedPlayerState();
+  State<MusicPlayer> createState() => _MusicPlayerState();
 }
 
-class _DetailedPlayerState extends State<DetailedPlayer> {
-  final MiniplayerController controller = MiniplayerController();
+class _MusicPlayerState extends State<MusicPlayer> {
   bool _isMiniPlayer = false;
   AudioPlayer? _player;
 
   Widget _image(String? imagePath) => ClipRRect(
-        borderRadius: _isMiniPlayer
-            ? BorderRadius.circular(0)
-            : BorderRadius.circular(20),
+        borderRadius: _isMiniPlayer ? BorderRadius.circular(0) : BorderRadius.circular(20),
         child: imagePath != null
             ? Image.file(
                 File(imagePath),
@@ -41,8 +36,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
         stream: _player?.playerStateStream,
         builder: (context, snapshot) {
           final playing = snapshot.data?.playing ?? false;
-          final buffering =
-              snapshot.data?.processingState == ProcessingState.buffering;
+          final buffering = snapshot.data?.processingState == ProcessingState.buffering;
           return buffering
               ? const SizedBox(child: CircularProgressIndicator())
               : IconButton(
@@ -74,8 +68,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
 
               var progress = 0.0;
 
-              if (duration.inMilliseconds > 0 &&
-                  duration.inMilliseconds.isFinite) {
+              if (duration.inMilliseconds > 0 && duration.inMilliseconds.isFinite) {
                 progress = position.inMilliseconds / duration.inMilliseconds;
               }
 
@@ -140,9 +133,7 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
           final shuffleModeEnabled = snapshot.data ?? false;
           return IconButton(
             icon: Icon(
-              shuffleModeEnabled
-                  ? Icons.shuffle_on_outlined
-                  : Icons.shuffle_outlined,
+              shuffleModeEnabled ? Icons.shuffle_on_outlined : Icons.shuffle_outlined,
             ),
             onPressed: () => _player?.setShuffleModeEnabled(
               !shuffleModeEnabled,
@@ -181,9 +172,8 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
     double playerMaxHeight,
     double maxImageSize,
   ) {
-    var percentageExpandedPlayer = PlayerUtils.percentageFromValueInRange(
-      min: playerMaxHeight * PlayerUtils.miniplayerPercentageDeclaration +
-          PlayerUtils.playerMinHeight,
+    var percentageExpandedPlayer = PlayerUtil.percentageFromValueInRange(
+      min: playerMaxHeight * PlayerUtil.miniplayerPercentageDeclaration + PlayerUtil.playerMinHeight,
       max: playerMaxHeight,
       value: height,
     );
@@ -192,17 +182,15 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
       percentageExpandedPlayer = 0;
     }
 
-    final paddingVertical = PlayerUtils.valueFromPercentageInRange(
+    final paddingVertical = PlayerUtil.valueFromPercentageInRange(
       min: 0,
       max: 10,
       percentage: percentageExpandedPlayer,
     );
 
     final heightWithoutPadding = height - paddingVertical * 2;
-    final imageSize = heightWithoutPadding > maxImageSize
-        ? maxImageSize
-        : heightWithoutPadding;
-    final paddingLeft = PlayerUtils.valueFromPercentageInRange(
+    final imageSize = heightWithoutPadding > maxImageSize ? maxImageSize : heightWithoutPadding;
+    final paddingLeft = PlayerUtil.valueFromPercentageInRange(
           min: 0,
           max: width - imageSize,
           percentage: percentageExpandedPlayer,
@@ -276,10 +264,9 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
     double playerMaxHeight,
     double maxImageSize,
   ) {
-    final percentageMiniplayer = PlayerUtils.percentageFromValueInRange(
-      min: PlayerUtils.playerMinHeight,
-      max: playerMaxHeight * PlayerUtils.miniplayerPercentageDeclaration +
-          PlayerUtils.playerMinHeight,
+    final percentageMiniplayer = PlayerUtil.percentageFromValueInRange(
+      min: PlayerUtil.playerMinHeight,
+      max: playerMaxHeight * PlayerUtil.miniplayerPercentageDeclaration + PlayerUtil.playerMinHeight,
       value: height,
     );
 
@@ -307,23 +294,15 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
                       children: [
                         Text(
                           songInfo.title ?? 'Title not found',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(fontSize: 16),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           songInfo.artist ?? 'Artist not found',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .color!
-                                        .withOpacity(0.55),
-                                  ),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.55),
+                              ),
                         ),
                       ],
                     ),
@@ -365,20 +344,15 @@ class _DetailedPlayerState extends State<DetailedPlayer> {
             final playerMaxHeight = MediaQuery.of(context).size.height;
             if (snapshot.hasData) {
               return Miniplayer(
-                valueNotifier: playerExpandProgress,
-                minHeight: PlayerUtils.playerMinHeight,
+                minHeight: PlayerUtil.playerMinHeight,
                 maxHeight: playerMaxHeight,
-                controller: controller,
                 elevation: 4,
-                onDismissed: null,
                 curve: Curves.easeOut,
                 builder: (height, percentage) {
                   _player = MusicPlayerScope.audioPlayerOf(context);
-                  _isMiniPlayer =
-                      percentage < PlayerUtils.miniplayerPercentageDeclaration;
+                  _isMiniPlayer = percentage < PlayerUtil.miniplayerPercentageDeclaration;
 
-                  final songInfo =
-                      snapshot.data!.currentSource!.tag as SongInfo;
+                  final songInfo = snapshot.data!.currentSource!.tag as SongInfo;
                   final width = MediaQuery.of(context).size.width;
                   final maxImageSize = width * 0.7;
 
