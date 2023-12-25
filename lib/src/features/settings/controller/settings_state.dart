@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/common/controller/state_base.dart';
+import 'package:jukebox_music_player/src/features/controller/state_base.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
 import 'package:meta/meta.dart';
 

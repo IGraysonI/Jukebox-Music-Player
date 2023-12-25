@@ -1,6 +1,6 @@
 import 'package:l/l.dart';
 
-import 'package:jukebox_music_player/src/common/controller/controller.dart';
+import 'package:jukebox_music_player/src/features/controller/controller.dart';
 
 class ControllerObserver implements IControllerObserver {
   @override

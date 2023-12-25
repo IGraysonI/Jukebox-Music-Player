@@ -1,5 +1,5 @@
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/common/controller/state_base.dart';
+import 'package:jukebox_music_player/src/features/controller/state_base.dart';
 import 'package:meta/meta.dart';
 
 /// Pattern matching for [AudioQueryState].

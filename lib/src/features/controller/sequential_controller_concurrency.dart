@@ -3,7 +3,7 @@ import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
-import 'package:jukebox_music_player/src/common/controller/controller.dart';
+import 'package:jukebox_music_player/src/features/controller/controller.dart';
 
 base mixin SequentialControllerConcurency on Controller {
   final _ControllerEventQueue _eventQueue = _ControllerEventQueue();
@@ -48,8 +48,7 @@ base mixin SequentialControllerConcurency on Controller {
 final class _ControllerEventQueue {
   _ControllerEventQueue();
 
-  final DoubleLinkedQueue<_SequentialTask<Object?>> _queue =
-      DoubleLinkedQueue<_SequentialTask<Object?>>();
+  final DoubleLinkedQueue<_SequentialTask<Object?>> _queue = DoubleLinkedQueue<_SequentialTask<Object?>>();
   Future<void>? _processing;
   bool _isClosed = false;
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/common/controller/state_consumer.dart';
+import 'package:jukebox_music_player/src/features/controller/state_consumer.dart';
 import 'package:jukebox_music_player/src/common/extension/context_extension.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
 import 'package:jukebox_music_player/src/features/dependencies/scope/dependencies_scope.dart';
@@ -12,8 +12,7 @@ import 'package:jukebox_music_player/src/features/settings/model/theme_scope_con
 /// {@template setting_scope_controller}
 /// A controller that holds and operates the app settings
 /// {@endtemplate}
-abstract interface class SettingsScopeController
-    implements IThemeScopeController, ILocaleScopeController {}
+abstract interface class SettingsScopeController implements IThemeScopeController, ILocaleScopeController {}
 
 /// {@template setting_scope}
 /// Setting scope widget.
@@ -54,15 +53,13 @@ class SettingsScope extends StatefulWidget {
   State<SettingsScope> createState() => _SettingsScopeState();
 }
 
-class _SettingsScopeState extends State<SettingsScope>
-    implements SettingsScopeController {
+class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeController {
   late final SettingsController _settingController;
 
   @override
   void initState() {
     super.initState();
-    _settingController =
-        SettingsController(DependenciesScope.of(context).settingsRepository);
+    _settingController = SettingsController(DependenciesScope.of(context).settingsRepository);
   }
 
   @override
@@ -72,8 +69,7 @@ class _SettingsScopeState extends State<SettingsScope>
   }
 
   @override
-  void setLocale(Locale locale) =>
-      _settingController.updateLocale(locale: locale);
+  void setLocale(Locale locale) => _settingController.updateLocale(locale: locale);
 
   @override
   void setThemeMode(ThemeMode themeMode) => _settingController.updateTheme(
@@ -123,8 +119,7 @@ class _InheritedSettings extends InheritedModel<SettingScopeAspectEnum> {
   final SettingsState state;
 
   @override
-  bool updateShouldNotify(_InheritedSettings oldWidget) =>
-      state != oldWidget.state;
+  bool updateShouldNotify(_InheritedSettings oldWidget) => state != oldWidget.state;
 
   @override
   bool updateShouldNotifyDependent(
@@ -133,8 +128,7 @@ class _InheritedSettings extends InheritedModel<SettingScopeAspectEnum> {
   ) {
     var shouldNotify = false;
     if (dependencies.contains(SettingScopeAspectEnum.theme)) {
-      shouldNotify = shouldNotify ||
-          state.applicationTheme != oldWidget.state.applicationTheme;
+      shouldNotify = shouldNotify || state.applicationTheme != oldWidget.state.applicationTheme;
     }
     if (dependencies.contains(SettingScopeAspectEnum.locale)) {
       final locale = state.locale.languageCode;

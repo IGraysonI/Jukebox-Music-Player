@@ -1,15 +1,13 @@
-import 'package:jukebox_music_player/src/common/controller/droppable_controller_concurrency.dart';
-import 'package:jukebox_music_player/src/common/controller/state_controller.dart';
+import 'package:jukebox_music_player/src/features/controller/droppable_controller_concurrency.dart';
+import 'package:jukebox_music_player/src/features/controller/state_controller.dart';
 import 'package:jukebox_music_player/src/common/utils/error_util.dart';
 import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
 
-final class AudioQueryController extends StateController<AudioQueryState>
-    with DroppableControllerConcurency {
+final class AudioQueryController extends StateController<AudioQueryState> with DroppableControllerConcurency {
   AudioQueryController({
     required IAudioQueryRepository audioQueryRepository,
-    super.initialState =
-        const AudioQueryState.idle(songs: [], albums: [], artists: []),
+    super.initialState = const AudioQueryState.idle(songs: [], albums: [], artists: []),
   }) : _audioQueryRepository = audioQueryRepository {
     getAudioFiles();
   }

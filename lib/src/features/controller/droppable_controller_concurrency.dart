@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 
-import 'package:jukebox_music_player/src/common/controller/controller.dart';
+import 'package:jukebox_music_player/src/features/controller/controller.dart';
 
 base mixin DroppableControllerConcurency on Controller {
   @override
