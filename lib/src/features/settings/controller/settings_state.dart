@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jukebox_music_player/src/common/controller/state_base.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
 import 'package:meta/meta.dart';
 
@@ -58,11 +59,11 @@ final class SettingState$Processing extends SettingsState {
 }
 
 @immutable
-abstract base class _$SettingStateBase {
+abstract base class _$SettingStateBase extends StateBase<SettingsState> {
   const _$SettingStateBase({
     required this.locale,
     required this.applicationTheme,
-    required this.message,
+    required super.message,
   });
 
   /// Locale of the application.
@@ -73,24 +74,12 @@ abstract base class _$SettingStateBase {
   @nonVirtual
   final ApplicationTheme applicationTheme;
 
-  /// Message or state description.
-  @nonVirtual
-  final String message;
-
-  /// Error message.
-  abstract final String? error;
-
-  /// If an error has occurred?
-  bool get hasError => error != null;
-
   /// Is in progress state?
-  bool get isProcessing =>
-      maybeMap<bool>(orElse: () => false, processing: (_) => true);
-
-  /// Is in idle state?
-  bool get isIdling => !isProcessing;
+  @override
+  bool get isProcessing => maybeMap<bool>(orElse: () => false, processing: (_) => true);
 
   /// Pattern matching for [SettingsState].
+  @override
   R map<R>({
     required SettingStateMatch<R, SettingState$Idle> idle,
     required SettingStateMatch<R, SettingState$Processing> processing,
@@ -102,6 +91,7 @@ abstract base class _$SettingStateBase {
       };
 
   /// Pattern matching for [SettingsState].
+  @override
   R maybeMap<R>({
     required R Function() orElse,
     SettingStateMatch<R, SettingState$Idle>? idle,
@@ -113,6 +103,7 @@ abstract base class _$SettingStateBase {
       );
 
   /// Pattern matching for [SettingsState].
+  @override
   R? mapOrNull<R>({
     SettingStateMatch<R, SettingState$Idle>? idle,
     SettingStateMatch<R, SettingState$Processing>? processing,
@@ -123,6 +114,7 @@ abstract base class _$SettingStateBase {
       );
 
   /// Copy with method for [SettingsState].
+  @override
   SettingsState copyWith({
     Locale? locale,
     ApplicationTheme? applicationTheme,
@@ -142,12 +134,6 @@ abstract base class _$SettingStateBase {
           message: message ?? s.message,
         ),
       );
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  bool operator ==(Object other) => identical(this, other);
 
   @override
   String toString() {

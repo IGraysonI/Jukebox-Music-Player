@@ -1,12 +1,13 @@
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:jukebox_music_player/src/common/controller/state_base.dart';
 import 'package:meta/meta.dart';
 
 /// Pattern matching for [AudioQueryState].
-typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(
-  S state,
-);
+typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(S state);
 
+/// {@template audio_query_state}
 /// AudioQueryState.
+/// {@endtemplate}
 sealed class AudioQueryState extends _$AudioQueryStateBase {
   /// {@macro audio_query_state}
   const AudioQueryState({
@@ -37,7 +38,6 @@ sealed class AudioQueryState extends _$AudioQueryStateBase {
 }
 
 /// Idling state
-
 final class AudioQueryState$Idle extends AudioQueryState {
   const AudioQueryState$Idle({
     required super.songs,
@@ -52,7 +52,6 @@ final class AudioQueryState$Idle extends AudioQueryState {
 }
 
 /// Processing
-
 final class AudioQueryState$Processing extends AudioQueryState {
   const AudioQueryState$Processing({
     required super.songs,
@@ -66,12 +65,12 @@ final class AudioQueryState$Processing extends AudioQueryState {
 }
 
 @immutable
-abstract base class _$AudioQueryStateBase {
+abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
   const _$AudioQueryStateBase({
     required this.songs,
     required this.albums,
     required this.artists,
-    required this.message,
+    required super.message,
   });
 
   /// Song list from device.
@@ -86,24 +85,12 @@ abstract base class _$AudioQueryStateBase {
   @nonVirtual
   final List<ArtistInfo> artists;
 
-  /// Message or state description.
-  @nonVirtual
-  final String message;
-
-  /// Error message.
-  abstract final String? error;
-
-  /// If an error has occurred?
-  bool get hasError => error != null;
-
   /// Is in progress state?
-  bool get isProcessing =>
-      maybeMap<bool>(orElse: () => false, processing: (_) => true);
-
-  /// Is in idle state?
-  bool get isIdling => !isProcessing;
+  @override
+  bool get isProcessing => maybeMap<bool>(orElse: () => false, processing: (_) => true);
 
   /// Pattern matching for [AudioQueryState].
+  @override
   R map<R>({
     required AudioQueryStateMatch<R, AudioQueryState$Idle> idle,
     required AudioQueryStateMatch<R, AudioQueryState$Processing> processing,
@@ -115,6 +102,7 @@ abstract base class _$AudioQueryStateBase {
       };
 
   /// Pattern matching for [AudioQueryState].
+  @override
   R maybeMap<R>({
     required R Function() orElse,
     AudioQueryStateMatch<R, AudioQueryState$Idle>? idle,
@@ -126,6 +114,7 @@ abstract base class _$AudioQueryStateBase {
       );
 
   /// Pattern matching for [AudioQueryState].
+  @override
   R? mapOrNull<R>({
     AudioQueryStateMatch<R, AudioQueryState$Idle>? idle,
     AudioQueryStateMatch<R, AudioQueryState$Processing>? processing,
@@ -136,6 +125,7 @@ abstract base class _$AudioQueryStateBase {
       );
 
   /// Copy with method for [AudioQueryState].
+  @override
   AudioQueryState copyWith({
     List<SongInfo>? songs,
     List<AlbumInfo>? albums,
@@ -160,18 +150,12 @@ abstract base class _$AudioQueryStateBase {
       );
 
   @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  bool operator ==(Object other) => identical(this, other);
-
-  @override
   String toString() {
     final buffer = StringBuffer()
       ..write('AudioQueryState(')
       ..write('songs: ${songs.length}, ')
       ..write('albums: ${albums.length}, ')
-      ..write('artists: ${artists.length}');
+      ..write('artists: ${artists.length} ');
     if (error != null) buffer.write('error: $error, ');
     buffer
       ..write('message: $message')
