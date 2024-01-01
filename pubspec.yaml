@@ -41,7 +41,11 @@ dependencies:
   window_manager: ^0.3.5
 
   # Utils
-  # audiotagger: ^2.2.1
+  audiotagger:
+    git:
+      url: https://github.com/IGraysonI/AudioTagger
+      ref: master 
+
   collection: any
   async: any
   meta: any

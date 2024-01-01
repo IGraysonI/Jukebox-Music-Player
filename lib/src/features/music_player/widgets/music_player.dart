@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:audiotagger/audiotagger.dart';
+import 'package:audiotagger/models/tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/common/utils/player_util.dart';
@@ -16,20 +18,39 @@ class MusicPlayer extends StatefulWidget {
 }
 
 class _MusicPlayerState extends State<MusicPlayer> {
+  //TODO: Refactor core package
+  late Audiotagger _audioTagger;
   bool _isMiniPlayer = false;
   AudioPlayer? _player;
+  String? _songLyrics;
 
-  Widget _image(String? imagePath) => ClipRRect(
-        borderRadius: _isMiniPlayer ? BorderRadius.circular(0) : BorderRadius.circular(20),
-        child: imagePath != null
-            ? Image.file(
-                File(imagePath),
-                fit: _isMiniPlayer ? BoxFit.cover : BoxFit.fill,
-              )
-            : Image.asset(
-                'assets/images/no_image.jpg',
-                fit: BoxFit.cover,
-              ),
+  @override
+  void initState() {
+    super.initState();
+    _audioTagger = Audiotagger();
+  }
+
+  Future<void> _getSongLyrics(SongInfo songInfo) async {
+    Tag? songTags;
+    if (songInfo.filePath != null) songTags = await _audioTagger.readTags(path: songInfo.filePath!);
+    if (songTags != null) _songLyrics = songTags.lyrics;
+    setState(() {});
+  }
+
+  Widget _image(String? imagePath) => GestureDetector(
+        onTap: () => _showModalBottomSheet(context),
+        child: ClipRRect(
+          borderRadius: _isMiniPlayer ? BorderRadius.circular(0) : BorderRadius.circular(20),
+          child: imagePath != null
+              ? Image.file(
+                  File(imagePath),
+                  fit: _isMiniPlayer ? BoxFit.cover : BoxFit.fill,
+                )
+              : Image.asset(
+                  'assets/images/no_image.jpg',
+                  fit: BoxFit.cover,
+                ),
+        ),
       );
 
   Widget _playButton() => StreamBuilder<PlayerState>(
@@ -336,6 +357,20 @@ class _MusicPlayerState extends State<MusicPlayer> {
     );
   }
 
+  //TODO: ? Add cover change to lyrics box with scroll
+  void _showModalBottomSheet(BuildContext context) => showModalBottomSheet<Widget>(
+        showDragHandle: true,
+        context: context,
+        builder: (context) => SingleChildScrollView(
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            _songLyrics ?? 'Lyrics not found',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        )),
+      );
+
   @override
   Widget build(BuildContext context) => SafeArea(
         child: StreamBuilder<SequenceState?>(
@@ -343,6 +378,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           builder: (context, snapshot) {
             final playerMaxHeight = MediaQuery.of(context).size.height;
             if (snapshot.hasData) {
+              _getSongLyrics(snapshot.data!.currentSource!.tag as SongInfo);
               return Miniplayer(
                 minHeight: PlayerUtil.playerMinHeight,
                 maxHeight: playerMaxHeight,
