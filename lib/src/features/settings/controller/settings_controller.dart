@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:jukebox_music_player/src/common/controller/droppable_controller_concurrency.dart';
-import 'package:jukebox_music_player/src/common/controller/state_controller.dart';
+import 'package:jukebox_music_player/src/features/controller/droppable_controller_concurrency.dart';
+import 'package:jukebox_music_player/src/features/controller/state_controller.dart';
 import 'package:jukebox_music_player/src/common/localization/localization.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
 import 'package:jukebox_music_player/src/common/utils/error_util.dart';
@@ -11,15 +11,12 @@ import 'package:jukebox_music_player/src/features/settings/data/settings_reposit
 /// {@template settings_controller}
 /// A [StateController] that handles the settings of the application.
 /// {@endtemplate}
-final class SettingsController extends StateController<SettingsState>
-    with DroppableControllerConcurency {
+final class SettingsController extends StateController<SettingsState> with DroppableControllerConcurency {
   SettingsController(this._settingsRepository)
       : super(
           initialState: SettingsState.idle(
-            locale: _settingsRepository.fetchLocaleFromCache() ??
-                Localization.computeDefaultLocale(),
-            applicationTheme: _settingsRepository.fetchThemeFromCache() ??
-                ApplicationTheme.defaultTheme,
+            locale: _settingsRepository.fetchLocaleFromCache() ?? Localization.computeDefaultLocale(),
+            applicationTheme: _settingsRepository.fetchThemeFromCache() ?? ApplicationTheme.defaultTheme,
             message: 'Initial state',
           ),
         );

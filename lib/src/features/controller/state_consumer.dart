@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import 'package:jukebox_music_player/src/common/controller/state_controller.dart';
+import 'package:jukebox_music_player/src/features/controller/state_controller.dart';
 
 /// Fire when the state changes.
 typedef StateConsumerListener<S> = void Function(
@@ -74,8 +74,7 @@ class _StateConsumerState<S extends Object> extends State<StateConsumer<S>> {
     super.didUpdateWidget(oldWidget);
     final oldController = oldWidget.controller;
     final newController = widget.controller;
-    if (identical(oldController, newController) ||
-        oldController == newController) return;
+    if (identical(oldController, newController) || oldController == newController) return;
     _unsubscribe();
     _controller = newController;
     _previousState = newController.state;
@@ -116,8 +115,7 @@ class _StateConsumerState<S extends Object> extends State<StateConsumer<S>> {
   }
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder propertiesBuilder) =>
-      super.debugFillProperties(
+  void debugFillProperties(DiagnosticPropertiesBuilder propertiesBuilder) => super.debugFillProperties(
         propertiesBuilder
           ..add(
             DiagnosticsProperty<IStateController<S>>('Controller', _controller),
@@ -135,7 +133,5 @@ class _StateConsumerState<S extends Object> extends State<StateConsumer<S>> {
 
   @override
   Widget build(BuildContext context) =>
-      widget.builder?.call(context, _controller.state, widget.child) ??
-      widget.child ??
-      const SizedBox.shrink();
+      widget.builder?.call(context, _controller.state, widget.child) ?? widget.child ?? const SizedBox.shrink();
 }

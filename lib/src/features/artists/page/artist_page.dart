@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:jukebox_music_player/src/common/controller/state_consumer.dart';
+import 'package:jukebox_music_player/src/features/controller/state_consumer.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/custom_sliver_app_bar.dart';
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
@@ -31,8 +31,7 @@ class _ArtistsPageState extends State<ArtistsPage> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
-                  itemBuilder: (context, index) =>
-                      ArtistCard(artist: state.artists[index]),
+                  itemBuilder: (context, index) => ArtistCard(artist: state.artists[index]),
                 ),
               ),
             ),
