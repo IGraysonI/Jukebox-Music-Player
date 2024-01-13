@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/features/controller/state_base.dart';
+import 'package:jukebox_music_player/src/common/controller/state_base.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
 import 'package:meta/meta.dart';
 
@@ -76,7 +76,8 @@ abstract base class _$SettingStateBase extends StateBase<SettingsState> {
 
   /// Is in progress state?
   @override
-  bool get isProcessing => maybeMap<bool>(orElse: () => false, processing: (_) => true);
+  bool get isProcessing =>
+      maybeMap<bool>(orElse: () => false, processing: (_) => true);
 
   /// Pattern matching for [SettingsState].
   @override

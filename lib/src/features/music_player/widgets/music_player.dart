@@ -4,7 +4,7 @@ import 'package:audiotagger/audiotagger.dart';
 import 'package:audiotagger/models/tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/common/utils/player_util.dart';
+import 'package:jukebox_music_player/src/common/util/player_util.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
 import 'package:jukebox_music_player/src/features/music_player/widgets/miniplayer.dart';
@@ -32,7 +32,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
   Future<void> _getSongLyrics(SongInfo songInfo) async {
     Tag? songTags;
-    if (songInfo.filePath != null) songTags = await _audioTagger.readTags(path: songInfo.filePath!);
+    if (songInfo.filePath != null)
+      songTags = await _audioTagger.readTags(path: songInfo.filePath!);
     if (songTags != null) _songLyrics = songTags.lyrics;
     setState(() {});
   }
@@ -40,7 +41,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
   Widget _image(String? imagePath) => GestureDetector(
         onTap: () => _showModalBottomSheet(context),
         child: ClipRRect(
-          borderRadius: _isMiniPlayer ? BorderRadius.circular(0) : BorderRadius.circular(20),
+          borderRadius: _isMiniPlayer
+              ? BorderRadius.circular(0)
+              : BorderRadius.circular(20),
           child: imagePath != null
               ? Image.file(
                   File(imagePath),
@@ -57,7 +60,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
         stream: _player?.playerStateStream,
         builder: (context, snapshot) {
           final playing = snapshot.data?.playing ?? false;
-          final buffering = snapshot.data?.processingState == ProcessingState.buffering;
+          final buffering =
+              snapshot.data?.processingState == ProcessingState.buffering;
           return buffering
               ? const SizedBox(child: CircularProgressIndicator())
               : IconButton(
@@ -89,7 +93,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
               var progress = 0.0;
 
-              if (duration.inMilliseconds > 0 && duration.inMilliseconds.isFinite) {
+              if (duration.inMilliseconds > 0 &&
+                  duration.inMilliseconds.isFinite) {
                 progress = position.inMilliseconds / duration.inMilliseconds;
               }
 
@@ -154,7 +159,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
           final shuffleModeEnabled = snapshot.data ?? false;
           return IconButton(
             icon: Icon(
-              shuffleModeEnabled ? Icons.shuffle_on_outlined : Icons.shuffle_outlined,
+              shuffleModeEnabled
+                  ? Icons.shuffle_on_outlined
+                  : Icons.shuffle_outlined,
             ),
             onPressed: () => _player?.setShuffleModeEnabled(
               !shuffleModeEnabled,
@@ -194,7 +201,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
     double maxImageSize,
   ) {
     var percentageExpandedPlayer = PlayerUtil.percentageFromValueInRange(
-      min: playerMaxHeight * PlayerUtil.miniplayerPercentageDeclaration + PlayerUtil.playerMinHeight,
+      min: playerMaxHeight * PlayerUtil.miniplayerPercentageDeclaration +
+          PlayerUtil.playerMinHeight,
       max: playerMaxHeight,
       value: height,
     );
@@ -210,7 +218,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
     );
 
     final heightWithoutPadding = height - paddingVertical * 2;
-    final imageSize = heightWithoutPadding > maxImageSize ? maxImageSize : heightWithoutPadding;
+    final imageSize = heightWithoutPadding > maxImageSize
+        ? maxImageSize
+        : heightWithoutPadding;
     final paddingLeft = PlayerUtil.valueFromPercentageInRange(
           min: 0,
           max: width - imageSize,
@@ -287,7 +297,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
   ) {
     final percentageMiniplayer = PlayerUtil.percentageFromValueInRange(
       min: PlayerUtil.playerMinHeight,
-      max: playerMaxHeight * PlayerUtil.miniplayerPercentageDeclaration + PlayerUtil.playerMinHeight,
+      max: playerMaxHeight * PlayerUtil.miniplayerPercentageDeclaration +
+          PlayerUtil.playerMinHeight,
       value: height,
     );
 
@@ -315,15 +326,23 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       children: [
                         Text(
                           songInfo.title ?? 'Title not found',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontSize: 16),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           songInfo.artist ?? 'Artist not found',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.55),
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .color!
+                                        .withOpacity(0.55),
+                                  ),
                         ),
                       ],
                     ),
@@ -358,12 +377,13 @@ class _MusicPlayerState extends State<MusicPlayer> {
   }
 
   //TODO: ? Add cover change to lyrics box with scroll
-  void _showModalBottomSheet(BuildContext context) => showModalBottomSheet<Widget>(
+  void _showModalBottomSheet(BuildContext context) =>
+      showModalBottomSheet<Widget>(
         showDragHandle: true,
         context: context,
         builder: (context) => SingleChildScrollView(
             child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             _songLyrics ?? 'Lyrics not found',
             style: Theme.of(context).textTheme.bodyMedium,
@@ -386,9 +406,11 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 curve: Curves.easeOut,
                 builder: (height, percentage) {
                   _player = MusicPlayerScope.audioPlayerOf(context);
-                  _isMiniPlayer = percentage < PlayerUtil.miniplayerPercentageDeclaration;
+                  _isMiniPlayer =
+                      percentage < PlayerUtil.miniplayerPercentageDeclaration;
 
-                  final songInfo = snapshot.data!.currentSource!.tag as SongInfo;
+                  final songInfo =
+                      snapshot.data!.currentSource!.tag as SongInfo;
                   final width = MediaQuery.of(context).size.width;
                   final maxImageSize = width * 0.7;
 

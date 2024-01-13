@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:jukebox_music_player/src/features/albums/page/selected_album_page.dart';
+import 'package:jukebox_music_player/src/features/albums/screen/selected_album_screen.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({required this.album, super.key});
@@ -13,7 +12,8 @@ class AlbumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () => context.pushNamed(SelectedAlbumPage.page(), extra: album),
+        onTap: () =>
+            context.pushNamed(SelectedAlbumScreen.page(), extra: album),
         child: Card(
           elevation: 8,
           child: Column(

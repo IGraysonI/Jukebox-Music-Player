@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-
 import 'package:jukebox_music_player/src/common/extension/string_extensions.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
 

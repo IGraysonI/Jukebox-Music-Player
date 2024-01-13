@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/common/utils/player_util.dart';
+import 'package:jukebox_music_player/src/common/util/player_util.dart';
 import 'package:jukebox_music_player/src/features/music_player/enum/panel_state_enum.dart';
 
 /// Type definition for the builder function
@@ -54,7 +54,8 @@ class Miniplayer extends StatefulWidget {
 
 class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
   final ValueNotifier<double> _dragDownPercentage = ValueNotifier(0);
-  final StreamController<double> _heightController = StreamController<double>.broadcast();
+  final StreamController<double> _heightController =
+      StreamController<double>.broadcast();
   late ValueNotifier<double> _heightNotifier;
 
   /// Current y position of drag gesture
@@ -150,15 +151,18 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: _heightNotifier,
-        builder: (BuildContext context, double height, Widget? _) {
-          final percentage = (height - widget.minHeight) / (widget.maxHeight - widget.minHeight);
+        builder: (context, height, _) {
+          final percentage = (height - widget.minHeight) /
+              (widget.maxHeight - widget.minHeight);
           return Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               height: height,
               child: GestureDetector(
                 onTap: () => _snapToPosition(
-                  _dragHeight != widget.maxHeight ? PanelStateEnum.max : PanelStateEnum.min,
+                  _dragHeight != widget.maxHeight
+                      ? PanelStateEnum.max
+                      : PanelStateEnum.min,
                 ),
                 onPanStart: (details) {
                   _startHeight = _dragHeight;
@@ -169,7 +173,12 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                 },
                 onPanEnd: (details) async {
                   /// Calculates drag speed
-                  final speed = (_dragHeight - _startHeight * _dragHeight < _startHeight ? 1 : -1) / updateCount * 100;
+                  final speed =
+                      (_dragHeight - _startHeight * _dragHeight < _startHeight
+                              ? 1
+                              : -1) /
+                          updateCount *
+                          100;
 
                   /// Define the percentage distance depending on the speed
                   /// with which the widget should snap
@@ -212,7 +221,7 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                 },
                 child: ValueListenableBuilder(
                   valueListenable: _dragDownPercentage,
-                  builder: (BuildContext context, double value, Widget? child) => Opacity(
+                  builder: (context, value, child) => Opacity(
                     opacity: PlayerUtil.borderDouble(
                       minRange: 0,
                       maxRange: 1,
@@ -233,7 +242,8 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                           offset: const Offset(0, 4),
                         ),
                       ],
-                      color: widget.backgroundColor ?? Theme.of(context).colorScheme.background,
+                      color: widget.backgroundColor ??
+                          Theme.of(context).colorScheme.background,
                     ),
                     child: widget.builder(height, percentage),
                   ),

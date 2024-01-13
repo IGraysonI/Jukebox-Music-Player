@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/debug_instruments/debug_instruments.dart';
 import 'package:jukebox_music_player/src/features/debug_instruments/instruments_configurator.dart';
-import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
-import 'package:jukebox_music_player/src/features/dependencies/scope/dependencies_scope.dart';
+import 'package:jukebox_music_player/src/features/initialization/widget/scope/inherited_dependencies.dart';
 import 'package:jukebox_music_player/src/features/settings/page/setting_page.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
@@ -41,8 +41,7 @@ class CustomSliverAppBar extends StatelessWidget {
           if (kDebugMode)
             DebugInstruments(
               instrumentConfigurator: InstrumentConfigurator(
-                sharedPreferences:
-                    DependenciesScope.of(context).sharedPreferences,
+                sharedPreferences: InheritedDependencies.of(context).sharedPreferences,
               ),
             ),
           MenuAnchor(

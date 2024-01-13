@@ -42,22 +42,29 @@ final class ApplicationTheme with Diagnosticable {
   ThemeData computeTheme() => switch (mode) {
         ThemeMode.light => lightTheme,
         ThemeMode.dark => darkTheme,
-        ThemeMode.system => PlatformDispatcher.instance.platformBrightness == Brightness.dark ? darkTheme : lightTheme,
+        ThemeMode.system =>
+          PlatformDispatcher.instance.platformBrightness == Brightness.dark
+              ? darkTheme
+              : lightTheme,
       };
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(ColorProperty('seed', seed));
-    properties.add(EnumProperty<ThemeMode>('type', mode));
-    properties.add(DiagnosticsProperty<ThemeData>('lightTheme', lightTheme));
-    properties.add(DiagnosticsProperty<ThemeData>('darkTheme', darkTheme));
+    properties
+      ..add(ColorProperty('seed', seed))
+      ..add(EnumProperty<ThemeMode>('type', mode))
+      ..add(DiagnosticsProperty<ThemeData>('lightTheme', lightTheme))
+      ..add(DiagnosticsProperty<ThemeData>('darkTheme', darkTheme));
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ApplicationTheme && runtimeType == other.runtimeType && seed == other.seed && mode == other.mode;
+      other is ApplicationTheme &&
+          runtimeType == other.runtimeType &&
+          seed == other.seed &&
+          mode == other.mode;
 
   @override
   int get hashCode => mode.hashCode ^ seed.hashCode;

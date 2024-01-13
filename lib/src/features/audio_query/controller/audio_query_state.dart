@@ -1,9 +1,10 @@
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/features/controller/state_base.dart';
+import 'package:jukebox_music_player/src/common/controller/state_base.dart';
 import 'package:meta/meta.dart';
 
 /// Pattern matching for [AudioQueryState].
-typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(S state);
+typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(
+    S state);
 
 /// {@template audio_query_state}
 /// AudioQueryState.
@@ -87,7 +88,8 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
 
   /// Is in progress state?
   @override
-  bool get isProcessing => maybeMap<bool>(orElse: () => false, processing: (_) => true);
+  bool get isProcessing =>
+      maybeMap<bool>(orElse: () => false, processing: (_) => true);
 
   /// Pattern matching for [AudioQueryState].
   @override

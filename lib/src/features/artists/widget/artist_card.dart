@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:jukebox_music_player/src/features/artists/page/selected_artist_page.dart';
+import 'package:jukebox_music_player/src/features/artists/screen/selected_artist_screen.dart';
 
 class ArtistCard extends StatelessWidget {
   const ArtistCard({required this.artist, super.key});
@@ -14,7 +13,7 @@ class ArtistCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: () =>
-            context.pushNamed(SelectedArtistPage.page(), extra: artist),
+            context.pushNamed(SelectedArtistScreen.page(), extra: artist),
         child: Card(
           elevation: 8,
           child: Column(

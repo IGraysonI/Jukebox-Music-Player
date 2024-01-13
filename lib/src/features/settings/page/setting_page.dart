@@ -30,7 +30,7 @@ class _SettingPageState extends State<SettingPage> {
             delegate: SliverChildListDelegate(
               [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: CustomButton.withSwitch(
                     title: const Text('Тема'),
                     description: 'Светлая / темная тема',
@@ -46,7 +46,7 @@ class _SettingPageState extends State<SettingPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: CustomButton<Locale>.withDropdown(
                     title: const Text('Язык'),
                     description: 'Сменить язык приложения',
