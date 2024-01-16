@@ -1,46 +1,84 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/features/albums/widget/selected_album.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
+import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
+import 'package:jukebox_music_player/src/features/songs/widget/song_card.dart';
 
-class SelectedAlbumScreen extends StatefulWidget {
-  const SelectedAlbumScreen({required this.album, super.key});
+class SelectedAlbumScreen extends StatelessWidget {
+  const SelectedAlbumScreen({required this.id, super.key});
 
-  final AlbumInfo album;
-
-  static String page() => 'SelectedAlbumPage';
-
-  @override
-  State<SelectedAlbumScreen> createState() => _SelectedAlbumScreenState();
-}
-
-class _SelectedAlbumScreenState extends State<SelectedAlbumScreen> {
-  late final AlbumInfo _album;
-  late final List<SongInfo> _songs;
-  final FlutterAudioQuery _audioQuery = FlutterAudioQuery();
-  late Future<void> _initializeAudioFiles;
+  final String? id;
 
   @override
-  void initState() {
-    _album = widget.album;
-    _initializeAudioFiles = _getAlbumSongs(_album);
-    super.initState();
+  Widget build(BuildContext context) {
+    final albumContent = AudioQueryScope.getAlbumById(context, id!);
+    if (albumContent == null) return const SizedBox.shrink();
+    final album = albumContent.album;
+    final songs = albumContent.songs;
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          expandedHeight: album.albumArt == null ? null : MediaQuery.of(context).size.height * 0.55,
+          flexibleSpace: FlexibleSpaceBar(
+            background: album.albumArt == null
+                ? const SizedBox.shrink()
+                : Image.file(
+                    File(album.albumArt!),
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fill,
+                  ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        SliverToBoxAdapter(child: Space.sm()),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  album.title!,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                Space.sm(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(album.artist!),
+                        Text('${album.numberOfSongs!} songs'),
+                      ],
+                    ),
+                    const Icon(Icons.more_vert),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(child: Space.sm()),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => SongCard(
+              song: songs[index],
+              songIndex: index,
+              album: album,
+              showArtist: false,
+              showArtwork: false,
+            ),
+            childCount: songs.length,
+          ),
+        ),
+      ],
+    );
   }
-
-  Future<void> _getAlbumSongs(AlbumInfo album) async {
-    var songs = <SongInfo>[];
-    songs = await _audioQuery.getSongsFromAlbum(albumId: album.id);
-    setState(() => _songs = songs);
-  }
-
-  @override
-  Widget build(BuildContext context) => FutureBuilder(
-        future: _initializeAudioFiles,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return SelectedAlbum(album: _album, songs: _songs);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      );
 }

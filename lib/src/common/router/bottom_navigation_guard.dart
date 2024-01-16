@@ -6,12 +6,12 @@ import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navi
 import 'package:octopus/octopus.dart';
 
 /// Do not allow any nested routes at `bottomNavigation` inderectly except of `*-tab`.
-class HomeGuard extends OctopusGuard {
-  HomeGuard({
-    TabsCacheService? cache,
+class BottomNavigationGuard extends OctopusGuard {
+  BottomNavigationGuard({
+    BottomTabsCacheService? cache,
   }) : _cache = cache;
 
-  final TabsCacheService? _cache;
+  final BottomTabsCacheService? _cache;
 
   static final String _songsTab = '${NavigationTabsEnum.songs.name}-tab';
   static final String _albumsTab = '${NavigationTabsEnum.albums.name}-tab';

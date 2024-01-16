@@ -53,7 +53,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     setState(() => _tab = tab);
   }
 
-  // Pop to songs at double tap on songs tab.
+  // Pop to albums at double tap on albums-tab.
   void _clearAlbumsNavigationStack() => context.octopus.setState(
         (state) {
           final albums = state.findByName('albums-tab');
@@ -66,12 +66,26 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         },
       );
 
+  // Pop to artists at double tap on artists-tab.
+  void _clearArtistsNavigationStack() => context.octopus.setState(
+        (state) {
+          final artists = state.findByName('artists-tab');
+          if (artists == null || artists.children.length < 2) return state;
+          artists.children.length = 1;
+          if (mounted) {
+            l.i('Clear artists navigation stack');
+          }
+          return state;
+        },
+      );
+
   // Bottom navigation bar item tapped.
   void _onItemTapped(int index) {
     final newTab = NavigationTabsEnum.values[index];
     if (_tab == newTab) {
       // The same tab tapped twice.
       if (newTab == NavigationTabsEnum.albums) _clearAlbumsNavigationStack();
+      if (newTab == NavigationTabsEnum.artists) _clearArtistsNavigationStack();
     } else {
       // Switch tab to new one.
       _switchTab(newTab);
@@ -97,8 +111,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               min: PlayerUtil.playerMinHeight,
               value: height,
             );
-            final navigationBarHeight =
-                const NavigationBarThemeData().height ?? 80;
+            final navigationBarHeight = const NavigationBarThemeData().height ?? 80;
             var opacity = 1 - value;
             if (opacity < 0) opacity = 0;
             if (opacity > 1) opacity = 1;

@@ -5,8 +5,8 @@ import 'package:octopus/octopus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Restore cached nested navigation on tab switch
-class TabsCacheService {
-  TabsCacheService({
+class BottomTabsCacheService {
+  BottomTabsCacheService({
     required SharedPreferences sharedPreferences,
   }) : _prefs = sharedPreferences;
 

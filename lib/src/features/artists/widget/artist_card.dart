@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:go_router/go_router.dart';
-import 'package:jukebox_music_player/src/features/artists/screen/selected_artist_screen.dart';
+import 'package:jukebox_music_player/src/common/router/routes.dart';
+import 'package:octopus/octopus.dart';
 
 class ArtistCard extends StatelessWidget {
   const ArtistCard({required this.artist, super.key});
@@ -12,8 +12,13 @@ class ArtistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () =>
-            context.pushNamed(SelectedArtistScreen.page(), extra: artist),
+        onTap: () => context.octopus.setState((state) => state
+          ..findByName('artists-tab')?.add(
+            Routes.selectedArtist.node(
+              arguments: {'id': artist.id},
+            ),
+          )
+          ..arguments['bottomNavigation'] = 'artists'),
         child: Card(
           elevation: 8,
           child: Column(

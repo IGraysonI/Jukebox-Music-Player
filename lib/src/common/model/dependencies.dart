@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart' show BuildContext;
 import 'package:jukebox_music_player/src/common/model/app_metadata.dart';
+import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_controller.dart';
 import 'package:jukebox_music_player/src/features/initialization/widget/scope/inherited_dependencies.dart';
 import 'package:jukebox_music_player/src/features/settings/controller/settings_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,9 @@ class Dependencies {
 
   /// Firebase
   late final FirebaseApp firebaseApp;
+
+  /// AudioQuery controller
+  late final AudioQueryController audioQueryController;
 
   /// Settings controller
   late final SettingsController settingsController;

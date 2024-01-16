@@ -1,46 +1,63 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/features/artists/widget/selected_artist.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
+import 'package:jukebox_music_player/src/features/albums/widget/albums_widget.dart';
+import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 
-class SelectedArtistScreen extends StatefulWidget {
-  const SelectedArtistScreen({required this.artist, super.key});
+class SelectedArtistScreen extends StatelessWidget {
+  const SelectedArtistScreen({required this.id, super.key});
 
-  final ArtistInfo artist;
-
-  static String page() => 'SelectedArtistPage';
-
-  @override
-  State<SelectedArtistScreen> createState() => _SelectedArtistScreenState();
-}
-
-class _SelectedArtistScreenState extends State<SelectedArtistScreen> {
-  late final ArtistInfo _artist;
-  late final List<AlbumInfo> _albums;
-  final FlutterAudioQuery _audioQuery = FlutterAudioQuery();
-  late Future<void> _initializeAudioFiles;
+  final ArtistID? id;
 
   @override
-  void initState() {
-    _artist = widget.artist;
-    _initializeAudioFiles = _getArtistAlbums(_artist);
-    super.initState();
+  Widget build(BuildContext context) {
+    final artistContent = AudioQueryScope.getArtistById(context, id!);
+    if (artistContent == null) return const Center(child: CircularProgressIndicator());
+    final artist = artistContent.artist;
+    final albums = artistContent.albums;
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          expandedHeight: artist.artistArtPath == null ? null : MediaQuery.of(context).size.height * 0.55,
+          flexibleSpace: FlexibleSpaceBar(
+            background: artist.artistArtPath == null
+                ? const SizedBox.shrink()
+                : Image.file(
+                    File(artist.artistArtPath!),
+                    height: MediaQuery.of(context).size.height * 0.55,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fill,
+                  ),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        SliverToBoxAdapter(child: Space.sm()),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  artist.name ?? 'Unknown Artist',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                Space.sm(),
+              ],
+            ),
+          ),
+        ),
+        SliverToBoxAdapter(child: Space.sm()),
+        AlbumsWidget(
+          albumContents: albums,
+        ),
+        SliverToBoxAdapter(child: Space.xxxl()),
+      ],
+    );
   }
-
-  Future<void> _getArtistAlbums(ArtistInfo artist) async {
-    var albums = <AlbumInfo>[];
-    albums = await _audioQuery.getAlbumsFromArtist(artist: artist.name!);
-    setState(() => _albums = albums);
-  }
-
-  @override
-  Widget build(BuildContext context) => FutureBuilder(
-        future: _initializeAudioFiles,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return SelectedArtist(artist: _artist, albums: _albums);
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      );
 }

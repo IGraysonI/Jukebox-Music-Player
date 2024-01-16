@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:jukebox_music_player/src/common/router/routes.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/debug_instruments/debug_instruments.dart';
 import 'package:jukebox_music_player/src/features/debug_instruments/instruments_configurator.dart';
 import 'package:jukebox_music_player/src/features/initialization/widget/scope/inherited_dependencies.dart';
-import 'package:jukebox_music_player/src/features/settings/page/setting_page.dart';
+import 'package:octopus/octopus.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   const CustomSliverAppBar({
@@ -18,7 +18,7 @@ class CustomSliverAppBar extends StatelessWidget {
 
   List<Widget> _menuChildren(BuildContext context) => [
         MenuItemButton(
-          onPressed: () => context.pushNamed(SettingPage.page()),
+          onPressed: () => context.octopus.push(Routes.settings),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,

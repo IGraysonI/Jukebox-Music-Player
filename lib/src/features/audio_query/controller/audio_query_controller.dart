@@ -7,14 +7,12 @@ final class AudioQueryController extends StateController<AudioQueryState> with D
   AudioQueryController({
     required IAudioQueryRepository audioQueryRepository,
     super.initialState = const AudioQueryState.idle(songs: [], albums: [], artists: []),
-  }) : _audioQueryRepository = audioQueryRepository {
-    getAudioFiles();
-  }
+  }) : _audioQueryRepository = audioQueryRepository;
 
   final IAudioQueryRepository _audioQueryRepository;
 
   /// Get all audio files [SongInfo], [AlbumInfo], [ArtistInfo] on device
-  void getAudioFiles() => handle(
+  void fetch() => handle(
         () async {
           setState(
             AudioQueryState.processing(

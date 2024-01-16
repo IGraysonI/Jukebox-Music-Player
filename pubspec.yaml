@@ -34,7 +34,6 @@ dependencies:
   
   # Routing
   octopus: ^0.0.4
-  go_router: ^12.1.0
 
   # State management
   control: ^0.0.1-pre.0

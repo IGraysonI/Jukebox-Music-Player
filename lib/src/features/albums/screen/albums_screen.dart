@@ -24,8 +24,6 @@ class AlbumsScreen extends StatefulWidget {
   /// {@macro albums_screen}
   const AlbumsScreen({super.key});
 
-  static String page() => 'AlbumsPage';
-
   @override
   State<AlbumsScreen> createState() => _AlbumsScreenState();
 }

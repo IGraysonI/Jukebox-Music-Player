@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/features/albums/screen/albums_screen.dart';
 import 'package:jukebox_music_player/src/features/albums/screen/selected_album_screen.dart';
 import 'package:jukebox_music_player/src/features/artists/screen/artist_screen.dart';
@@ -27,17 +26,13 @@ enum Routes with OctopusRoute {
   final String? title;
 
   @override
-  Widget builder(BuildContext context, OctopusState state, OctopusNode node) =>
-      switch (this) {
+  Widget builder(BuildContext context, OctopusState state, OctopusNode node) => switch (this) {
         Routes.bottomNavigation => const BottomNavigationScreen(),
         Routes.songs => const SongsScreen(),
         Routes.albums => const AlbumsScreen(),
-        Routes.selectedAlbum =>
-          //FIXME: Find efficient way to pass extra data to page.
-          SelectedAlbumScreen(album: node.extra['album'] as AlbumInfo),
+        Routes.selectedAlbum => SelectedAlbumScreen(id: node.arguments['id']),
         Routes.artists => const ArtistsScreen(),
-        Routes.selectedArtist =>
-          SelectedArtistScreen(artist: node.extra['artist'] as ArtistInfo),
+        Routes.selectedArtist => SelectedArtistScreen(id: node.arguments['id']),
         Routes.settings => const SettingPage(),
       };
 }
