@@ -102,65 +102,67 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        bottomNavigationBar: ValueListenableBuilder(
-          valueListenable: playerExpandProgress,
-          builder: (context, height, child) {
-            final value = PlayerUtil.percentageFromValueInRange(
-              max: MediaQuery.of(context).size.height,
-              min: PlayerUtil.playerMinHeight,
-              value: height,
-            );
-            final navigationBarHeight = const NavigationBarThemeData().height ?? 80;
-            var opacity = 1 - value;
-            if (opacity < 0) opacity = 0;
-            if (opacity > 1) opacity = 1;
+  Widget build(BuildContext context) => SafeArea(
+        child: Scaffold(
+          bottomNavigationBar: ValueListenableBuilder(
+            valueListenable: playerExpandProgress,
+            builder: (context, height, child) {
+              final value = PlayerUtil.percentageFromValueInRange(
+                max: MediaQuery.of(context).size.height,
+                min: PlayerUtil.playerMinHeight,
+                value: height,
+              );
+              final navigationBarHeight = const NavigationBarThemeData().height ?? 80;
+              var opacity = 1 - value;
+              if (opacity < 0) opacity = 0;
+              if (opacity > 1) opacity = 1;
 
-            return SizedBox(
-              height: navigationBarHeight - navigationBarHeight * value,
-              child: Transform.translate(
-                offset: Offset(0, navigationBarHeight * value * 0.5),
-                child: Opacity(
-                  opacity: opacity,
-                  child: OverflowBox(
-                    maxHeight: navigationBarHeight,
-                    child: child,
+              return SizedBox(
+                height: navigationBarHeight - navigationBarHeight * value,
+                child: Transform.translate(
+                  offset: Offset(0, navigationBarHeight * value * 0.5),
+                  child: Opacity(
+                    opacity: opacity,
+                    child: OverflowBox(
+                      maxHeight: navigationBarHeight,
+                      child: child,
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-          child: NavigationBar(
-            selectedIndex: _tab.index,
-            onDestinationSelected: _onItemTapped,
-            destinations: const [
-              NavigationDestination(
-                icon: Icon(Icons.audiotrack_rounded),
-                label: 'Songs',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.album_rounded),
-                label: 'Albums',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.account_circle_rounded),
-                label: 'Artists',
-              ),
-            ],
-          ),
-        ),
-        body: Stack(
-          children: [
-            IndexedStack(
-              index: _tab.index,
-              children: const [
-                SongsTab(),
-                AlbumsTab(),
-                ArtistsTab(),
+              );
+            },
+            child: NavigationBar(
+              selectedIndex: _tab.index,
+              onDestinationSelected: _onItemTapped,
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(Icons.audiotrack_rounded),
+                  label: 'Songs',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.album_rounded),
+                  label: 'Albums',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.account_circle_rounded),
+                  label: 'Artists',
+                ),
               ],
             ),
-            const MusicPlayer(),
-          ],
+          ),
+          body: Stack(
+            children: [
+              IndexedStack(
+                index: _tab.index,
+                children: const [
+                  SongsTab(),
+                  AlbumsTab(),
+                  ArtistsTab(),
+                ],
+              ),
+              const MusicPlayer(),
+            ],
+          ),
         ),
       );
 }
