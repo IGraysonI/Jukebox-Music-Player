@@ -2,7 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+/// {@template radial_progress_indicator}
 /// RadialProgressIndicator widget
+/// {@endtemplate}
 class RadialProgressIndicator extends StatefulWidget {
   /// {@macro radial_progress_indicator}
   const RadialProgressIndicator({
@@ -18,12 +20,10 @@ class RadialProgressIndicator extends StatefulWidget {
   final Widget? child;
 
   @override
-  State<RadialProgressIndicator> createState() =>
-      _RadialProgressIndicatorState();
+  State<RadialProgressIndicator> createState() => _RadialProgressIndicatorState();
 }
 
-class _RadialProgressIndicatorState extends State<RadialProgressIndicator>
-    with SingleTickerProviderStateMixin {
+class _RadialProgressIndicatorState extends State<RadialProgressIndicator> with SingleTickerProviderStateMixin {
   late final AnimationController _sweepController;
   late final Animation<double> _curvedAnimation;
 
@@ -56,7 +56,9 @@ class _RadialProgressIndicatorState extends State<RadialProgressIndicator>
                 animation: _curvedAnimation,
                 color: Theme.of(context).indicatorColor,
               ),
-              child: Center(child: widget.child),
+              child: Center(
+                child: widget.child,
+              ),
             ),
           ),
         ),
@@ -96,8 +98,5 @@ class _RadialProgressIndicatorPainter extends CustomPainter {
       _animation.value != oldDelegate._animation.value;
 
   @override
-  bool shouldRebuildSemantics(
-    covariant _RadialProgressIndicatorPainter oldDelegate,
-  ) =>
-      false;
+  bool shouldRebuildSemantics(covariant _RadialProgressIndicatorPainter oldDelegate) => false;
 }
