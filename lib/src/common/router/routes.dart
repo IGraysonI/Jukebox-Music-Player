@@ -6,7 +6,7 @@ import 'package:jukebox_music_player/src/features/artists/screen/selected_artist
 import 'package:jukebox_music_player/src/features/developer/widget/developer_screen.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/widget/bottom_navigation_screen.dart';
 import 'package:jukebox_music_player/src/features/settings/widget/setting_screen.dart';
-import 'package:jukebox_music_player/src/features/songs/screen/song_screen.dart';
+import 'package:jukebox_music_player/src/features/songs/widget/songs_screen.dart';
 import 'package:octopus/octopus.dart';
 
 enum Routes with OctopusRoute {

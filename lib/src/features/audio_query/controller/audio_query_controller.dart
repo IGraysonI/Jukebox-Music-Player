@@ -1,5 +1,4 @@
 import 'package:control/control.dart';
-import 'package:jukebox_music_player/src/common/util/error_util.dart';
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
 import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
 
@@ -26,7 +25,7 @@ final class AudioQueryController extends StateController<AudioQueryState> with D
           final albums = await _audioQueryRepository.getAlbums();
           final artists = await _audioQueryRepository.getArtists();
           setState(
-            AudioQueryState.idle(
+            AudioQueryState.successful(
               songs: songs,
               albums: albums,
               artists: artists,
@@ -34,14 +33,19 @@ final class AudioQueryController extends StateController<AudioQueryState> with D
             ),
           );
         },
-        (error, _) => setState(
-          state.copyWith(
-            message: 'Error getting audio files',
-            error: ErrorUtil.formatMessage(error),
-          ),
-        ),
+        (error, _) => setState(AudioQueryState.error(
+          songs: state.songs,
+          albums: state.albums,
+          artists: state.artists,
+          message: error.toString(),
+        )),
         () => setState(
-          state.copyWith(message: 'Getting audio files done'),
+          AudioQueryState.idle(
+            songs: state.songs,
+            albums: state.albums,
+            artists: state.artists,
+            message: 'Audio files received',
+          ),
         ),
       );
 }

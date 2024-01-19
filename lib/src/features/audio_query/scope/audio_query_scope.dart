@@ -87,7 +87,7 @@ class _AudioQueryScopeState extends State<AudioQueryScope> {
   @override
   void initState() {
     super.initState();
-    _audioQueryController = Dependencies.of(context).audioQueryController;
+    _audioQueryController = Dependencies.of(context).audioQueryController..fetch();
     _audioQueryController.addListener(_onStateChanged);
     _onStateChanged();
   }

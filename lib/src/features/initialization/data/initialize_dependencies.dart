@@ -78,7 +78,7 @@ final Map<String, FutureOr<void> Function(Dependencies)> _initializationSteps = 
   },
   'AudioQuery controller': (dependencies) => dependencies.audioQueryController = AudioQueryController(
         audioQueryRepository: AudioQueryRepositoryImpl(),
-      )..fetch(),
+      ),
   'Settings controller': (dependencies) => dependencies.settingsController = SettingsController(
         settingsRepository: SettingsRepositoryImpl(
           themeDataSource: ThemeDataSourceImpl(

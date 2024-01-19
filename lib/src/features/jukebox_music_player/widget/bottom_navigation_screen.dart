@@ -4,7 +4,7 @@ import 'package:jukebox_music_player/src/features/albums/screen/albums_screen.da
 import 'package:jukebox_music_player/src/features/artists/screen/artist_screen.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navigation_tabs_enum.dart';
 import 'package:jukebox_music_player/src/features/music_player/widgets/music_player.dart';
-import 'package:jukebox_music_player/src/features/songs/screen/song_screen.dart';
+import 'package:jukebox_music_player/src/features/songs/widget/songs_screen.dart';
 import 'package:l/l.dart';
 import 'package:octopus/octopus.dart';
 

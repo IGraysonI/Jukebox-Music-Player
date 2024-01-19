@@ -3,8 +3,7 @@ import 'package:jukebox_music_player/src/common/controller/state_base.dart';
 import 'package:meta/meta.dart';
 
 /// Pattern matching for [AudioQueryState].
-typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(
-    S state);
+typedef AudioQueryStateMatch<R, S extends AudioQueryState> = R Function(S state);
 
 /// {@template audio_query_state}
 /// AudioQueryState.
@@ -25,7 +24,6 @@ sealed class AudioQueryState extends _$AudioQueryStateBase {
     required List<AlbumInfo> albums,
     required List<ArtistInfo> artists,
     String message,
-    String? error,
   }) = AudioQueryState$Idle;
 
   /// Processing
@@ -36,6 +34,24 @@ sealed class AudioQueryState extends _$AudioQueryStateBase {
     required List<ArtistInfo> artists,
     String message,
   }) = AudioQueryState$Processing;
+
+  /// Succesful
+  /// {@macro audio_query_state}
+  const factory AudioQueryState.successful({
+    required List<SongInfo> songs,
+    required List<AlbumInfo> albums,
+    required List<ArtistInfo> artists,
+    String message,
+  }) = AudioQueryState$Successful;
+
+  /// An error has occurred
+  /// {@macro audio_query_state}
+  const factory AudioQueryState.error({
+    required List<SongInfo> songs,
+    required List<AlbumInfo> albums,
+    required List<ArtistInfo> artists,
+    String message,
+  }) = AudioQueryState$Error;
 }
 
 /// Idling state
@@ -45,11 +61,7 @@ final class AudioQueryState$Idle extends AudioQueryState {
     required super.albums,
     required super.artists,
     super.message = 'Idling',
-    this.error,
   });
-
-  @override
-  final String? error;
 }
 
 /// Processing
@@ -60,9 +72,26 @@ final class AudioQueryState$Processing extends AudioQueryState {
     required super.artists,
     super.message = 'Processing ',
   });
+}
 
-  @override
-  String? get error => null;
+/// Succesful
+final class AudioQueryState$Successful extends AudioQueryState {
+  const AudioQueryState$Successful({
+    required super.songs,
+    required super.albums,
+    required super.artists,
+    super.message = 'Successful',
+  });
+}
+
+/// Error
+final class AudioQueryState$Error extends AudioQueryState {
+  const AudioQueryState$Error({
+    required super.songs,
+    required super.albums,
+    required super.artists,
+    super.message = 'Error',
+  });
 }
 
 @immutable
@@ -86,20 +115,19 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
   @nonVirtual
   final List<ArtistInfo> artists;
 
-  /// Is in progress state?
-  @override
-  bool get isProcessing =>
-      maybeMap<bool>(orElse: () => false, processing: (_) => true);
-
   /// Pattern matching for [AudioQueryState].
   @override
   R map<R>({
     required AudioQueryStateMatch<R, AudioQueryState$Idle> idle,
     required AudioQueryStateMatch<R, AudioQueryState$Processing> processing,
+    required AudioQueryStateMatch<R, AudioQueryState$Successful> successful,
+    required AudioQueryStateMatch<R, AudioQueryState$Error> error,
   }) =>
       switch (this) {
         final AudioQueryState$Idle s => idle(s),
         final AudioQueryState$Processing s => processing(s),
+        final AudioQueryState$Successful s => successful(s),
+        final AudioQueryState$Error s => error(s),
         _ => throw AssertionError(),
       };
 
@@ -109,10 +137,14 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
     required R Function() orElse,
     AudioQueryStateMatch<R, AudioQueryState$Idle>? idle,
     AudioQueryStateMatch<R, AudioQueryState$Processing>? processing,
+    AudioQueryStateMatch<R, AudioQueryState$Successful>? successful,
+    AudioQueryStateMatch<R, AudioQueryState$Error>? error,
   }) =>
       map<R>(
         idle: idle ?? (_) => orElse(),
         processing: processing ?? (_) => orElse(),
+        successful: successful ?? (_) => orElse(),
+        error: error ?? (_) => orElse(),
       );
 
   /// Pattern matching for [AudioQueryState].
@@ -120,10 +152,14 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
   R? mapOrNull<R>({
     AudioQueryStateMatch<R, AudioQueryState$Idle>? idle,
     AudioQueryStateMatch<R, AudioQueryState$Processing>? processing,
+    AudioQueryStateMatch<R, AudioQueryState$Successful>? successful,
+    AudioQueryStateMatch<R, AudioQueryState$Error>? error,
   }) =>
       map<R?>(
         idle: idle ?? (_) => null,
         processing: processing ?? (_) => null,
+        successful: successful ?? (_) => null,
+        error: error ?? (_) => null,
       );
 
   /// Copy with method for [AudioQueryState].
@@ -141,9 +177,20 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
           albums: albums ?? s.albums,
           artists: artists ?? s.artists,
           message: message ?? s.message,
-          error: error ?? s.error,
         ),
         processing: (s) => AudioQueryState.processing(
+          songs: songs ?? s.songs,
+          albums: albums ?? s.albums,
+          artists: artists ?? s.artists,
+          message: message ?? s.message,
+        ),
+        successful: (s) => AudioQueryState.successful(
+          songs: songs ?? s.songs,
+          albums: albums ?? s.albums,
+          artists: artists ?? s.artists,
+          message: message ?? s.message,
+        ),
+        error: (s) => AudioQueryState.error(
           songs: songs ?? s.songs,
           albums: albums ?? s.albums,
           artists: artists ?? s.artists,
@@ -157,9 +204,7 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
       ..write('AudioQueryState(')
       ..write('songs: ${songs.length}, ')
       ..write('albums: ${albums.length}, ')
-      ..write('artists: ${artists.length} ');
-    if (error != null) buffer.write('error: $error, ');
-    buffer
+      ..write('artists: ${artists.length} ')
       ..write('message: $message')
       ..write(')');
     return buffer.toString();

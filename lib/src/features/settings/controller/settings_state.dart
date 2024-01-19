@@ -21,7 +21,6 @@ sealed class SettingsState extends _$SettingStateBase {
     required Locale locale,
     required ApplicationTheme applicationTheme,
     String message,
-    String? error,
   }) = SettingState$Idle;
 
   /// Processing
@@ -31,6 +30,22 @@ sealed class SettingsState extends _$SettingStateBase {
     required ApplicationTheme applicationTheme,
     String message,
   }) = SettingState$Processing;
+
+  /// Succesful
+  /// {@macro setting_state}
+  const factory SettingsState.successful({
+    required Locale locale,
+    required ApplicationTheme applicationTheme,
+    String message,
+  }) = SettingState$Successful;
+
+  /// An error has occurred
+  /// {@macro setting_state}
+  const factory SettingsState.error({
+    required Locale locale,
+    required ApplicationTheme applicationTheme,
+    String message,
+  }) = SettingState$Error;
 }
 
 /// Idling state
@@ -39,11 +54,7 @@ final class SettingState$Idle extends SettingsState {
     required super.locale,
     required super.applicationTheme,
     super.message = 'Idling',
-    this.error,
   });
-
-  @override
-  final String? error;
 }
 
 /// Processing
@@ -53,9 +64,24 @@ final class SettingState$Processing extends SettingsState {
     required super.applicationTheme,
     super.message = 'Processing ',
   });
+}
 
-  @override
-  String? get error => null;
+/// Succesful
+final class SettingState$Successful extends SettingsState {
+  const SettingState$Successful({
+    required super.locale,
+    required super.applicationTheme,
+    super.message = 'Successful',
+  });
+}
+
+/// Error
+final class SettingState$Error extends SettingsState {
+  const SettingState$Error({
+    required super.locale,
+    required super.applicationTheme,
+    super.message = 'An error has occurred',
+  });
 }
 
 @immutable
@@ -74,20 +100,19 @@ abstract base class _$SettingStateBase extends StateBase<SettingsState> {
   @nonVirtual
   final ApplicationTheme applicationTheme;
 
-  /// Is in progress state?
-  @override
-  bool get isProcessing =>
-      maybeMap<bool>(orElse: () => false, processing: (_) => true);
-
   /// Pattern matching for [SettingsState].
   @override
   R map<R>({
     required SettingStateMatch<R, SettingState$Idle> idle,
     required SettingStateMatch<R, SettingState$Processing> processing,
+    required SettingStateMatch<R, SettingState$Successful> successful,
+    required SettingStateMatch<R, SettingState$Error> error,
   }) =>
       switch (this) {
         final SettingState$Idle s => idle(s),
         final SettingState$Processing s => processing(s),
+        final SettingState$Successful s => successful(s),
+        final SettingState$Error s => error(s),
         _ => throw AssertionError(),
       };
 
@@ -97,10 +122,14 @@ abstract base class _$SettingStateBase extends StateBase<SettingsState> {
     required R Function() orElse,
     SettingStateMatch<R, SettingState$Idle>? idle,
     SettingStateMatch<R, SettingState$Processing>? processing,
+    SettingStateMatch<R, SettingState$Successful>? successful,
+    SettingStateMatch<R, SettingState$Error>? error,
   }) =>
       map<R>(
         idle: idle ?? (_) => orElse(),
         processing: processing ?? (_) => orElse(),
+        successful: successful ?? (_) => orElse(),
+        error: error ?? (_) => orElse(),
       );
 
   /// Pattern matching for [SettingsState].
@@ -108,10 +137,14 @@ abstract base class _$SettingStateBase extends StateBase<SettingsState> {
   R? mapOrNull<R>({
     SettingStateMatch<R, SettingState$Idle>? idle,
     SettingStateMatch<R, SettingState$Processing>? processing,
+    SettingStateMatch<R, SettingState$Successful>? successful,
+    SettingStateMatch<R, SettingState$Error>? error,
   }) =>
       map<R?>(
         idle: idle ?? (_) => null,
         processing: processing ?? (_) => null,
+        successful: successful ?? (_) => null,
+        error: error ?? (_) => null,
       );
 
   /// Copy with method for [SettingsState].
@@ -127,9 +160,18 @@ abstract base class _$SettingStateBase extends StateBase<SettingsState> {
           locale: locale ?? s.locale,
           applicationTheme: applicationTheme ?? s.applicationTheme,
           message: message ?? s.message,
-          error: error ?? s.error,
         ),
         processing: (s) => s.copyWith(
+          locale: locale ?? s.locale,
+          applicationTheme: applicationTheme ?? s.applicationTheme,
+          message: message ?? s.message,
+        ),
+        successful: (s) => s.copyWith(
+          locale: locale ?? s.locale,
+          applicationTheme: applicationTheme ?? s.applicationTheme,
+          message: message ?? s.message,
+        ),
+        error: (s) => s.copyWith(
           locale: locale ?? s.locale,
           applicationTheme: applicationTheme ?? s.applicationTheme,
           message: message ?? s.message,
@@ -142,9 +184,7 @@ abstract base class _$SettingStateBase extends StateBase<SettingsState> {
       ..write('SettingState(')
       ..write('locale: ${locale.languageCode}, ')
       ..write('applicationTheme mode: ${applicationTheme.mode}')
-      ..write('applicationTheme seed: ${applicationTheme.seed}');
-    if (error != null) buffer.write('error: $error, ');
-    buffer
+      ..write('applicationTheme seed: ${applicationTheme.seed}')
       ..write('message: $message')
       ..write(')');
     return buffer.toString();

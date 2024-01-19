@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:jukebox_music_player/src/common/widgets/basic/custom_sliver_app_bar.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/application_sliver_app_bar.dart';
 import 'package:jukebox_music_player/src/features/artists/widget/artist_card.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navigation_tabs_enum.dart';
@@ -37,7 +37,7 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
     if (artists.isEmpty) return const Center(child: CircularProgressIndicator());
     return CustomScrollView(
       slivers: [
-        const CustomSliverAppBar(title: 'Artists'),
+        const ApplicationSliverAppBar(title: 'Artists'),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.only(top: 8, left: 8, right: 8),

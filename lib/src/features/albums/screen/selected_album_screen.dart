@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
-import 'package:jukebox_music_player/src/features/songs/widget/song_card.dart';
 
 class SelectedAlbumScreen extends StatelessWidget {
   const SelectedAlbumScreen({required this.id, super.key});
@@ -66,18 +65,19 @@ class SelectedAlbumScreen extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(child: Space.sm()),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => SongCard(
-              song: songs[index],
-              songIndex: index,
-              album: album,
-              showArtist: false,
-              showArtwork: false,
-            ),
-            childCount: songs.length,
-          ),
-        ),
+        //TODO: add widget to show album songs
+        // SliverList(
+        //   delegate: SliverChildBuilderDelegate(
+        //     (context, index) => SongCard(
+        //       song: songs[index],
+        //       songIndex: index,
+        //       album: album,
+        //       showArtist: false,
+        //       showArtwork: false,
+        //     ),
+        //     childCount: songs.length,
+        //   ),
+        // ),
       ],
     );
   }

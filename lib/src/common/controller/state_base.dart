@@ -12,41 +12,43 @@ abstract base class StateBase<T> {
   @nonVirtual
   final String message;
 
-  /// Error message.
-  abstract final String? error;
+  /// If an error has occurred.
+  bool get hasError => maybeMap<bool>(orElse: () => false, error: (_) => true);
 
-  /// If an error has occurred?
-  bool get hasError => error != null;
+  /// Is in processing state.
+  bool get isProcessing => maybeMap<bool>(orElse: () => false, processing: (_) => true);
 
-  /// Is in progress state?
-  bool get isProcessing;
-
-  /// Is in idle state?
-  bool get isIdling => !isProcessing;
+  /// Is in idle state.
+  bool get isIdle => !isProcessing;
 
   /// Pattern matching for state.
   R map<R>({
     required StateBaseMatch<R, T> idle,
     required StateBaseMatch<R, T> processing,
+    required StateBaseMatch<R, T> successful,
+    required StateBaseMatch<R, T> error,
   });
 
   /// Pattern matching for state.
   R maybeMap<R>({
     required R Function() orElse,
-    required StateBaseMatch<R, T> idle,
-    required StateBaseMatch<R, T> processing,
+    StateBaseMatch<R, T> idle,
+    StateBaseMatch<R, T> processing,
+    StateBaseMatch<R, T> successful,
+    StateBaseMatch<R, T> error,
   });
 
   /// Pattern matching for state.\
   R? mapOrNull<R>({
-    required StateBaseMatch<R, T> idle,
-    required StateBaseMatch<R, T> processing,
+    StateBaseMatch<R, T> idle,
+    StateBaseMatch<R, T> processing,
+    StateBaseMatch<R, T> successful,
+    StateBaseMatch<R, T> error,
   });
 
   /// Copy with method for state.
   StateBase<T> copyWith({
     String? message,
-    String? error,
   });
 
   @override
@@ -57,9 +59,7 @@ abstract base class StateBase<T> {
 
   @override
   String toString() {
-    final buffer = StringBuffer();
-    if (error != null) buffer.write('error: $error, ');
-    buffer
+    final buffer = StringBuffer()
       ..write('message: $message')
       ..write(')');
     return buffer.toString();

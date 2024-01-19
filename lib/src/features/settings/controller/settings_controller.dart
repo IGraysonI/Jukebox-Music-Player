@@ -10,8 +10,7 @@ import 'package:jukebox_music_player/src/features/settings/data/settings_reposit
 /// {@template settings_controller}
 /// A [StateController] that handles the settings of the application.
 /// {@endtemplate}
-final class SettingsController extends StateController<SettingsState>
-    with DroppableControllerHandler {
+final class SettingsController extends StateController<SettingsState> with DroppableControllerHandler {
   SettingsController({
     required ISettingsRepository settingsRepository,
     SettingsState? initialState,
@@ -19,10 +18,8 @@ final class SettingsController extends StateController<SettingsState>
         super(
           initialState: initialState ??
               SettingsState.idle(
-                locale: settingsRepository.fetchLocaleFromCache() ??
-                    Localization.computeDefaultLocale(),
-                applicationTheme: settingsRepository.fetchThemeFromCache() ??
-                    ApplicationTheme.defaultTheme,
+                locale: settingsRepository.fetchLocaleFromCache() ?? Localization.computeDefaultLocale(),
+                applicationTheme: settingsRepository.fetchThemeFromCache() ?? ApplicationTheme.defaultTheme,
                 message: 'Initial state',
               ),
         );
@@ -46,7 +43,6 @@ final class SettingsController extends StateController<SettingsState>
             locale: state.locale,
             applicationTheme: state.applicationTheme,
             message: 'Error updating theme',
-            error: ErrorUtil.formatMessage(error),
           ),
         ),
         () => setState(
@@ -69,13 +65,19 @@ final class SettingsController extends StateController<SettingsState>
             ),
           );
           await _settingsRepository.setLocale(locale);
+          setState(
+            SettingsState.successful(
+              locale: locale,
+              applicationTheme: state.applicationTheme,
+              message: 'Locale updated',
+            ),
+          );
         },
         (error, _) => setState(
-          SettingsState.idle(
+          SettingsState.error(
             locale: state.locale,
             applicationTheme: state.applicationTheme,
-            message: 'Error updating locale',
-            error: ErrorUtil.formatMessage(error),
+            message: ErrorUtil.formatMessage(error),
           ),
         ),
         () => setState(
