@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
-import 'package:jukebox_music_player/src/features/albums/widget/albums_widget.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 
 class SelectedArtistScreen extends StatelessWidget {
@@ -15,7 +14,7 @@ class SelectedArtistScreen extends StatelessWidget {
     final artistContent = AudioQueryScope.getArtistById(context, id!);
     if (artistContent == null) return const Center(child: CircularProgressIndicator());
     final artist = artistContent.artist;
-    final albums = artistContent.albums;
+    // final albums = artistContent.albums;
     return CustomScrollView(
       slivers: [
         SliverAppBar(
@@ -53,9 +52,10 @@ class SelectedArtistScreen extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(child: Space.sm()),
-        AlbumsWidget(
-          albumContents: albums,
-        ),
+        //TODO: Add albums
+        // AlbumsWidget(
+        //   albumContents: albums,
+        // ),
         SliverToBoxAdapter(child: Space.xxxl()),
       ],
     );

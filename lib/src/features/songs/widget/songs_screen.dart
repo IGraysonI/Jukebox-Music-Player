@@ -60,7 +60,7 @@ class SongsScreenState extends State<SongsScreen> {
       case AudioQueryState$Successful state:
         _showSnakBar(
           SnackBar(
-            content: Text('Successfully loaded ${state.songs.length} songs}'),
+            content: Text('Successfully loaded ${state.songs.length} songs'),
             duration: const Duration(seconds: 3),
             backgroundColor: Colors.green,
           ),
@@ -85,33 +85,26 @@ class SongsScreenState extends State<SongsScreen> {
     return StateConsumer<AudioQueryController, AudioQueryState>(
       controller: _audioQueryController,
       listener: _onStateChanged,
-      builder: (context, state, child) => AnimatedOpacity(
-        opacity: state.isProcessing ? 0.5 : 1,
-        duration: const Duration(milliseconds: 350),
-        child: IgnorePointer(
-          ignoring: state.isProcessing,
-          child: CustomScrollView(
-            slivers: [
-              const ApplicationSliverAppBar(title: 'Songs'),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => _SongCard(
-                    songIndex: index,
-                    song: songs[index],
-                  ),
-                  childCount: songs.length,
-                ),
+      builder: (context, state, child) => CustomScrollView(
+        slivers: [
+          const ApplicationSliverAppBar(title: 'Songs'),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => _SongCardTile(
+                songIndex: index,
+                song: songs[index],
               ),
-            ],
+              childCount: songs.length,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
 
-class _SongCard extends StatelessWidget {
-  const _SongCard({
+class _SongCardTile extends StatelessWidget {
+  const _SongCardTile({
     required this.songIndex,
     required this.song,
     this.album,

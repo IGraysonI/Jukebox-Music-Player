@@ -35,6 +35,22 @@ class ApplicationSliverAppBar extends StatelessWidget {
         pinned: MediaQuery.sizeOf(context).height > 600,
         floating: true,
         snap: true,
-        actions: CommonActions(),
+        actions: [
+          ...CommonActions(),
+          MenuAnchor(
+            builder: (context, controller, child) => IconButton(
+              onPressed: () {
+                if (controller.isOpen) {
+                  controller.close();
+                } else {
+                  controller.open();
+                }
+              },
+              icon: const Icon(Icons.more_vert),
+              tooltip: 'Показать меню',
+            ),
+            menuChildren: _menuChildren(context),
+          ),
+        ],
       );
 }

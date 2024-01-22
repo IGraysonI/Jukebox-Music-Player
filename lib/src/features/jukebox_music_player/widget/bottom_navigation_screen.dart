@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jukebox_music_player/src/common/util/player_util.dart';
-import 'package:jukebox_music_player/src/features/albums/screen/albums_screen.dart';
+import 'package:jukebox_music_player/src/features/albums/widget/albums_screen.dart';
 import 'package:jukebox_music_player/src/features/artists/screen/artist_screen.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navigation_tabs_enum.dart';
 import 'package:jukebox_music_player/src/features/music_player/widgets/music_player.dart';
