@@ -14,7 +14,7 @@ class ArtistCard extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: () => context.octopus.setState((state) => state
           ..findByName('artists-tab')?.add(
-            Routes.selectedArtist.node(
+            Routes.artist.node(
               arguments: {'id': artist.id},
             ),
           )

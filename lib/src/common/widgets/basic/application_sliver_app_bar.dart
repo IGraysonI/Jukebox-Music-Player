@@ -7,11 +7,19 @@ import 'package:octopus/octopus.dart';
 class ApplicationSliverAppBar extends StatelessWidget {
   const ApplicationSliverAppBar({
     required this.title,
+    this.flexibleSpace,
+    this.expandedHeight,
     super.key,
   });
 
   /// The title of the app bar.
   final String title;
+
+  /// The flexible space of the app bar.
+  final Widget? flexibleSpace;
+
+  /// The expanded height of the app bar.
+  final double? expandedHeight;
 
   List<Widget> _menuChildren(BuildContext context) => [
         MenuItemButton(
@@ -35,6 +43,7 @@ class ApplicationSliverAppBar extends StatelessWidget {
         pinned: MediaQuery.sizeOf(context).height > 600,
         floating: true,
         snap: true,
+        expandedHeight: expandedHeight,
         actions: [
           ...CommonActions(),
           MenuAnchor(
@@ -52,5 +61,6 @@ class ApplicationSliverAppBar extends StatelessWidget {
             menuChildren: _menuChildren(context),
           ),
         ],
+        flexibleSpace: flexibleSpace,
       );
 }

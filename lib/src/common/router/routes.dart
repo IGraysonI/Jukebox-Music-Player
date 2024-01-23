@@ -13,9 +13,9 @@ enum Routes with OctopusRoute {
   bottomNavigation('bottomNavigation', title: 'Bottom Navigation'),
   songs('songs', title: 'Songs'),
   albums('albums', title: 'Albums'),
-  selectedAlbum('selectedAlbum', title: 'Selected Album'),
+  album('album', title: 'Album'),
   artists('artists', title: 'Artists'),
-  selectedArtist('selectedArtist', title: 'Selected Artist'),
+  artist('artist', title: 'Artist'),
   settings('settings', title: 'Settings'),
   developer('developer', title: 'Developer');
 
@@ -32,9 +32,9 @@ enum Routes with OctopusRoute {
         Routes.bottomNavigation => const BottomNavigationScreen(),
         Routes.songs => const SongsScreen(),
         Routes.albums => const AlbumsScreen(),
-        Routes.selectedAlbum => AlbumScreen(id: node.arguments['id']),
+        Routes.album => AlbumScreen(id: node.arguments['id']),
         Routes.artists => const ArtistsScreen(),
-        Routes.selectedArtist => SelectedArtistScreen(id: node.arguments['id']),
+        Routes.artist => SelectedArtistScreen(id: node.arguments['id']),
         Routes.settings => const SettingScreen(),
         Routes.developer => const DeveloperScreen(),
       };

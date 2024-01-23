@@ -13,6 +13,15 @@ import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_
 import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navigation_tabs_enum.dart';
 import 'package:octopus/octopus.dart';
 
+enum _AlbumView {
+  grid('Grid'),
+  list('List');
+
+  const _AlbumView(this.name);
+
+  final String name;
+}
+
 /// {@template albums_tab}
 /// AlbumsTab widget.
 /// {@endtemplate}
@@ -39,6 +48,7 @@ class AlbumsScreen extends StatefulWidget {
 
 class _AlbumsScreenState extends State<AlbumsScreen> {
   late final AudioQueryController _audioQueryController;
+  _AlbumView _albumView = _AlbumView.grid;
 
   @override
   void initState() {
@@ -48,7 +58,7 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
 
   void onTap(AlbumInfo album) => context.octopus.setState((state) => state
     ..findByName('albums-tab')?.add(
-      Routes.selectedAlbum.node(
+      Routes.album.node(
         arguments: {'id': album.id},
       ),
     )
@@ -95,20 +105,122 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
       listener: _onStateChanged,
       builder: (context, state, child) => CustomScrollView(
         slivers: [
-          const ApplicationSliverAppBar(title: 'Albums'),
-          SliverGrid.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 256,
-              childAspectRatio: 256 / 290,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-            ),
-            itemCount: albums.length,
-            itemBuilder: (context, index) => _AlbumGridTile(
-              album: albums[index].album,
+          ApplicationSliverAppBar(
+            title: 'Albums',
+            expandedHeight: 128,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 48, 16, 8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 128,
+                      height: 48,
+                      child: ToggleButtons(
+                        isSelected: <bool>[
+                          _albumView == _AlbumView.grid,
+                          _albumView == _AlbumView.list,
+                        ],
+                        children: const [
+                          Icon(Icons.grid_view),
+                          Icon(Icons.list),
+                        ],
+                        onPressed: (index) => setState(() => _albumView = _AlbumView.values[index]),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
+          switch (_albumView) {
+            _AlbumView.grid => const _AlbumGridView(),
+            _AlbumView.list => const _AlbumsListView(),
+          }
         ],
+      ),
+    );
+  }
+}
+
+class _AlbumsListView extends StatelessWidget {
+  const _AlbumsListView();
+
+  @override
+  Widget build(BuildContext context) {
+    final albums = AudioQueryScope.getAlbums(context);
+    if (albums.isEmpty) return const Center(child: CircularProgressIndicator());
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => _AlbumListTile(album: albums[index].album),
+        childCount: albums.length,
+      ),
+    );
+  }
+}
+
+class _AlbumListTile extends StatelessWidget {
+  const _AlbumListTile({required this.album});
+
+  final AlbumInfo album;
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+        dense: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
+        leading: AspectRatio(
+          aspectRatio: 1,
+          child: Ink(
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: _AlbumCardImage(album: album),
+          ),
+        ),
+        title: Text(
+          album.title!,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        subtitle: Text(
+          album.artist!,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            fontSize: 16,
+            height: 0.9,
+            letterSpacing: -0.3,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        onTap: () => context.findAncestorStateOfType<_AlbumsScreenState>()?.onTap(album),
+      );
+}
+
+class _AlbumGridView extends StatelessWidget {
+  const _AlbumGridView();
+
+  @override
+  Widget build(BuildContext context) {
+    final albums = AudioQueryScope.getAlbums(context);
+    if (albums.isEmpty) return const Center(child: CircularProgressIndicator());
+    return SliverGrid.builder(
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 256,
+        childAspectRatio: 256 / 290,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+      ),
+      itemCount: albums.length,
+      itemBuilder: (context, index) => _AlbumGridTile(
+        album: albums[index].album,
       ),
     );
   }
