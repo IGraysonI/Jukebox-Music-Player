@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jukebox_music_player/src/features/albums/widget/album_screen.dart';
 import 'package:jukebox_music_player/src/features/albums/widget/albums_screen.dart';
-import 'package:jukebox_music_player/src/features/artists/screen/artist_screen.dart';
-import 'package:jukebox_music_player/src/features/artists/screen/selected_artist_screen.dart';
+import 'package:jukebox_music_player/src/features/artists/widget/artist_screen.dart';
+import 'package:jukebox_music_player/src/features/artists/widget/artists_screen.dart';
 import 'package:jukebox_music_player/src/features/developer/widget/developer_screen.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/widget/bottom_navigation_screen.dart';
 import 'package:jukebox_music_player/src/features/settings/widget/setting_screen.dart';
@@ -34,7 +34,7 @@ enum Routes with OctopusRoute {
         Routes.albums => const AlbumsScreen(),
         Routes.album => AlbumScreen(id: node.arguments['id']),
         Routes.artists => const ArtistsScreen(),
-        Routes.artist => SelectedArtistScreen(id: node.arguments['id']),
+        Routes.artist => ArtistScreen(id: node.arguments['id']),
         Routes.settings => const SettingScreen(),
         Routes.developer => const DeveloperScreen(),
       };

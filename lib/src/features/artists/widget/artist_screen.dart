@@ -2,19 +2,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/common/extension/string_extensions.dart';
+import 'package:jukebox_music_player/src/common/router/routes.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/not_found_screen.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/scaffold_padding.dart';
 import 'package:jukebox_music_player/src/common/widgets/button/common_actions.dart';
+import 'package:jukebox_music_player/src/features/albums/widget/album_list_tile.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
-import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
+import 'package:octopus/octopus.dart';
 
 /// {@template album_screen}
-/// AlbumScreen widget.
+/// ArtistScreen widget.
 /// {@endtemplate}
-class AlbumScreen extends StatelessWidget {
-  /// {@macro album_screen}
-  const AlbumScreen({
+class ArtistScreen extends StatefulWidget {
+  /// {@macro artist_screen}
+  const ArtistScreen({
     required this.id,
     super.key,
   });
@@ -22,19 +23,32 @@ class AlbumScreen extends StatelessWidget {
   final String? id;
 
   @override
+  State<ArtistScreen> createState() => _ArtistScreenState();
+}
+
+class _ArtistScreenState extends State<ArtistScreen> {
+  void onTap(AlbumInfo album) => context.octopus.setState((state) => state
+    ..findByName('artists-tab')?.add(
+      Routes.album.node(
+        arguments: {'id': album.id},
+      ),
+    )
+    ..arguments['bottomNavigation'] = 'artists');
+
+  @override
   Widget build(BuildContext context) {
-    if (id == null) return const NotFoundScreen();
-    final albumContent = AudioQueryScope.getAlbumById(context, id!);
-    if (albumContent == null) return const NotFoundScreen();
-    final album = albumContent.album;
-    final songs = albumContent.songs;
+    if (widget.id == null) return const NotFoundScreen();
+    final artistContent = AudioQueryScope.getArtistById(context, widget.id!);
+    if (artistContent == null) return const NotFoundScreen();
+    final artist = artistContent.artist;
+    final albums = artistContent.albums;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             floating: true,
             snap: true,
-            title: Text(album.title ?? 'Album without title'),
+            title: Text(artist.name ?? 'Artist without name'),
             actions: CommonActions(),
           ),
 
@@ -52,19 +66,19 @@ class AlbumScreen extends StatelessWidget {
                     child: Material(
                       color: Colors.transparent,
                       child: Hero(
-                        tag: 'album-${album.id}-image',
+                        tag: 'artist-${artist.id}-image',
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(16),
-                            image: album.albumArt == null
+                            image: artist.artistArtPath == null
                                 ? const DecorationImage(
                                     image: AssetImage('assets/images/no_image.jpg'),
                                     fit: BoxFit.cover,
                                     alignment: Alignment.center,
                                   )
                                 : DecorationImage(
-                                    image: FileImage(File(album.albumArt!)),
+                                    image: FileImage(File(artist.artistArtPath!)),
                                     fit: BoxFit.cover,
                                     alignment: Alignment.center,
                                   ),
@@ -87,7 +101,7 @@ class AlbumScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              album.title!,
+                              artist.name!,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -95,21 +109,13 @@ class AlbumScreen extends StatelessWidget {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
                               children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      if (album.artist != null)
-                                        Text(
-                                          'by ${album.artist!}',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      Text('${album.numberOfSongs!} songs'),
-                                    ],
-                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (artist.numberOfAlbums != null) Text('${artist.numberOfAlbums!} albums'),
+                                    Text('${artist.numberOfTracks!} songs'),
+                                  ],
                                 ),
                                 const Icon(Icons.more_vert),
                               ],
@@ -130,59 +136,14 @@ class AlbumScreen extends StatelessWidget {
               child: Divider(),
             ),
           ),
-          SliverPadding(
-            padding: ScaffoldPadding.of(context).copyWith(left: 8, right: 8),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => _SongCardTile(
-                  song: songs[index],
-                  songIndex: index,
-                  album: album,
-                ),
-                childCount: songs.length,
-              ),
-            ),
+
+          // --- Albums --- //
+          AlbumsListView(
+            albums: albums,
+            onTap: onTap,
           ),
         ],
       ),
     );
   }
-}
-
-class _SongCardTile extends StatelessWidget {
-  const _SongCardTile({
-    required this.songIndex,
-    required this.song,
-    this.album,
-  });
-
-  final int songIndex;
-  final SongInfo song;
-  final AlbumInfo? album;
-
-  @override
-  Widget build(BuildContext context) => ListTile(
-        leading: Text((songIndex + 1).toString()),
-        title: Text(song.title!),
-        subtitle: Row(
-          children: [
-            Flexible(
-              child: Text(
-                song.artist!,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const Text(' • '),
-            Text(song.duration!.getDurationForSongLenght()),
-          ],
-        ),
-        trailing: const Icon(Icons.more_vert_rounded, color: Colors.black),
-        onTap: () => MusicPlayerScope.playPlaylist(
-          context,
-          MusicPlayerScope.createPlaylist(context, albumInfo: album),
-          songIndex,
-        ),
-        dense: true,
-      );
 }
