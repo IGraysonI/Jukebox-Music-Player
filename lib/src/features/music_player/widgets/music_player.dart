@@ -361,14 +361,18 @@ class _MusicPlayerState extends State<MusicPlayer> {
   void _showModalBottomSheet(BuildContext context) => showModalBottomSheet<Widget>(
         showDragHandle: true,
         context: context,
-        builder: (context) => SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            _songLyrics ?? 'Lyrics not found',
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        )),
+        builder: (context) => SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              _songLyrics ?? 'Lyrics not found',
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+          )),
+        ),
       );
 
   @override
@@ -378,7 +382,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           builder: (context, snapshot) {
             final playerMaxHeight = MediaQuery.of(context).size.height;
             if (snapshot.hasData) {
-              // _getSongLyrics(snapshot.data!.currentSource!.tag as SongInfo);
+              _getSongLyrics(snapshot.data!.currentSource!.tag as SongInfo);
               return Miniplayer(
                 minHeight: PlayerUtil.playerMinHeight,
                 maxHeight: playerMaxHeight,
