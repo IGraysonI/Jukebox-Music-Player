@@ -99,7 +99,6 @@ linter:
     avoid_js_rounded_ints: true
     avoid_print: true
     avoid_renaming_method_parameters: true
-    avoid_returning_null_for_future: true
     avoid_returning_null_for_void: true
     avoid_single_cascade_in_expression_statements: true
     avoid_slow_async_io: true
