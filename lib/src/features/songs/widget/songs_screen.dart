@@ -136,7 +136,10 @@ class _SongCardTile extends StatelessWidget {
         trailing: const Icon(Icons.more_vert_rounded, color: Colors.black),
         onTap: () => MusicPlayerScope.playPlaylist(
           context,
-          MusicPlayerScope.createPlaylist(context, albumInfo: album),
+          MusicPlayerScope.createPlaylist(
+            context,
+            albumInfo: album,
+          ),
           songIndex,
         ),
         dense: false,

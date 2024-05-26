@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
 Future<void> $platformInitialization() =>
-    io.Platform.isAndroid || io.Platform.isIOS
-        ? _mobileInitialization()
-        : _desktopInitialization();
+    io.Platform.isAndroid || io.Platform.isIOS ? _mobileInitialization() : _desktopInitialization();
 
 //TODO:
 Future<void> _mobileInitialization() async {}
@@ -22,8 +20,8 @@ Future<void> _desktopInitialization() async {
     backgroundColor:
         //TODO: Add custom theme
         PlatformDispatcher.instance.platformBrightness == Brightness.dark
-            ? ThemeData.dark().colorScheme.background
-            : ThemeData.light().colorScheme.background,
+            ? ThemeData.dark().colorScheme.surface
+            : ThemeData.light().colorScheme.surface,
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.hidden,
     fullScreen: false,

@@ -19,10 +19,13 @@ class FilledCard extends StatelessWidget {
         onTap: onCardTap,
         child: Card(
           elevation: 0,
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           margin: margin ?? EdgeInsets.zero,
           child: padding != null
-              ? Padding(padding: padding!, child: child)
+              ? Padding(
+                  padding: padding!,
+                  child: child,
+                )
               : child,
         ),
       );

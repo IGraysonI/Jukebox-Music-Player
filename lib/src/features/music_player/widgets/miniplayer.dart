@@ -54,8 +54,7 @@ class Miniplayer extends StatefulWidget {
 
 class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
   final ValueNotifier<double> _dragDownPercentage = ValueNotifier(0);
-  final StreamController<double> _heightController =
-      StreamController<double>.broadcast();
+  final StreamController<double> _heightController = StreamController<double>.broadcast();
   late ValueNotifier<double> _heightNotifier;
 
   /// Current y position of drag gesture
@@ -152,17 +151,14 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
   Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: _heightNotifier,
         builder: (context, height, _) {
-          final percentage = (height - widget.minHeight) /
-              (widget.maxHeight - widget.minHeight);
+          final percentage = (height - widget.minHeight) / (widget.maxHeight - widget.minHeight);
           return Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
               height: height,
               child: GestureDetector(
                 onTap: () => _snapToPosition(
-                  _dragHeight != widget.maxHeight
-                      ? PanelStateEnum.max
-                      : PanelStateEnum.min,
+                  _dragHeight != widget.maxHeight ? PanelStateEnum.max : PanelStateEnum.min,
                 ),
                 onPanStart: (details) {
                   _startHeight = _dragHeight;
@@ -173,12 +169,7 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                 },
                 onPanEnd: (details) async {
                   /// Calculates drag speed
-                  final speed =
-                      (_dragHeight - _startHeight * _dragHeight < _startHeight
-                              ? 1
-                              : -1) /
-                          updateCount *
-                          100;
+                  final speed = (_dragHeight - _startHeight * _dragHeight < _startHeight ? 1 : -1) / updateCount * 100;
 
                   /// Define the percentage distance depending on the speed
                   /// with which the widget should snap
@@ -242,8 +233,7 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                           offset: const Offset(0, 4),
                         ),
                       ],
-                      color: widget.backgroundColor ??
-                          Theme.of(context).colorScheme.background,
+                      color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
                     ),
                     child: widget.builder(height, percentage),
                   ),

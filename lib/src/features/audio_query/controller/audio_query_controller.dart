@@ -33,13 +33,13 @@ final class AudioQueryController extends StateController<AudioQueryState> with D
             ),
           );
         },
-        (error, _) => setState(AudioQueryState.error(
+        error: (error, s) async => setState(AudioQueryState.error(
           songs: state.songs,
           albums: state.albums,
           artists: state.artists,
           message: error.toString(),
         )),
-        () => setState(
+        done: () async => setState(
           AudioQueryState.idle(
             songs: state.songs,
             albums: state.albums,

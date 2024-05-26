@@ -16,10 +16,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
-  intl_utils: ^2.8.6
+  intl_utils: ^2.8.7
 
   # Audio packages
-  just_audio: ^0.9.35
+  just_audio: ^0.9.38
   just_audio_background: ^0.0.1-beta.11
   flutter_audio_query:
    git:
@@ -27,24 +27,24 @@ dependencies:
 
   # UI
   flutter_staggered_grid_view: ^0.7.0
-  google_fonts: ^6.1.0
+  google_fonts: ^6.2.1
 
   # Database
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.3
   
   # Routing
-  octopus: ^0.0.4
+  octopus: ^0.0.8
 
   # State management
-  control: ^0.0.1-pre.0
+  control: ^0.1.0
 
   # Firebase packages
-  firebase_core: ^2.21.0
-  firebase_crashlytics: ^3.4.3
+  firebase_core: ^2.31.1
+  firebase_crashlytics: ^3.5.6
 
   # Desktop
-  win32: ^5.1.1
-  window_manager: ^0.3.5
+  win32: ^5.5.1
+  window_manager: ^0.3.9
 
   # Utils
   audiotagger:
@@ -74,14 +74,14 @@ dev_dependencies:
     sdk: flutter
 
   # Linter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
 
   # Codegen
-  build_runner: ^2.4.6
+  build_runner: ^2.4.10
   pubspec_generator: '>=4.0.0 <5.0.0'
-  flutter_gen_runner: ^5.3.2
+  flutter_gen_runner: ^5.5.0+1
   flutter_launcher_icons: ^0.13.1
-  flutter_native_splash: ^2.3.8
+  flutter_native_splash: ^2.4.0
 
 
 flutter:

@@ -38,14 +38,14 @@ final class SettingsController extends StateController<SettingsState> with Dropp
           );
           await _settingsRepository.setTheme(applicationTheme);
         },
-        (error, _) => setState(
+        error: (error, _) async => setState(
           SettingsState.idle(
             locale: state.locale,
             applicationTheme: state.applicationTheme,
             message: 'Error updating theme',
           ),
         ),
-        () => setState(
+        done: () async => setState(
           SettingsState.idle(
             locale: state.locale,
             applicationTheme: applicationTheme,
@@ -73,14 +73,14 @@ final class SettingsController extends StateController<SettingsState> with Dropp
             ),
           );
         },
-        (error, _) => setState(
+        error: (error, _) async => setState(
           SettingsState.error(
             locale: state.locale,
             applicationTheme: state.applicationTheme,
             message: ErrorUtil.formatMessage(error),
           ),
         ),
-        () => setState(
+        done: () async => setState(
           SettingsState.idle(
             locale: locale,
             applicationTheme: state.applicationTheme,

@@ -103,7 +103,7 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
                   shader: snapshot.data,
                   seed: _seed,
                   color: widget.color ?? Theme.of(context).colorScheme.primary,
-                  backgroundColor: widget.backgroundColor ?? Theme.of(context).colorScheme.background,
+                  backgroundColor: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
                   cornerRadius: widget.cornerRadius,
                   stripeWidth: widget.stripeWidth,
                 ),
