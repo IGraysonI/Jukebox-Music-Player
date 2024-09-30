@@ -30,6 +30,7 @@ class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
   // TODO: Change logic, so the songs for selected album are fetched from the AudioQueryController
   Future<void> _getAlbumSongs(AlbumModel album) async {
     var songs = <AudioModel>[];
+    // Test
     // songs = await _audioQuery.getSongsFromAlbum(albumId: album.id);
     setState(() => _songs = songs);
   }
