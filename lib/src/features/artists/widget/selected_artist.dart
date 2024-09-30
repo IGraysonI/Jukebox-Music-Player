@@ -1,34 +1,36 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/albums/widget/albums_widget.dart';
+import 'package:jukevault/jukevault.dart';
 
 class SelectedArtist extends StatelessWidget {
   const SelectedArtist({required this.artist, required this.albums, super.key});
 
-  final ArtistInfo artist;
-  final List<AlbumInfo> albums;
+  final ArtistModel artist;
+  final List<AlbumModel> albums;
 
   @override
   Widget build(BuildContext context) => CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: artist.artistArtPath == null
-                ? null
-                : MediaQuery.of(context).size.height * 0.55,
+            // expandedHeight: artist.artistArtPath == null
+            //     ? null
+            //     : MediaQuery.of(context).size.height * 0.55,
+            expandedHeight: MediaQuery.of(context).size.height * 0.55,
             flexibleSpace: FlexibleSpaceBar(
-              background: artist.artistArtPath == null
-                  ? const SizedBox.shrink()
-                  : Image.file(
-                      File(artist.artistArtPath!),
-                      height: MediaQuery.of(context).size.height * 0.55,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fill,
-                    ),
-            ),
+                background: QueryArtworkWidget(
+              id: artist.id,
+              type: ArtworkType.ARTIST,
+            )
+                // artist.artistArtPath == null
+                //     ? const SizedBox.shrink()
+                //     : Image.file(
+                //         File(artist.artistArtPath!),
+                //         height: MediaQuery.of(context).size.height * 0.55,
+                //         width: MediaQuery.of(context).size.width,
+                //         fit: BoxFit.fill,
+                //       ),
+                ),
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
@@ -40,7 +42,7 @@ class SelectedArtist extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    artist.name ?? 'Unknown Artist',
+                    artist.artist,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,

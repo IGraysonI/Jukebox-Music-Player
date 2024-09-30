@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/songs/widget/song_card.dart';
+import 'package:jukevault/jukevault.dart';
 
 class SelectedAlbum extends StatelessWidget {
   const SelectedAlbum({
@@ -13,26 +10,25 @@ class SelectedAlbum extends StatelessWidget {
     super.key,
   });
 
-  final AlbumInfo album;
-  final List<SongInfo> songs;
+  final AlbumModel album;
+  final List<AudioModel> songs;
 
   @override
   Widget build(BuildContext context) => CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: album.albumArt == null
-                ? null
-                : MediaQuery.of(context).size.height * 0.55,
-            flexibleSpace: FlexibleSpaceBar(
-              background: album.albumArt == null
-                  ? const SizedBox.shrink()
-                  : Image.file(
-                      File(album.albumArt!),
-                      height: MediaQuery.of(context).size.height * 0.55,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fill,
-                    ),
-            ),
+            // expandedHeight: album.albumArt == null ? null : MediaQuery.of(context).size.height * 0.55,
+            expandedHeight: MediaQuery.of(context).size.height * 0.55,
+            flexibleSpace: FlexibleSpaceBar(background: QueryArtworkWidget(id: album.id, type: ArtworkType.ALBUM)
+                // album.albumArt == null
+                //     ? const SizedBox.shrink()
+                //     : Image.file(
+                //         File(album.albumArt!),
+                //         height: MediaQuery.of(context).size.height * 0.55,
+                //         width: MediaQuery.of(context).size.width,
+                //         fit: BoxFit.fill,
+                //       ),
+                ),
             backgroundColor: Colors.transparent,
             elevation: 0,
           ),
@@ -44,7 +40,7 @@ class SelectedAlbum extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    album.title!,
+                    album.album,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -58,7 +54,7 @@ class SelectedAlbum extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(album.artist!),
-                          Text('${album.numberOfSongs!} songs'),
+                          Text('${album.numOfSongs} songs'),
                         ],
                       ),
                       const Icon(Icons.more_vert),

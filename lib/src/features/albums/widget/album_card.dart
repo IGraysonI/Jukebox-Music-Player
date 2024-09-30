@@ -1,15 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:jukebox_music_player/src/features/albums/page/selected_album_page.dart';
+import 'package:jukevault/jukevault.dart';
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({required this.album, super.key});
 
-  final AlbumInfo album;
+  final AlbumModel album;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -20,12 +17,10 @@ class AlbumCard extends StatelessWidget {
             children: [
               SizedBox(
                 height: 200,
-                child: album.albumArt == null
-                    ? Image.asset(
-                        'assets/images/no_image.jpg',
-                        fit: BoxFit.cover,
-                      )
-                    : Image.file(File(album.albumArt!), fit: BoxFit.cover),
+                child: QueryArtworkWidget(
+                  id: album.id,
+                  type: ArtworkType.ALBUM,
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +32,7 @@ class AlbumCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            album.title!,
+                            album.album,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 18,

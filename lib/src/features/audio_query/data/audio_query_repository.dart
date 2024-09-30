@@ -1,27 +1,27 @@
-import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:jukevault/jukevault.dart';
 
 abstract interface class IAudioQueryRepository {
   /// Get all songs on device
-  Future<List<SongInfo>> getSongs();
+  Future<List<AudioModel>> getSongs();
 
   /// Get all albums on device
-  Future<List<AlbumInfo>> getAlbums();
+  Future<List<AlbumModel>> getAlbums();
 
   /// Get all artists on device
-  Future<List<ArtistInfo>> getArtists();
+  Future<List<ArtistModel>> getArtists();
 }
 
 class AudioQueryRepositoryImpl implements IAudioQueryRepository {
   AudioQueryRepositoryImpl();
 
-  final FlutterAudioQuery audioQuery = FlutterAudioQuery();
+  final Jukevault jukevault = Jukevault();
 
   @override
-  Future<List<SongInfo>> getSongs() async => audioQuery.getSongs();
+  Future<List<AudioModel>> getSongs() async => jukevault.querySongs();
 
   @override
-  Future<List<AlbumInfo>> getAlbums() async => audioQuery.getAlbums();
+  Future<List<AlbumModel>> getAlbums() async => jukevault.queryAlbums();
 
   @override
-  Future<List<ArtistInfo>> getArtists() async => audioQuery.getArtists();
+  Future<List<ArtistModel>> getArtists() async => jukevault.queryArtists();
 }

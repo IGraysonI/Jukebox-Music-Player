@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-
 import 'package:jukebox_music_player/src/features/artists/widget/selected_artist.dart';
+import 'package:jukevault/jukevault.dart';
 
 class SelectedArtistPage extends StatefulWidget {
   const SelectedArtistPage({required this.artist, super.key});
 
-  final ArtistInfo artist;
+  final ArtistModel artist;
 
   static String page() => 'SelectedArtistPage';
 
@@ -15,21 +14,22 @@ class SelectedArtistPage extends StatefulWidget {
 }
 
 class _SelectedArtistPageState extends State<SelectedArtistPage> {
-  late final ArtistInfo _artist;
-  late final List<AlbumInfo> _albums;
-  final FlutterAudioQuery _audioQuery = FlutterAudioQuery();
+  late final ArtistModel _artist;
+  late final List<AlbumModel> _albums;
+  late final Jukevault _jukevault;
   late Future<void> _initializeAudioFiles;
 
   @override
   void initState() {
+    super.initState();
+    _jukevault = Jukevault();
     _artist = widget.artist;
     _initializeAudioFiles = _getArtistAlbums(_artist);
-    super.initState();
   }
 
-  Future<void> _getArtistAlbums(ArtistInfo artist) async {
-    var albums = <AlbumInfo>[];
-    albums = await _audioQuery.getAlbumsFromArtist(artist: artist.name!);
+  Future<void> _getArtistAlbums(ArtistModel artist) async {
+    var albums = <AlbumModel>[];
+    // albums = await _audioQuery.getAlbumsFromArtist(artist: artist.name!);
     setState(() => _albums = albums);
   }
 

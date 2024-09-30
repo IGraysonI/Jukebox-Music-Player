@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-
 import 'package:jukebox_music_player/src/features/albums/widget/selected_album.dart';
+import 'package:jukevault/jukevault.dart';
 
 class SelectedAlbumPage extends StatefulWidget {
   const SelectedAlbumPage({required this.album, super.key});
 
-  final AlbumInfo album;
+  final AlbumModel album;
 
   static String page() => 'SelectedAlbumPage';
 
@@ -15,21 +14,23 @@ class SelectedAlbumPage extends StatefulWidget {
 }
 
 class _SelectedAlbumPageState extends State<SelectedAlbumPage> {
-  late final AlbumInfo _album;
-  late final List<SongInfo> _songs;
-  final FlutterAudioQuery _audioQuery = FlutterAudioQuery();
+  late final AlbumModel _album;
+  late final List<AudioModel> _songs;
+  late final Jukevault _jukevault;
   late Future<void> _initializeAudioFiles;
 
   @override
   void initState() {
+    super.initState();
+    _jukevault = Jukevault();
     _album = widget.album;
     _initializeAudioFiles = _getAlbumSongs(_album);
-    super.initState();
   }
 
-  Future<void> _getAlbumSongs(AlbumInfo album) async {
-    var songs = <SongInfo>[];
-    songs = await _audioQuery.getSongsFromAlbum(albumId: album.id);
+  // TODO: Change logic, so the songs for selected album are fetched from the AudioQueryController
+  Future<void> _getAlbumSongs(AlbumModel album) async {
+    var songs = <AudioModel>[];
+    // songs = await _audioQuery.getSongsFromAlbum(albumId: album.id);
     setState(() => _songs = songs);
   }
 

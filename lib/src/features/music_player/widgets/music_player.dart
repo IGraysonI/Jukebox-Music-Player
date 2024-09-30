@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:audiotagger/audiotagger.dart';
-import 'package:audiotagger/models/tag.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/common/utils/player_util.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
 import 'package:jukebox_music_player/src/features/music_player/widgets/miniplayer.dart';
+import 'package:jukevault/jukevault.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicPlayer extends StatefulWidget {
@@ -19,7 +17,7 @@ class MusicPlayer extends StatefulWidget {
 
 class _MusicPlayerState extends State<MusicPlayer> {
   //TODO: Refactor core package
-  late Audiotagger _audioTagger;
+  // late Audiotagger _audioTagger;
   bool _isMiniPlayer = false;
   AudioPlayer? _player;
   String? _songLyrics;
@@ -27,15 +25,15 @@ class _MusicPlayerState extends State<MusicPlayer> {
   @override
   void initState() {
     super.initState();
-    _audioTagger = Audiotagger();
+    // _audioTagger = Audiotagger();
   }
 
-  Future<void> _getSongLyrics(SongInfo songInfo) async {
-    Tag? songTags;
-    if (songInfo.filePath != null) songTags = await _audioTagger.readTags(path: songInfo.filePath!);
-    if (songTags != null) _songLyrics = songTags.lyrics;
-    setState(() {});
-  }
+  // Future<void> _getSongLyrics(AudioModel songInfo) async {
+  //   Tag? songTags;
+  //   if (songInfo.filePath != null) songTags = await _audioTagger.readTags(path: songInfo.filePath!);
+  //   if (songTags != null) _songLyrics = songTags.lyrics;
+  //   setState(() {});
+  // }
 
   Widget _image(String? imagePath) => GestureDetector(
         onTap: () => _showModalBottomSheet(context),
@@ -187,7 +185,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
       );
 
   Widget _expandedPlayer(
-    SongInfo songInfo,
+    AudioModel songInfo,
     double height,
     double width,
     double playerMaxHeight,
@@ -231,7 +229,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
             ),
             child: SizedBox(
               height: imageSize,
-              child: _image(songInfo.albumArtwork),
+              child: _image(songInfo.uri),
             ),
           ),
         ),
@@ -245,7 +243,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 children: [
                   Flexible(
                     child: Text(
-                      songInfo.title ?? 'Title not found',
+                      songInfo.title,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -279,7 +277,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
   }
 
   Widget _miniPlayer(
-    SongInfo songInfo,
+    AudioModel songInfo,
     double height,
     double width,
     double playerMaxHeight,
@@ -301,7 +299,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
             children: [
               ConstrainedBox(
                 constraints: BoxConstraints(maxHeight: maxImageSize),
-                child: _image(songInfo.albumArtwork),
+                child: _image(songInfo.uri),
               ),
               Expanded(
                 child: Padding(
@@ -314,7 +312,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          songInfo.title ?? 'Title not found',
+                          songInfo.title,
                           style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 16),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -378,7 +376,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
           builder: (context, snapshot) {
             final playerMaxHeight = MediaQuery.of(context).size.height;
             if (snapshot.hasData) {
-              _getSongLyrics(snapshot.data!.currentSource!.tag as SongInfo);
+              // _getSongLyrics(snapshot.data!.currentSource!.tag as SongInfo);
               return Miniplayer(
                 minHeight: PlayerUtil.playerMinHeight,
                 maxHeight: playerMaxHeight,
@@ -388,7 +386,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
                   _player = MusicPlayerScope.audioPlayerOf(context);
                   _isMiniPlayer = percentage < PlayerUtil.miniplayerPercentageDeclaration;
 
-                  final songInfo = snapshot.data!.currentSource!.tag as SongInfo;
+                  final songInfo = snapshot.data!.currentSource!.tag as AudioModel;
                   final width = MediaQuery.of(context).size.width;
                   final maxImageSize = width * 0.7;
 

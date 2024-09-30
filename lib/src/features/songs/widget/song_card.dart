@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-
-import 'package:jukebox_music_player/src/common/extension/string_extensions.dart';
+import 'package:jukebox_music_player/src/common/extension/integer_extension.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
+import 'package:jukevault/jukevault.dart';
 
 class SongCard extends StatelessWidget {
   const SongCard({
@@ -17,17 +14,18 @@ class SongCard extends StatelessWidget {
   });
 
   final int songIndex;
-  final SongInfo song;
-  final AlbumInfo? album;
+  final AudioModel song;
+  final AlbumModel? album;
   final bool? showArtwork;
   final bool? showArtist;
 
   @override
   Widget build(BuildContext context) => ListTile(
         leading: showArtist!
-            ? song.albumArtwork != null
-                ? Image(image: FileImage(File(song.albumArtwork!)))
-                : const Image(image: AssetImage('assets/images/no_image.jpg'))
+            ? QueryArtworkWidget(
+                id: song.id,
+                type: ArtworkType.AUDIO,
+              )
             : Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Column(
@@ -35,7 +33,8 @@ class SongCard extends StatelessWidget {
                   children: [Text(songIndex.toString())],
                 ),
               ),
-        title: Text(song.title!),
+        title: Text(song.title),
+        textColor: Colors.white,
         subtitle: Row(
           children: [
             if (showArtist!)

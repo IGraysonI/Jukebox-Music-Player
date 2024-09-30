@@ -1,8 +1,8 @@
+import 'package:jukebox_music_player/src/common/utils/error_util.dart';
+import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
+import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
 import 'package:jukebox_music_player/src/features/controller/droppable_controller_concurrency.dart';
 import 'package:jukebox_music_player/src/features/controller/state_controller.dart';
-import 'package:jukebox_music_player/src/common/utils/error_util.dart';
-import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
-import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
 
 final class AudioQueryController extends StateController<AudioQueryState> with DroppableControllerConcurency {
   AudioQueryController({
