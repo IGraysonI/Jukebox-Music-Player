@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/common/model/dependencies.dart';
 import 'package:jukebox_music_player/src/common/router/routes.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/application_sliver_app_bar.dart';
@@ -11,6 +8,7 @@ import 'package:jukebox_music_player/src/features/audio_query/controller/audio_q
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navigation_tabs_enum.dart';
+import 'package:jukevault/jukevault.dart';
 import 'package:octopus/octopus.dart';
 
 enum _Artistiew {
@@ -56,10 +54,10 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
     _audioQueryController = Dependencies.of(context).audioQueryController;
   }
 
-  void onTap(ArtistInfo artist) => context.octopus.setState((state) => state
+  void onTap(ArtistModel artist) => context.octopus.setState((state) => state
     ..findByName('artists-tab')?.add(
       Routes.artist.node(
-        arguments: {'id': artist.id},
+        arguments: {'id': artist.id.toString()},
       ),
     )
     ..arguments['bottomNavigation'] = 'artists');
@@ -163,7 +161,7 @@ class _ArtistsListView extends StatelessWidget {
 class _ArtistsListTile extends StatelessWidget {
   const _ArtistsListTile({required this.artist});
 
-  final ArtistInfo artist;
+  final ArtistModel artist;
 
   @override
   Widget build(BuildContext context) => ListTile(
@@ -182,7 +180,7 @@ class _ArtistsListTile extends StatelessWidget {
           ),
         ),
         title: Text(
-          artist.name ?? 'Unknown Artist',
+          artist.artist,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleLarge,
@@ -225,7 +223,7 @@ class _ArtistGridView extends StatelessWidget {
 class _ArtistGridTile extends StatelessWidget {
   const _ArtistGridTile({required this.artist});
 
-  final ArtistInfo artist;
+  final ArtistModel artist;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -268,7 +266,7 @@ class _ArtistGridTile extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  artist.name ?? 'Unknown Artist',
+                                  artist.artist,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
@@ -324,7 +322,7 @@ class _ArtistGridTile extends StatelessWidget {
 class _ArtistCardImage extends StatelessWidget {
   const _ArtistCardImage({required this.artist});
 
-  final ArtistInfo artist;
+  final ArtistModel artist;
 
   @override
   Widget build(BuildContext context) => Material(
@@ -336,17 +334,17 @@ class _ArtistCardImage extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(16),
-              image: artist.artistArtPath == null
-                  ? const DecorationImage(
-                      image: AssetImage('assets/images/no_image.jpg'),
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                    )
-                  : DecorationImage(
-                      image: FileImage(File(artist.artistArtPath!)),
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                    ),
+              // image: artist.artistArtPath == null
+              //     ? const DecorationImage(
+              //         image: AssetImage('assets/images/no_image.jpg'),
+              //         fit: BoxFit.cover,
+              //         alignment: Alignment.center,
+              //       )
+              //     : DecorationImage(
+              //         image: FileImage(File(artist.artistArtPath!)),
+              //         fit: BoxFit.cover,
+              //         alignment: Alignment.center,
+              //       ),
             ),
             child: const SizedBox.expand(),
           ),

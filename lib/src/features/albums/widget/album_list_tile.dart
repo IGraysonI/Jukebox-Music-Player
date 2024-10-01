@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/features/albums/widget/album_card_image.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
+import 'package:jukevault/jukevault.dart';
 
 class AlbumsListView extends StatelessWidget {
   const AlbumsListView({
@@ -11,7 +11,7 @@ class AlbumsListView extends StatelessWidget {
   });
 
   final List<AlbumContent> albums;
-  final void Function(AlbumInfo album) onTap;
+  final void Function(AlbumModel album) onTap;
 
   @override
   Widget build(BuildContext context) => SliverList(
@@ -28,8 +28,8 @@ class AlbumsListView extends StatelessWidget {
 class _AlbumListTile extends StatelessWidget {
   const _AlbumListTile({required this.album, required this.onTap});
 
-  final AlbumInfo album;
-  final void Function(AlbumInfo album) onTap;
+  final AlbumModel album;
+  final void Function(AlbumModel album) onTap;
 
   @override
   Widget build(BuildContext context) => ListTile(
@@ -48,7 +48,7 @@ class _AlbumListTile extends StatelessWidget {
           ),
         ),
         title: Text(
-          album.title!,
+          album.album,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleLarge,

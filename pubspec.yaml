@@ -21,9 +21,14 @@ dependencies:
   # Audio packages
   just_audio: ^0.9.38
   just_audio_background: ^0.0.1-beta.11
-  flutter_audio_query:
-   git:
-     url: https://github.com/AkzhanArdaki/flutter_audio_query
+  # flutter_audio_query:
+  #  git:
+  #    url: https://github.com/AkzhanArdaki/flutter_audio_query
+  jukevault:
+    git:
+      url: https://github.com/IGraysonI/JukeVault
+      ref: main
+      path: packages/jukevault
 
   # UI
   flutter_staggered_grid_view: ^0.7.0
@@ -47,10 +52,10 @@ dependencies:
   window_manager: ^0.3.9
 
   # Utils
-  audiotagger:
-    git:
-      url: https://github.com/IGraysonI/AudioTagger
-      ref: master 
+  # audiotagger:
+  #   git:
+  #     url: https://github.com/IGraysonI/AudioTagger
+  #     ref: master 
 
   collection: any
   async: any

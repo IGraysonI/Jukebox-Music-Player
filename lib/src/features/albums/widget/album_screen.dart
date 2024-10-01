@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/common/extension/string_extensions.dart';
+import 'package:jukebox_music_player/src/common/extension/integer_extension.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/not_found_screen.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/scaffold_padding.dart';
 import 'package:jukebox_music_player/src/common/widgets/button/common_actions.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
+import 'package:jukevault/jukevault.dart';
 
 /// {@template album_screen}
 /// AlbumScreen widget.
@@ -34,7 +32,7 @@ class AlbumScreen extends StatelessWidget {
           SliverAppBar(
             floating: true,
             snap: true,
-            title: Text(album.title ?? 'Album without title'),
+            title: Text(album.album),
             actions: CommonActions(),
           ),
 
@@ -57,17 +55,17 @@ class AlbumScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(16),
-                            image: album.albumArt == null
-                                ? const DecorationImage(
-                                    image: AssetImage('assets/images/no_image.jpg'),
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment.center,
-                                  )
-                                : DecorationImage(
-                                    image: FileImage(File(album.albumArt!)),
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment.center,
-                                  ),
+                            // image: album.albumArt == null
+                            //     ? const DecorationImage(
+                            //         image: AssetImage('assets/images/no_image.jpg'),
+                            //         fit: BoxFit.cover,
+                            //         alignment: Alignment.center,
+                            //       )
+                            //     : DecorationImage(
+                            //         image: FileImage(File(album.albumArt!)),
+                            //         fit: BoxFit.cover,
+                            //         alignment: Alignment.center,
+                            //       ),
                           ),
                           child: const SizedBox.expand(),
                         ),
@@ -87,7 +85,7 @@ class AlbumScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              album.title!,
+                              album.album,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -107,7 +105,7 @@ class AlbumScreen extends StatelessWidget {
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                      Text('${album.numberOfSongs!} songs'),
+                                      Text('${album.numOfSongs} songs'),
                                     ],
                                   ),
                                 ),
@@ -157,13 +155,13 @@ class _SongCardTile extends StatelessWidget {
   });
 
   final int songIndex;
-  final SongInfo song;
-  final AlbumInfo? album;
+  final AudioModel song;
+  final AlbumModel? album;
 
   @override
   Widget build(BuildContext context) => ListTile(
         leading: Text((songIndex + 1).toString()),
-        title: Text(song.title!),
+        title: Text(song.title),
         subtitle: Row(
           children: [
             Flexible(

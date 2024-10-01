@@ -1,5 +1,5 @@
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/common/controller/state_base.dart';
+import 'package:jukevault/jukevault.dart';
 import 'package:meta/meta.dart';
 
 /// Pattern matching for [AudioQueryState].
@@ -20,36 +20,36 @@ sealed class AudioQueryState extends _$AudioQueryStateBase {
   /// Idling state
   /// {@macro audio_query_state}
   const factory AudioQueryState.idle({
-    required List<SongInfo> songs,
-    required List<AlbumInfo> albums,
-    required List<ArtistInfo> artists,
+    required List<AudioModel> songs,
+    required List<AlbumModel> albums,
+    required List<ArtistModel> artists,
     String message,
   }) = AudioQueryState$Idle;
 
   /// Processing
   /// {@macro audio_query_state}
   const factory AudioQueryState.processing({
-    required List<SongInfo> songs,
-    required List<AlbumInfo> albums,
-    required List<ArtistInfo> artists,
+    required List<AudioModel> songs,
+    required List<AlbumModel> albums,
+    required List<ArtistModel> artists,
     String message,
   }) = AudioQueryState$Processing;
 
   /// Succesful
   /// {@macro audio_query_state}
   const factory AudioQueryState.successful({
-    required List<SongInfo> songs,
-    required List<AlbumInfo> albums,
-    required List<ArtistInfo> artists,
+    required List<AudioModel> songs,
+    required List<AlbumModel> albums,
+    required List<ArtistModel> artists,
     String message,
   }) = AudioQueryState$Successful;
 
   /// An error has occurred
   /// {@macro audio_query_state}
   const factory AudioQueryState.error({
-    required List<SongInfo> songs,
-    required List<AlbumInfo> albums,
-    required List<ArtistInfo> artists,
+    required List<AudioModel> songs,
+    required List<AlbumModel> albums,
+    required List<ArtistModel> artists,
     String message,
   }) = AudioQueryState$Error;
 }
@@ -105,15 +105,19 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
 
   /// Song list from device.
   @nonVirtual
-  final List<SongInfo> songs;
+  final List<AudioModel> songs;
 
   /// Album list from device.
   @nonVirtual
-  final List<AlbumInfo> albums;
+  final List<AlbumModel> albums;
 
   /// Artist list from device.
   @nonVirtual
-  final List<ArtistInfo> artists;
+  final List<ArtistModel> artists;
+
+  /// Is in progress state?
+  @override
+  bool get isProcessing => maybeMap<bool>(orElse: () => false, processing: (_) => true);
 
   /// Pattern matching for [AudioQueryState].
   @override
@@ -165,9 +169,9 @@ abstract base class _$AudioQueryStateBase extends StateBase<AudioQueryState> {
   /// Copy with method for [AudioQueryState].
   @override
   AudioQueryState copyWith({
-    List<SongInfo>? songs,
-    List<AlbumInfo>? albums,
-    List<ArtistInfo>? artists,
+    List<AudioModel>? songs,
+    List<AlbumModel>? albums,
+    List<ArtistModel>? artists,
     String? message,
     String? error,
   }) =>

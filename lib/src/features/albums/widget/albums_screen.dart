@@ -1,6 +1,5 @@
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/common/model/dependencies.dart';
 import 'package:jukebox_music_player/src/common/router/routes.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/application_sliver_app_bar.dart';
@@ -11,6 +10,7 @@ import 'package:jukebox_music_player/src/features/audio_query/controller/audio_q
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navigation_tabs_enum.dart';
+import 'package:jukevault/jukevault.dart';
 import 'package:octopus/octopus.dart';
 
 enum _AlbumView {
@@ -57,10 +57,10 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
     _audioQueryController = Dependencies.of(context).audioQueryController;
   }
 
-  void onTap(AlbumInfo album) => context.octopus.setState((state) => state
+  void onTap(AlbumModel album) => context.octopus.setState((state) => state
     ..findByName('albums-tab')?.add(
       Routes.album.node(
-        arguments: {'id': album.id},
+        arguments: {'id': album.id.toString()},
       ),
     )
     ..arguments['bottomNavigation'] = 'albums');
@@ -170,7 +170,7 @@ class _AlbumGridView extends StatelessWidget {
 class _AlbumGridTile extends StatelessWidget {
   const _AlbumGridTile({required this.album});
 
-  final AlbumInfo album;
+  final AlbumModel album;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -213,7 +213,7 @@ class _AlbumGridTile extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  album.title!,
+                                  album.album,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,

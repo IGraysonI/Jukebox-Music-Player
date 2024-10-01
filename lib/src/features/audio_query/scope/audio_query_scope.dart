@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/common/model/dependencies.dart';
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_controller.dart';
+import 'package:jukevault/jukevault.dart';
 
 typedef SongID = String;
 typedef AlbumID = String;
@@ -54,15 +54,15 @@ class AudioQueryScope extends StatefulWidget {
   }) =>
       _InheritedAlbums.getAlbumById(context, id, listen: listen);
 
-  /// Get list of [SongInfo] on device or by album [id] or by artist [id].
-  static List<SongInfo> getSongs(
+  /// Get list of [AudioModel] on device or by album [id] or by artist [id].
+  static List<AudioModel> getSongs(
     BuildContext context, {
     bool listen = true,
   }) =>
       _InheritedSongs.getSongs(context, listen: listen);
 
   /// Get song by [SongID] on device.
-  static SongInfo? getSongById(
+  static AudioModel? getSongById(
     BuildContext context,
     SongID id, {
     bool listen = true,
@@ -76,12 +76,12 @@ class AudioQueryScope extends StatefulWidget {
 /// State for widget [AudioQueryScope].
 class _AudioQueryScopeState extends State<AudioQueryScope> {
   late final AudioQueryController _audioQueryController;
-  List<ArtistInfo> _artists = [];
-  List<AlbumInfo> _albums = [];
-  List<SongInfo> _songs = [];
+  List<ArtistModel> _artists = [];
+  List<AlbumModel> _albums = [];
+  List<AudioModel> _songs = [];
   Map<ArtistID, ArtistContent> _tableArtists = {};
   Map<AlbumID, AlbumContent> _tableAlbums = {};
-  Map<SongID, SongInfo> _tableSongs = {};
+  Map<SongID, AudioModel> _tableSongs = {};
 
   // #region lifecycle
   @override
@@ -113,23 +113,23 @@ class _AudioQueryScopeState extends State<AudioQueryScope> {
     _tableAlbums = {};
     _tableSongs = {};
     for (final artist in _audioQueryController.state.artists) {
-      _tableArtists[artist.id] = ArtistContent._(artist);
+      _tableArtists[artist.id.toString()] = ArtistContent._(artist);
     }
     for (final album in _audioQueryController.state.albums) {
-      _tableAlbums[album.id] = AlbumContent._(album);
+      _tableAlbums[album.id.toString()] = AlbumContent._(album);
     }
     for (final song in _audioQueryController.state.songs) {
-      _tableSongs[song.id] = song;
+      _tableSongs[song.id.toString()] = song;
 
       // Get the corresponding AlbumContent using the album ID
-      final albumContent = _tableAlbums[song.albumId];
+      final albumContent = _tableAlbums[song.albumId.toString()];
 
       // Check if albumContent is not null before updating
       if (albumContent != null) {
-        albumContent._songs.add(_tableSongs[song.id]!);
+        albumContent._songs.add(_tableSongs[song.id.toString()]!);
 
         // Get the corresponding ArtistContent using the artist ID
-        final artistContent = _tableArtists[song.artistId];
+        final artistContent = _tableArtists[song.artistId.toString()];
 
         // Check if artistContent is not null and the album is not already in the artist's albums list
         if (artistContent != null && !artistContent._albums.any((album) => album.album.id == song.albumId)) {
@@ -160,11 +160,11 @@ final class AlbumContent {
   AlbumContent._(this.album) : _songs = [];
 
   /// Current album.
-  final AlbumInfo album;
+  final AlbumModel album;
 
   /// List of songs in the album.
-  final List<SongInfo> _songs;
-  late final List<SongInfo> songs = UnmodifiableListView<SongInfo>(_songs);
+  final List<AudioModel> _songs;
+  late final List<AudioModel> songs = UnmodifiableListView<AudioModel>(_songs);
 }
 
 /// Artist content.
@@ -173,7 +173,7 @@ final class ArtistContent {
   ArtistContent._(this.artist) : _albums = [];
 
   /// Current artist.
-  final ArtistInfo artist;
+  final ArtistModel artist;
 
   /// List of albums with songs by artist.
   final List<AlbumContent> _albums;
@@ -291,7 +291,7 @@ class _InheritedSongs extends InheritedModel<SongID> {
   });
 
   /// Table of songs.
-  final Map<SongID, SongInfo> table;
+  final Map<SongID, AudioModel> table;
 
   static _InheritedSongs? maybeOf(
     BuildContext context, {
@@ -302,7 +302,7 @@ class _InheritedSongs extends InheritedModel<SongID> {
           : context.getInheritedWidgetOfExactType<_InheritedSongs>();
 
   /// Get list of [SongInfo] on device or by album [id] or by artist [id].
-  static List<SongInfo> getSongs(
+  static List<AudioModel> getSongs(
     BuildContext context, {
     bool listen = true,
   }) =>
@@ -313,7 +313,7 @@ class _InheritedSongs extends InheritedModel<SongID> {
       [];
 
   /// Get song by [SongID] on device.
-  static SongInfo? getSongById(
+  static AudioModel? getSongById(
     BuildContext context,
     SongID id, {
     bool listen = true,

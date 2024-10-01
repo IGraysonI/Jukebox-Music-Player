@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/common/router/routes.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/not_found_screen.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/scaffold_padding.dart';
 import 'package:jukebox_music_player/src/common/widgets/button/common_actions.dart';
 import 'package:jukebox_music_player/src/features/albums/widget/album_list_tile.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
+import 'package:jukevault/jukevault.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template album_screen}
@@ -27,10 +25,10 @@ class ArtistScreen extends StatefulWidget {
 }
 
 class _ArtistScreenState extends State<ArtistScreen> {
-  void onTap(AlbumInfo album) => context.octopus.setState((state) => state
+  void onTap(AlbumModel album) => context.octopus.setState((state) => state
     ..findByName('artists-tab')?.add(
       Routes.album.node(
-        arguments: {'id': album.id},
+        arguments: {'id': album.id.toString()},
       ),
     )
     ..arguments['bottomNavigation'] = 'artists');
@@ -48,7 +46,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
           SliverAppBar(
             floating: true,
             snap: true,
-            title: Text(artist.name ?? 'Artist without name'),
+            title: Text(artist.artist),
             actions: CommonActions(),
           ),
 
@@ -71,17 +69,17 @@ class _ArtistScreenState extends State<ArtistScreen> {
                           decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(16),
-                            image: artist.artistArtPath == null
-                                ? const DecorationImage(
-                                    image: AssetImage('assets/images/no_image.jpg'),
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment.center,
-                                  )
-                                : DecorationImage(
-                                    image: FileImage(File(artist.artistArtPath!)),
-                                    fit: BoxFit.cover,
-                                    alignment: Alignment.center,
-                                  ),
+                            // image: artist.artistArtPath == null
+                            //     ? const DecorationImage(
+                            //         image: AssetImage('assets/images/no_image.jpg'),
+                            //         fit: BoxFit.cover,
+                            //         alignment: Alignment.center,
+                            //       )
+                            //     : DecorationImage(
+                            //         image: FileImage(File(artist.artistArtPath!)),
+                            //         fit: BoxFit.cover,
+                            //         alignment: Alignment.center,
+                            //       ),
                           ),
                           child: const SizedBox.expand(),
                         ),
@@ -101,7 +99,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              artist.name!,
+                              artist.artist,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,

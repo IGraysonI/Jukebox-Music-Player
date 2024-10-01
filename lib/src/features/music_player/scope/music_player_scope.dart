@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
+import 'package:jukevault/jukevault.dart';
 import 'package:just_audio/just_audio.dart';
 
 /// MusicPlayerScope widget.
@@ -19,40 +19,41 @@ class MusicPlayerScope extends StatefulWidget {
 
   static ConcatenatingAudioSource createPlaylist(
     BuildContext context, {
-    List<SongInfo>? songs,
-    AlbumInfo? albumInfo,
-    ArtistInfo? artistInfo,
+    List<AudioModel>? songs,
+    AlbumModel? albumInfo,
+    ArtistModel? artistInfo,
   }) {
     final songsForPlaylist = <AudioSource>[];
 
     if (songs != null) {
       songsForPlaylist.addAll(
-        songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+        songs.map((song) => AudioSource.file(song.uri!, tag: song)),
       );
     } else if (albumInfo != null) {
-      final albumContent = AudioQueryScope.getAlbumById(context, albumInfo.id);
+      final albumContent = AudioQueryScope.getAlbumById(context, albumInfo.id.toString());
       if (albumContent != null) {
-        songsForPlaylist.addAll(
-          albumContent.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
-        );
+        // TODO:
+        // songsForPlaylist.addAll(
+        //   albumContent.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+        // );
       }
     } else if (artistInfo != null) {
-      final artistContent = AudioQueryScope.getArtistById(context, artistInfo.id);
-      if (artistContent != null) {
-        final albumContent = artistContent.albums;
-        for (final album in albumContent) {
-          songsForPlaylist.addAll(
-            album.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
-          );
-        }
-      }
+      // TODO:
+      // final artistContent = AudioQueryScope.getArtistById(context, artistInfo.id.toString());
+      // if (artistContent != null) {
+      //   final albumContent = artistContent.albums;
+      // for (final album in albumContent) {
+      // songsForPlaylist.addAll(
+      //   album.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+      // );
+      // }
+      // }
     } else {
-      final allSongs = AudioQueryScope.getSongs(context);
-      songsForPlaylist.addAll(
-        allSongs.map(
-          (song) => AudioSource.file(song.filePath!, tag: song),
-        ),
-      );
+      // TODO:
+      // final allSongs = AudioQueryScope.getSongs(context);
+      // songsForPlaylist.addAll(
+      //   AudioQueryScope.controllerOf(context).state.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+      // );
     }
 
     return ConcatenatingAudioSource(

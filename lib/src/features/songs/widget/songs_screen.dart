@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:control/control.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/common/extension/string_extensions.dart';
+import 'package:jukebox_music_player/src/common/extension/integer_extension.dart';
 import 'package:jukebox_music_player/src/common/model/dependencies.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/application_sliver_app_bar.dart';
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_controller.dart';
@@ -11,6 +8,7 @@ import 'package:jukebox_music_player/src/features/audio_query/controller/audio_q
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
 import 'package:jukebox_music_player/src/features/jukebox_music_player/enum/navigation_tabs_enum.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
+import 'package:jukevault/jukevault.dart';
 import 'package:octopus/octopus.dart';
 
 /// {@template songs_tab}
@@ -111,15 +109,15 @@ class _SongCardTile extends StatelessWidget {
   });
 
   final int songIndex;
-  final SongInfo song;
-  final AlbumInfo? album;
+  final AudioModel song;
+  final AlbumModel? album;
 
   @override
   Widget build(BuildContext context) => ListTile(
-        leading: song.albumArtwork != null
-            ? Image(image: FileImage(File(song.albumArtwork!)))
-            : const Image(image: AssetImage('assets/images/no_image.jpg')),
-        title: Text(song.title!),
+        // leading: song.albumArtwork != null
+        //     ? Image(image: FileImage(File(song.albumArtwork!)))
+        //     : const Image(image: AssetImage('assets/images/no_image.jpg')),
+        title: Text(song.title),
         subtitle: Row(
           children: [
             Flexible(
