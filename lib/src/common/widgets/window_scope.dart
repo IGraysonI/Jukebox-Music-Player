@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
-
-/// WindowScope widget.
+/// {@template window_scope}
+/// The window scope widget.
+/// {@endtemplate}
 class WindowScope extends StatefulWidget {
   /// {@macro window_scope}
   const WindowScope({
@@ -82,7 +83,7 @@ class __WindowTitleState extends State<_WindowTitle> with WindowListener {
     //TODO: do something
   }
 
-  void setAlwaysOnTop(bool value) => Future<void>(
+  void setAlwaysOnTop({required bool value}) => Future<void>(
         () async {
           await windowManager.setAlwaysOnTop(value);
           _isAlwaysOnTop.value = await windowManager.isAlwaysOnTop();
@@ -113,8 +114,7 @@ class __WindowTitleState extends State<_WindowTitle> with WindowListener {
                       child: Center(
                         child: AnimatedSwitcher(
                           duration: const Duration(milliseconds: 250),
-                          transitionBuilder: (child, animation) =>
-                              FadeTransition(
+                          transitionBuilder: (child, animation) => FadeTransition(
                             opacity: animation,
                             child: ScaleTransition(
                               scale: animation,
@@ -122,17 +122,10 @@ class __WindowTitleState extends State<_WindowTitle> with WindowListener {
                             ),
                           ),
                           child: Text(
-                            context
-                                    .findAncestorWidgetOfExactType<
-                                        WindowScope>()
-                                    ?.title ??
-                                'Jukebox Desktop',
+                            context.findAncestorWidgetOfExactType<WindowScope>()?.title ?? 'Jukebox Desktop',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(height: 1),
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(height: 1),
                           ),
                         ),
                       ),
@@ -142,7 +135,7 @@ class __WindowTitleState extends State<_WindowTitle> with WindowListener {
                 _WindowButtons$Windows(
                   isFullScreen: _isFullScreen,
                   isAlwaysOnTop: _isAlwaysOnTop,
-                  setAlwaysOnTop: setAlwaysOnTop,
+                  setAlwaysOnTop: (value) => setAlwaysOnTop(value: value),
                 ),
               ],
             ),

@@ -1,21 +1,17 @@
-import 'package:jukebox_music_player/src/features/controller/droppable_controller_concurrency.dart';
-import 'package:jukebox_music_player/src/features/controller/state_controller.dart';
-import 'package:jukebox_music_player/src/common/utils/error_util.dart';
-import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
+import 'package:control/control.dart';
 import 'package:jukebox_music_player/src/features/audio_query/controller/audio_query_state.dart';
+import 'package:jukebox_music_player/src/features/audio_query/data/audio_query_repository.dart';
 
-final class AudioQueryController extends StateController<AudioQueryState> with DroppableControllerConcurency {
+final class AudioQueryController extends StateController<AudioQueryState> with DroppableControllerHandler {
   AudioQueryController({
     required IAudioQueryRepository audioQueryRepository,
     super.initialState = const AudioQueryState.idle(songs: [], albums: [], artists: []),
-  }) : _audioQueryRepository = audioQueryRepository {
-    getAudioFiles();
-  }
+  }) : _audioQueryRepository = audioQueryRepository;
 
   final IAudioQueryRepository _audioQueryRepository;
 
   /// Get all audio files [SongInfo], [AlbumInfo], [ArtistInfo] on device
-  void getAudioFiles() => handle(
+  void fetch() => handle(
         () async {
           setState(
             AudioQueryState.processing(
@@ -29,7 +25,7 @@ final class AudioQueryController extends StateController<AudioQueryState> with D
           final albums = await _audioQueryRepository.getAlbums();
           final artists = await _audioQueryRepository.getArtists();
           setState(
-            AudioQueryState.idle(
+            AudioQueryState.successful(
               songs: songs,
               albums: albums,
               artists: artists,
@@ -37,14 +33,19 @@ final class AudioQueryController extends StateController<AudioQueryState> with D
             ),
           );
         },
-        (error, _) => setState(
-          state.copyWith(
-            message: 'Error getting audio files',
-            error: ErrorUtil.formatMessage(error),
+        error: (error, s) async => setState(AudioQueryState.error(
+          songs: state.songs,
+          albums: state.albums,
+          artists: state.artists,
+          message: error.toString(),
+        )),
+        done: () async => setState(
+          AudioQueryState.idle(
+            songs: state.songs,
+            albums: state.albums,
+            artists: state.artists,
+            message: 'Audio files received',
           ),
-        ),
-        () => setState(
-          state.copyWith(message: 'Getting audio files done'),
         ),
       );
 }

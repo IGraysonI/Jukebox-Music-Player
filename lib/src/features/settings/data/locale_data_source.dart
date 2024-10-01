@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:jukebox_music_player/src/common/utils/preferences_dao.dart';
+import 'package:jukebox_music_player/src/common/util/preferences_dao.dart';
 
 /// {@template locale_datasource}
 /// [LocaleDataSource] is an entry point to the locale data layer.

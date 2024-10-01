@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:just_audio/just_audio.dart';
-
 import 'package:jukebox_music_player/src/features/audio_query/scope/audio_query_scope.dart';
+import 'package:just_audio/just_audio.dart';
 
 /// MusicPlayerScope widget.
 class MusicPlayerScope extends StatefulWidget {
@@ -31,27 +30,28 @@ class MusicPlayerScope extends StatefulWidget {
         songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
       );
     } else if (albumInfo != null) {
-      songsForPlaylist.addAll(
-        AudioQueryScope.controllerOf(context)
-            .state
-            .songs
-            .where((song) => song.albumId == albumInfo.id)
-            .map((song) => AudioSource.file(song.filePath!, tag: song)),
-      );
+      final albumContent = AudioQueryScope.getAlbumById(context, albumInfo.id);
+      if (albumContent != null) {
+        songsForPlaylist.addAll(
+          albumContent.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+        );
+      }
     } else if (artistInfo != null) {
-      songsForPlaylist.addAll(
-        AudioQueryScope.controllerOf(context)
-            .state
-            .songs
-            .where((song) => song.artistId == artistInfo.id)
-            .map((song) => AudioSource.file(song.filePath!, tag: song)),
-      );
+      final artistContent = AudioQueryScope.getArtistById(context, artistInfo.id);
+      if (artistContent != null) {
+        final albumContent = artistContent.albums;
+        for (final album in albumContent) {
+          songsForPlaylist.addAll(
+            album.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+          );
+        }
+      }
     } else {
+      final allSongs = AudioQueryScope.getSongs(context);
       songsForPlaylist.addAll(
-        AudioQueryScope.controllerOf(context)
-            .state
-            .songs
-            .map((song) => AudioSource.file(song.filePath!, tag: song)),
+        allSongs.map(
+          (song) => AudioSource.file(song.filePath!, tag: song),
+        ),
       );
     }
 
@@ -117,8 +117,7 @@ class _InheritedMusicPlayerScope extends InheritedWidget {
     bool listen = true,
   }) =>
       listen
-          ? context
-              .dependOnInheritedWidgetOfExactType<_InheritedMusicPlayerScope>()
+          ? context.dependOnInheritedWidgetOfExactType<_InheritedMusicPlayerScope>()
           : context.getInheritedWidgetOfExactType<_InheritedMusicPlayerScope>();
 
   static Never _notFoundInheritedWidgetOfExactType() => throw ArgumentError(

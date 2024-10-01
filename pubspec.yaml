@@ -1,7 +1,7 @@
 name: jukebox_music_player
 description: Music player.
 publish_to: 'none' 
-version: 0.0.1
+version: 0.0.1+1
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -12,33 +12,39 @@ dependencies:
     sdk: flutter
 
   # https://docs.flutter.dev/development/accessibility-and-localization/internationalization
+  # Localization
   flutter_localizations:
     sdk: flutter
   intl: any
-  intl_utils: ^2.8.6
+  intl_utils: ^2.8.7
 
   # Audio packages
-  just_audio: ^0.9.35
+  just_audio: ^0.9.38
+  just_audio_background: ^0.0.1-beta.11
   flutter_audio_query:
    git:
      url: https://github.com/AkzhanArdaki/flutter_audio_query
 
   # UI
   flutter_staggered_grid_view: ^0.7.0
-  google_fonts: ^6.1.0
+  google_fonts: ^6.2.1
 
-  # Storage
-  shared_preferences: ^2.2.2
+  # Database
+  shared_preferences: ^2.2.3
   
-  # Navigator
-  go_router: ^12.1.0
+  # Routing
+  octopus: ^0.0.8
+
+  # State management
+  control: ^0.1.0
 
   # Firebase packages
-  firebase_core: ^2.21.0
-  firebase_crashlytics: ^3.4.3
+  firebase_core: ^2.31.1
+  firebase_crashlytics: ^3.5.6
 
   # Desktop
-  window_manager: ^0.3.5
+  win32: ^5.5.1
+  window_manager: ^0.3.9
 
   # Utils
   audiotagger:
@@ -50,8 +56,9 @@ dependencies:
   async: any
   meta: any
   path: any
+  convert: any
   platform_info: ^4.0.2
-  win32: ^5.0.5
+  stack_trace: ^1.11.1
 
   # Logger
   l: ^4.0.2
@@ -67,11 +74,14 @@ dev_dependencies:
     sdk: flutter
 
   # Linter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
 
   # Codegen
-  build_runner: ^2.4.6
+  build_runner: ^2.4.10
   pubspec_generator: '>=4.0.0 <5.0.0'
+  flutter_gen_runner: ^5.5.0+1
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
 
 
 flutter:
@@ -79,6 +89,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+  shaders:
+    - assets/shaders/shimmer.frag
 
 flutter_intl:
   enabled: true
@@ -88,9 +100,6 @@ flutter_intl:
   output_dir: lib/src/common/localization/generated
   use_deferred_loading: false
 
-# flutter_gen:
-#   output: lib/gen/ # Optional (default: lib/gen/)
-#   line_length: 80 # Optional (default: 80)
-
-#   assets:
-#     enabled: true
+flutter_gen:
+  output: lib/src/common/constant/
+  line_length: 120

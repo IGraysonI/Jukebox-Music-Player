@@ -4,7 +4,7 @@ import 'package:audiotagger/audiotagger.dart';
 import 'package:audiotagger/models/tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:jukebox_music_player/src/common/utils/player_util.dart';
+import 'package:jukebox_music_player/src/common/util/player_util.dart';
 import 'package:jukebox_music_player/src/common/widgets/basic/space.dart';
 import 'package:jukebox_music_player/src/features/music_player/scope/music_player_scope.dart';
 import 'package:jukebox_music_player/src/features/music_player/widgets/miniplayer.dart';
@@ -361,14 +361,18 @@ class _MusicPlayerState extends State<MusicPlayer> {
   void _showModalBottomSheet(BuildContext context) => showModalBottomSheet<Widget>(
         showDragHandle: true,
         context: context,
-        builder: (context) => SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            _songLyrics ?? 'Lyrics not found',
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        )),
+        builder: (context) => SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(
+              _songLyrics ?? 'Lyrics not found',
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+          )),
+        ),
       );
 
   @override

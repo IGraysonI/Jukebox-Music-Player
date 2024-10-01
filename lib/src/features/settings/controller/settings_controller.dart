@@ -1,24 +1,27 @@
 import 'dart:ui';
 
-import 'package:jukebox_music_player/src/features/controller/droppable_controller_concurrency.dart';
-import 'package:jukebox_music_player/src/features/controller/state_controller.dart';
+import 'package:control/control.dart';
 import 'package:jukebox_music_player/src/common/localization/localization.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
-import 'package:jukebox_music_player/src/common/utils/error_util.dart';
+import 'package:jukebox_music_player/src/common/util/error_util.dart';
 import 'package:jukebox_music_player/src/features/settings/controller/settings_state.dart';
 import 'package:jukebox_music_player/src/features/settings/data/settings_repository.dart';
 
 /// {@template settings_controller}
 /// A [StateController] that handles the settings of the application.
 /// {@endtemplate}
-final class SettingsController extends StateController<SettingsState> with DroppableControllerConcurency {
-  SettingsController(this._settingsRepository)
-      : super(
-          initialState: SettingsState.idle(
-            locale: _settingsRepository.fetchLocaleFromCache() ?? Localization.computeDefaultLocale(),
-            applicationTheme: _settingsRepository.fetchThemeFromCache() ?? ApplicationTheme.defaultTheme,
-            message: 'Initial state',
-          ),
+final class SettingsController extends StateController<SettingsState> with DroppableControllerHandler {
+  SettingsController({
+    required ISettingsRepository settingsRepository,
+    SettingsState? initialState,
+  })  : _settingsRepository = settingsRepository,
+        super(
+          initialState: initialState ??
+              SettingsState.idle(
+                locale: settingsRepository.fetchLocaleFromCache() ?? Localization.computeDefaultLocale(),
+                applicationTheme: settingsRepository.fetchThemeFromCache() ?? ApplicationTheme.defaultTheme,
+                message: 'Initial state',
+              ),
         );
 
   final ISettingsRepository _settingsRepository;
@@ -35,15 +38,14 @@ final class SettingsController extends StateController<SettingsState> with Dropp
           );
           await _settingsRepository.setTheme(applicationTheme);
         },
-        (error, _) => setState(
+        error: (error, _) async => setState(
           SettingsState.idle(
             locale: state.locale,
             applicationTheme: state.applicationTheme,
             message: 'Error updating theme',
-            error: ErrorUtil.formatMessage(error),
           ),
         ),
-        () => setState(
+        done: () async => setState(
           SettingsState.idle(
             locale: state.locale,
             applicationTheme: applicationTheme,
@@ -63,16 +65,22 @@ final class SettingsController extends StateController<SettingsState> with Dropp
             ),
           );
           await _settingsRepository.setLocale(locale);
+          setState(
+            SettingsState.successful(
+              locale: locale,
+              applicationTheme: state.applicationTheme,
+              message: 'Locale updated',
+            ),
+          );
         },
-        (error, _) => setState(
-          SettingsState.idle(
+        error: (error, _) async => setState(
+          SettingsState.error(
             locale: state.locale,
             applicationTheme: state.applicationTheme,
-            message: 'Error updating locale',
-            error: ErrorUtil.formatMessage(error),
+            message: ErrorUtil.formatMessage(error),
           ),
         ),
-        () => setState(
+        done: () async => setState(
           SettingsState.idle(
             locale: locale,
             applicationTheme: state.applicationTheme,

@@ -5,7 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:l/l.dart';
 
 class ApplicationLifecycleObserver extends StatefulWidget {
-  const ApplicationLifecycleObserver({super.key, required this.child});
+  const ApplicationLifecycleObserver({required this.child, super.key});
 
   final Widget child;
 
