@@ -30,25 +30,30 @@ class MusicPlayerScope extends StatefulWidget {
         songs.map((song) => AudioSource.file(song.uri!, tag: song)),
       );
     } else if (albumInfo != null) {
-      songsForPlaylist.addAll(
-        AudioQueryScope.controllerOf(context)
-            .state
-            .songs
-            .where((song) => song.albumId == albumInfo.id)
-            .map((song) => AudioSource.file(song.uri!, tag: song)),
-      );
+      final albumContent = AudioQueryScope.getAlbumById(context, albumInfo.id.toString());
+      if (albumContent != null) {
+        // TODO:
+        // songsForPlaylist.addAll(
+        //   albumContent.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+        // );
+      }
     } else if (artistInfo != null) {
-      songsForPlaylist.addAll(
-        AudioQueryScope.controllerOf(context)
-            .state
-            .songs
-            .where((song) => song.artistId == artistInfo.id)
-            .map((song) => AudioSource.file(song.uri!, tag: song)),
-      );
+      // TODO:
+      // final artistContent = AudioQueryScope.getArtistById(context, artistInfo.id.toString());
+      // if (artistContent != null) {
+      //   final albumContent = artistContent.albums;
+      // for (final album in albumContent) {
+      // songsForPlaylist.addAll(
+      //   album.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+      // );
+      // }
+      // }
     } else {
-      songsForPlaylist.addAll(
-        AudioQueryScope.controllerOf(context).state.songs.map((song) => AudioSource.file(song.uri!, tag: song)),
-      );
+      // TODO:
+      // final allSongs = AudioQueryScope.getSongs(context);
+      // songsForPlaylist.addAll(
+      //   AudioQueryScope.controllerOf(context).state.songs.map((song) => AudioSource.file(song.filePath!, tag: song)),
+      // );
     }
 
     return ConcatenatingAudioSource(

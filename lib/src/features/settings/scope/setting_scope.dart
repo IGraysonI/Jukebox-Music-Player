@@ -1,8 +1,8 @@
+import 'package:control/control.dart';
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/features/controller/state_consumer.dart';
 import 'package:jukebox_music_player/src/common/extension/context_extension.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
-import 'package:jukebox_music_player/src/features/dependencies/scope/dependencies_scope.dart';
+import 'package:jukebox_music_player/src/features/initialization/widget/scope/inherited_dependencies.dart';
 import 'package:jukebox_music_player/src/features/settings/controller/settings_controller.dart';
 import 'package:jukebox_music_player/src/features/settings/controller/settings_state.dart';
 import 'package:jukebox_music_player/src/features/settings/enum/setting_scope_aspect_enum.dart';
@@ -59,7 +59,7 @@ class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeC
   @override
   void initState() {
     super.initState();
-    _settingController = SettingsController(DependenciesScope.of(context).settingsRepository);
+    _settingController = InheritedDependencies.of(context).settingsController;
   }
 
   @override
@@ -94,7 +94,7 @@ class _SettingsScopeState extends State<SettingsScope> implements SettingsScopeC
   ApplicationTheme get theme => _settingController.state.applicationTheme;
 
   @override
-  Widget build(BuildContext context) => StateConsumer(
+  Widget build(BuildContext context) => StateConsumer<SettingsController, SettingsState>(
         controller: _settingController,
         builder: (context, state, child) => _InheritedSettings(
           controller: this,

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:jukebox_music_player/src/common/theme/application_theme.dart';
-import 'package:jukebox_music_player/src/common/utils/preferences_dao.dart';
+import 'package:jukebox_music_player/src/common/util/preferences_dao.dart';
 
 /// {@template theme_datasource}
 /// [ThemeDataSource] is an entry point to the theme data layer.

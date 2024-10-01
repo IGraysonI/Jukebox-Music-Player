@@ -5,6 +5,14 @@ const double _space = 8;
 class Space extends StatelessWidget {
   const Space._({required this.child});
 
+  /// 4
+  factory Space.xs() => const Space._(
+        child: SizedBox(
+          width: _space / 2,
+          height: _space / 2,
+        ),
+      );
+
   /// 8
   factory Space.sm() => const Space._(
         child: SizedBox(

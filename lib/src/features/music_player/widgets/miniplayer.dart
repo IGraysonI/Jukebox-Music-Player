@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:jukebox_music_player/src/common/utils/player_util.dart';
+import 'package:jukebox_music_player/src/common/util/player_util.dart';
 import 'package:jukebox_music_player/src/features/music_player/enum/panel_state_enum.dart';
 
 /// Type definition for the builder function
@@ -150,7 +150,7 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) => ValueListenableBuilder(
         valueListenable: _heightNotifier,
-        builder: (BuildContext context, double height, Widget? _) {
+        builder: (context, height, _) {
           final percentage = (height - widget.minHeight) / (widget.maxHeight - widget.minHeight);
           return Align(
             alignment: Alignment.bottomCenter,
@@ -212,7 +212,7 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                 },
                 child: ValueListenableBuilder(
                   valueListenable: _dragDownPercentage,
-                  builder: (BuildContext context, double value, Widget? child) => Opacity(
+                  builder: (context, value, child) => Opacity(
                     opacity: PlayerUtil.borderDouble(
                       minRange: 0,
                       maxRange: 1,
@@ -233,7 +233,7 @@ class MiniplayerState extends State<Miniplayer> with TickerProviderStateMixin {
                           offset: const Offset(0, 4),
                         ),
                       ],
-                      color: widget.backgroundColor ?? Theme.of(context).colorScheme.background,
+                      color: widget.backgroundColor ?? Theme.of(context).colorScheme.surface,
                     ),
                     child: widget.builder(height, percentage),
                   ),
