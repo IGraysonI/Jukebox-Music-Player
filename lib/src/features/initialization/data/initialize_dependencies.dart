@@ -1,12 +1,8 @@
 import 'dart:async';
 
 import 'package:control/control.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-import 'package:jukebox_music_player/firebase_options.dart';
 import 'package:jukebox_music_player/src/common/constant/pubspec.yaml.g.dart';
 import 'package:jukebox_music_player/src/common/controller/controller_observer.dart';
-import 'package:jukebox_music_player/src/common/firebase/firebase_crashlytics_wrapper.dart';
 import 'package:jukebox_music_player/src/common/model/app_metadata.dart';
 import 'package:jukebox_music_player/src/common/model/dependencies.dart';
 import 'package:jukebox_music_player/src/common/theme/theme_mode_codec.dart';
@@ -68,13 +64,14 @@ final Map<String, FutureOr<void> Function(Dependencies)> _initializationSteps = 
       dependencies.sharedPreferences = await SharedPreferences.getInstance(),
   'Migrate app from previous version': (dependencies) => ApplicationMigrator.migrate(dependencies.sharedPreferences),
   'Firebase initialize app': (dependencies) async {
-    dependencies.firebaseApp = await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    await FirebaseCrashlyticsWrapper.setCustomKey(
-      'kDebugMode',
-      kDebugMode,
-    );
+    // TODO: Fix an issue with Firebase initialization
+    // dependencies.firebaseApp = await Firebase.initializeApp(
+    //   options: DefaultFirebaseOptions.currentPlatform,
+    // );
+    // await FirebaseCrashlyticsWrapper.setCustomKey(
+    //   'kDebugMode',
+    //   kDebugMode,
+    // );
   },
   'AudioQuery controller': (dependencies) => dependencies.audioQueryController = AudioQueryController(
         audioQueryRepository: AudioQueryRepositoryImpl(),

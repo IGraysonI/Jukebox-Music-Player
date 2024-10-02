@@ -41,7 +41,7 @@ dependencies:
   octopus: ^0.0.9
 
   # State management
-  control: 0.1.0
+  control: ^0.1.0
 
   # Firebase packages
   firebase_core: ^2.31.1
